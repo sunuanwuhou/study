@@ -1,3 +1,13 @@
+# Table of Contents
+
+* [下载大文件](#下载大文件)
+* [git merge 和Rebase的区别](#git-merge-和rebase的区别)
+  * [merge](#merge)
+  * [rebase](#rebase)
+  * [rebase的黄金法则](#rebase的黄金法则)
+* [git rm —cached的作用](#git-rm-cached的作用)
+
+
 # 下载大文件
 
 1.
