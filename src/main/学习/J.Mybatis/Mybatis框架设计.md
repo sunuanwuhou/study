@@ -2,6 +2,16 @@
 
 * [架构图](#架构图)
 * [执行流程图](#执行流程图)
+  * [获取SqlSession](#获取sqlsession)
+  * [获取Mapper对象](#获取mapper对象)
+  * [调用方法](#调用方法)
+    * [获取Sql](#获取sql)
+    * [执行Sql](#执行sql)
+      * [参数映射](#参数映射)
+      * [结果集映射](#结果集映射)
+* [问题](#问题)
+  * [Mybatis的精髓是什么？](#mybatis的精髓是什么)
+* [参考资料](#参考资料)
 
 
 
@@ -223,6 +233,17 @@ public <E> List<E> query(Statement statement, ResultHandler resultHandler) throw
 
 
 ![image-20220103203626395](.images/image-20220103203626395.png)
+
+
+
+# 问题
+
+## Mybatis的精髓是什么？
+
+应该是分层的思想，不然Mybatis顶多是一个工具类，而不是一个框架
+
+
+
 
 
 # 参考资料
