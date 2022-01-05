@@ -11,6 +11,7 @@
     + [CountDownLatch](CountDownLatch.md)
     + [CyclicBarrier](CyclicBarrier.md)
     + [Semaphore](Semaphore.md)
+    + [CompletableFuture](CompletableFuture.md)
 + [下面为单个知识点]()
     + [Synchronized](Synchronized.md)
     + [Volatile](Volatile.md)
