@@ -24,6 +24,7 @@
 + [Undo日志](Undo日志.md)
 + [事务隔离级别和MVCC](事务隔离级别和MVCC.md)
 + [Mysql锁](Mysql锁.md)
++ [Mysql锁](Mysql锁.md)
 + [工作总结]()
     + [死锁问题分析](死锁问题分析.md)
     + [Mysql插入批量数据，不插入重复数据](Mysql插入批量数据，不插入重复数据.md)

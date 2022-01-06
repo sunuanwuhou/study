@@ -18,5 +18,6 @@
     + [CAS](CAS.md)
     + [AQS](AQS.md) 
     + [ThreadLocal](ThreadLocal.md) 
+    + [LongAdder](LongAdder.md) 
     + [参考资料](由浅入深Java并发.pdf) 
     
