@@ -1,6 +1,8 @@
 + [java全栈]( https://www.pdai.tech/md/java/thread/java-thread-x-theorty.html)
 + [LeetCode]( https://leetcode.com/problemset/all)
-+ [Mysql学习资料](https://juejin.cn/book/6844733769996304392)
++ [Mysql学习资料]
+  + [从跟理解Mysql](https://juejin.cn/book/6844733769996304392)
+  + [DDIA](https://juejin.cn/book/6844733769996304392)
 + [Redis学习资料]()
     + https://www.pdai.tech/md/db/nosql-redis/db-redis-overview.html/
     + https://blog.csdn.net/kuaipao19950507/article/details/107772269
@@ -15,3 +17,4 @@
     + https://visualgo.net/
     + https://algorithm-visualizer.org/
     + [时间复杂度](https://www.bigocheatsheet.com/)
++ [书籍推荐](https://mp.weixin.qq.com/s/KXUKod_Dmzses_iPRpH8dg)

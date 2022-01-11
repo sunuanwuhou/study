@@ -131,6 +131,13 @@
             <version>21.0</version>
         </dependency>
 
+<!--        Springboot-注解-通用操作日志组件-->
+        <dependency>
+            <groupId>io.github.mouzt</groupId>
+            <artifactId>bizlog-sdk</artifactId>
+            <version>1.0.8</version>
+        </dependency>
+
     </dependencies>
 
     <build>
