@@ -45,3 +45,16 @@ server {
 这个当时搞了我好久。。。。贼难忘
 
 
+
+# Nginx转发Host问题
+
+NG转发的时候，要注意host
+
+参考地址： https://www.cnblogs.com/operationhome/p/14232793.html
+
+
+# rewrite
+
+原始地址：api/test
+配置： rewrite "^/api/(.*)$" /$1 break;
+真实访问：/test
