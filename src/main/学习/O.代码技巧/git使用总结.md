@@ -6,6 +6,7 @@
   * [rebase](#rebase)
   * [rebase的黄金法则](#rebase的黄金法则)
 * [git rm —cached的作用](#git-rm-cached的作用)
+* [git push --force origin](#git-push---force-origin)
 
 
 # 下载大文件
@@ -110,3 +111,14 @@ rebase将master所有提交移动到feature顶端。问题是这只发生在你�
 
 # git rm —cached的作用
 
+
+
+
+
+
+
+# git push --force origin
+
+当你分支需要回退到某个提交点的时候，使用 git reset --hard  commitid
+
+需要push到origin  ： git push --force origin

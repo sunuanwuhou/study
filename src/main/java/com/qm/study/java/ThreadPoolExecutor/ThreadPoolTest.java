@@ -39,6 +39,9 @@ public class ThreadPoolTest {
 
 
     public static void main(String[] args) {
+
+        int i1 = Thread.activeCount();
+
         ThreadPoolTest threadPoolTest = new ThreadPoolTest();
         threadPoolTest.init();
 
