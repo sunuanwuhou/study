@@ -10,7 +10,18 @@ public class JavaTest {
 
 
     public static void main(String[] args) throws Exception {
-        String str = "451wt489bc5894";
-        System.out.println(str+"-->"+str.replaceAll("(\\d{3})(\\w+)(\\d{3})(\\w+)(\\d{4})","$5/$4+$3+$2+$1"));
+
+        try {
+            for(int i=0;i<=10;i++ ){
+                if(i==2){
+                    int a = i / 0;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+
     }
 }
