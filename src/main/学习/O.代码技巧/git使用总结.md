@@ -14,31 +14,8 @@
 * [暂存本地修改文件，切换分支](#暂存本地修改文件切换分支)
 
 
-
-- **master** 该分支上的代码随时可以部署到生产环境
-- **develop** 作为每日构建的集成分支，到达稳定状态时可以发布并merge回master
-- **Feature branches** 每个新特性都在独立的feature branch上进行开发，并在开发结束后merge回develop
-- **Release branches** 为每次发布准备的release candidate，在这个分支上只进行bug fix，并在完成后merge回master和develop
-- **Hotfix branches** 用于快速修复，在修复完成后merge回master和develop
-
-![image-20220208183550638](.images/image-20220208183550638.png)
-
-
-# 传统的GitFlow工作流程
-
-- **master** 该分支上的代码随时可以部署到生产环境
-- **develop** 作为每日构建的集成分支，到达稳定状态时可以发布并merge回master
-- **Feature branches** 每个新特性都在独立的feature branch上进行开发，并在开发结束后merge回develop
-- **Release branches** 为每次发布准备的release candidate，在这个分支上只进行bug fix，并在完成后merge回master和develop
-- **Hotfix branches** 用于快速修复，在修复完成后merge回master和develop
-
-![image-20220208183550638](.images/image-20220208183550638.png)
-
-
-
-
-
-
+# 学习网站
+[https://learngitbranching.js.org](https://learngitbranching.js.org)
 
 # 传统的GitFlow工作流程
 
