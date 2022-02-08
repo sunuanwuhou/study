@@ -7,8 +7,13 @@
   * [rebase的黄金法则](#rebase的黄金法则)
 * [git rm —cached的作用](#git-rm-cached的作用)
 * [git push --force origin](#git-push---force-origin)
+* [合并多个commit的提交记录](#合并多个commit的提交记录)
+* [git修改历史提交(commit)信息](#git修改历史提交commit信息)
+* [取消多个 commit 中的部分提交](#取消多个-commit-中的部分提交)
+* [合并某些特定的 commit 提交(摘樱桃)](#合并某些特定的-commit-提交摘樱桃)
+* [暂存本地修改文件，切换分支](#暂存本地修改文件切换分支)
 
-# 传统的GitFlow工作流程
+
 
 - **master** 该分支上的代码随时可以部署到生产环境
 - **develop** 作为每日构建的集成分支，到达稳定状态时可以发布并merge回master
@@ -17,11 +22,6 @@
 - **Hotfix branches** 用于快速修复，在修复完成后merge回master和develop
 
 ![image-20220208183550638](.images/image-20220208183550638.png)
-
-
-
-
-
 
 
 
@@ -138,3 +138,70 @@ rebase将master所有提交移动到feature顶端。问题是这只发生在你�
 当你分支需要回退到某个提交点的时候，使用 git reset --hard  commitid
 
 需要push到origin  ： git push --force origin
+
+
+
+# 合并多个commit的提交记录
+
+1. 查看 log 记录，使用`git rebase -i`选择要合并的 commit
+2. 编辑要合并的版本信息，保存提交，多条合并会出现多次（可能会出现冲突）
+3. 修改注释信息后，保存提交，多条合并会出现多次
+4. 推送远程仓库或合并到主干分支
+
+
+# git修改历史提交(commit)信息
+
+使用命令：git commit --amend,进入命令模式，这是按 a或者i或者o进入编辑模式，我们修改好commit信息后按Esc健退出编辑模式，然后:wq保存我们编辑的信息。
+最后git push到远程仓库
+
+
+
+# 取消多个 commit 中的部分提交
+
+我们开发了一个功能，而在上线的时候，产品经理说这个功能的部分特性已经不需要了，即相关特性的提交记录和内容就可以忽略/删除掉了。
+
+```jav
+$ git revert 3zj5sldl
+```
+
+Git reset和git revert的区别
+
+- git reset 是回滚到对应的commit-id，相当于是删除了commit-id以后的所有的提交，并且不会产生新的commit-id记录，如果要推送到远程服务器的话，需要强制推送-f
+- git revert 是反做撤销其中的commit-id，然后重新生成一个commit-id。本身不会对其他的提交commit-id产生影响，如果要推送到远程服务器的话，就是普通的操作git push就好了
+
+# 合并某些特定的 commit 提交(摘樱桃)
+
+```java
+## 摘樱桃
+$ git cherry-pick -x z562e23d
+```
+
+
+
+# 暂存本地修改文件，切换分支
+
+```nginx
+## 存储当前的修改但不用提交commit
+$ git stash
+
+## 标识储藏记录
+$ git stash save '这是测试'
+
+## 保存当前状态包括untracked的文件
+$ git stash -u
+
+## 展示所有stashes信息
+$ git stash list
+
+## 回到最后一个stash的状态并删除这个stash信息
+$ git stash pop
+
+# 取出指定index的储藏的修改到工作区中
+git stash apply stash@{index} 
+# 将指定index的储藏从储藏记录列表中删除
+git stash drop stash@{index}
+```
+
+
+
+![image-20220208190546293](.images/image-20220208190546293.png)
