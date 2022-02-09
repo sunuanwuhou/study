@@ -178,6 +178,29 @@ Git reset和git revert的区别
 - git reset 是回滚到对应的commit-id，相当于是删除了commit-id以后的所有的提交，并且不会产生新的commit-id记录，如果要推送到远程服务器的话，需要强制推送-f
 - git revert 是反做撤销其中的commit-id，然后重新生成一个commit-id。本身不会对其他的提交commit-id产生影响，如果要推送到远程服务器的话，就是普通的操作git push就好了
 
+
+# 取消commit的提交(未push远程)
+
++ 软撤销 --soft
+本地代码不会变化，只是 git 转改会恢复为 commit 之前的状态
+
+不删除工作空间改动代码，撤销 commit，不撤销 git add .
+```java
+git reset --soft HEAD~1
+```
+1表示撤销最后一次的 commit ，1 可以换成其他更早的数字
+
++ 硬撤销
+本地代码会直接变更为指定的提交版本，慎用
+
+删除工作空间改动代码，撤销 commit，撤销 git add .
+
+注意完成这个操作后，就恢复到了上一次的commit状态。
+
+```java
+git reset --hard HEAD~1
+```
+
 # 合并某些特定的 commit 提交(摘樱桃)
 
 ```java
