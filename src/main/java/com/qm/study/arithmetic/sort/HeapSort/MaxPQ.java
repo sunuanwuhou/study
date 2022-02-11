@@ -1,12 +1,10 @@
-package com.qm.study.dataStructures.tree.BinaryHeap;
+package com.qm.study.arithmetic.sort.HeapSort;
 
 /**
  * 二叉堆
  *
  * @author 01399578
  * @version 1.0
- * @description
- * @date 2021/11/9 16:53
  */
 public class MaxPQ<Key extends Comparable<Key>> {
 
@@ -22,6 +20,8 @@ public class MaxPQ<Key extends Comparable<Key>> {
         keyMaxPQ.insert(10);
         keyMaxPQ.insert(11);
 
+
+        keyMaxPQ.delMax();
         keyMaxPQ.list();
     }
 
@@ -67,7 +67,7 @@ public class MaxPQ<Key extends Comparable<Key>> {
     /* 上浮第 k 个元素，以维护最大堆性质 */
     private void swim(int k) {
         while (k > 1 && less(parent(k), k)) {
-            exch(k, parent(k));
+            exch(parent(k),k);
             //数据是换了 但是还要继续上浮
             k = parent(k);
         }
@@ -81,7 +81,7 @@ public class MaxPQ<Key extends Comparable<Key>> {
             int left = left(k);
             int right = right(k);
             //比较 左右子节点
-            if (less(left, right)) {
+            if (right<=N&&less(left, right)) {
                 left = right;
             }
             //不大于父节点
@@ -124,7 +124,9 @@ public class MaxPQ<Key extends Comparable<Key>> {
 
     void list(){
         for (Key key : pq) {
-            System.out.println(key);
+            if(null!=key){
+                System.out.println(key);
+            }
         }
     }
 }

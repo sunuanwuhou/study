@@ -237,3 +237,9 @@ git stash drop stash@{index}
 
 
 ![image-20220208190546293](.images/image-20220208190546293.png)
+
+
+
+## idea操作
+
+![image-20220208201513283](.images/image-20220208201513283.png)

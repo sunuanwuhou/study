@@ -1,4 +1,4 @@
-package com.qm.study.arithmetic.sort;
+package com.qm.study.arithmetic.sort.HeapSort;
 
 import java.util.Arrays;
 
