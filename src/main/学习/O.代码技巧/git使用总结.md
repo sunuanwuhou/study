@@ -1,5 +1,7 @@
 # Table of Contents
 
+* [学习网站](#学习网站)
+* [传统的GitFlow工作流程](#传统的gitflow工作流程)
 * [下载大文件](#下载大文件)
 * [git merge 和Rebase的区别](#git-merge-和rebase的区别)
   * [merge](#merge)
@@ -10,8 +12,10 @@
 * [合并多个commit的提交记录](#合并多个commit的提交记录)
 * [git修改历史提交(commit)信息](#git修改历史提交commit信息)
 * [取消多个 commit 中的部分提交](#取消多个-commit-中的部分提交)
+* [取消commit的提交(未push远程)](#取消commit的提交未push远程)
 * [合并某些特定的 commit 提交(摘樱桃)](#合并某些特定的-commit-提交摘樱桃)
 * [暂存本地修改文件，切换分支](#暂存本地修改文件切换分支)
+  * [idea操作](#idea操作)
 
 
 # 学习网站
