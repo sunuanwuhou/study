@@ -25,6 +25,8 @@ public class test {
 
     static void runBusinessLogic() {
         dialog.renderWindow();
+
+
     }
 
 }
