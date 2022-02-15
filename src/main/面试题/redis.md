@@ -34,6 +34,8 @@
 
 2:https://mp.weixin.qq.com/s?__biz=MzUxODAzNDg4NQ==&mid=2247496660&idx=2&sn=d43a68b3aab2f5803a77462d25d2b33a&scene=21#wechat_redirect
 
+
+
 [这个面试题可以好好看下](https://mp.weixin.qq.com/s?__biz=MzUxODAzNDg4NQ==&mid=2247494655&idx=2&sn=50613f15c479580c80088882af1564fe&scene=21#wechat_redirect)
 
 # Redis为什么这么快
@@ -225,7 +227,7 @@ Redis内部实际上不只有一个主线程，还有几个异步线程专门用
 
 # 缓存一致性问题
 
-[Redis缓存相关问题](../学习/G.数据库/Redis/Redis缓存一致性.md)
+[Redis缓存相关问题](../学习/G.数据库/Redis/Redis数据一致性.md)
 
 
 
