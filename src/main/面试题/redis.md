@@ -53,13 +53,14 @@
 
 + [Redis为什么这么快-不过这个讲的很范，需要结合后面的文章来看](https://mp.weixin.qq.com/s?__biz=MzUxODAzNDg4NQ==&mid=2247486285&idx=2&sn=64c51a77d14f679ea39eeb98061a0315&scene=21#wechat_redirect)
 
-
 # Redis数据类型
+
+![](.images/下载-1644972763257.png)
 
 + [5种基础数据类型详解.md](../学习/G.数据库/Redis/5种基础数据类型详解.md)
 + [3种特殊类型详解.md](../学习/G.数据库/Redis/3种特殊类型详解.md)
 
-+ [Redis底层数据结构详解](../学习/G.数据库/Redis/Redis底层数据结构详解.md)
++ [Redis底层数据结构详解-重点](../学习/G.数据库/Redis/Redis底层数据结构详解.md)
 + [Redis对象与编码](../学习/G.数据库/Redis/Redis对象与编码.md)
 
 

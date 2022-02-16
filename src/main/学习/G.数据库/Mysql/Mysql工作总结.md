@@ -121,3 +121,9 @@ from ti_send_get_task where send_task_id='2202110312317272' limit 1,1;
 # 死锁问题
 
 [死锁问题](死锁问题分析.md)
+
+
+
+# N中组合条件查询怎么做？
+
+![image-20220216223637891](.images/image-20220216223637891.png)
