@@ -10,6 +10,7 @@
 * [volatile中的内存屏障](#volatile中的内存屏障)
 * [不保证原子性](#不保证原子性)
 * [总结](#总结)
+* [参考资料](#参考资料)
 * [面试题](#面试题)
 
 
@@ -235,6 +236,14 @@ volatile关键字保证了两个性质：
 因此后续提出了内存屏障的概念，分为读屏障和写屏障，以此修正Store Buffer和Invalidate Queu产生的问题。
 
 通过读屏障和写屏障，又发展出了LoadLoad屏障，StoreStore屏障，LoadStore屏障，StoreLoad屏障JVM也是利用了这几种屏障，实现volatile关键字。
+
+
+
+
+
+# 参考资料
+
+https://mp.weixin.qq.com/s/PDUqwAIaUxNkbjvRfovaCg 
 
 
 
