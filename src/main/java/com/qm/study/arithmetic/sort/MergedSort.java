@@ -1,11 +1,6 @@
 package com.qm.study.arithmetic.sort;
 
-import com.google.common.collect.Lists;
-import org.springframework.util.CollectionUtils;
-
 import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
 
 /**
  * @author qiumeng
@@ -16,16 +11,6 @@ import java.util.Optional;
 public class MergedSort {
 
     public static void main(String[] args) {
-
-
-        List<String> list = Lists.newArrayList();
-        if(CollectionUtils.isEmpty(list)){
-            //各种逻辑判断
-        }
-
-        Optional.ofNullable(list).orElse(Lists.newArrayList()).forEach(x->{
-            System.out.println(x);
-        });
 
 
         int arr[] = {8, 4, 5, 6, 4, 1, 2, 3, 56, 8, 56};

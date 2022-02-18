@@ -178,7 +178,7 @@ Redis日常的使用是会存在内存碎片的，可在客户端执行info memo
 
 # 主从同步
 
-+ [Redis高可用-主从](../学习/G.数据库/Redis/Redis高可用-主从.md.md)
++ [Redis高可用-主从](../学习/G.数据库/Redis/Redis高可用-主从.md)
 
 
 # 为什么要做集群？
