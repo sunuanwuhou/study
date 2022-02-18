@@ -270,6 +270,8 @@ return nil;
 
 # RedLock(可靠性)
 
+> 其实是将 【锁】从原有存数据的节点，转移到RedLock集群上来。
+
  Redis中针对此种情况，引入了[红锁](https://redis.io/topics/distlock)的概念。
 
 >  红锁采用主节点过半机制，即获取锁或者释放锁成功的标志为：在过半的节点上操作成功。
