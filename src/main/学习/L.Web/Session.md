@@ -1,25 +1,45 @@
 # Table of Contents
 
+* [什么是会话](#什么是会话)
+* [为什么会出现session和cookie](#为什么会出现session和cookie)
 * [Session 是什么](#session-是什么)
   * [Session 如何判断是否是同一会话](#session-如何判断是否是同一会话)
   * [Session存储](#session存储)
   * [Session 的缺点](#session-的缺点)
 * [**Cookies 是什么**](#cookies-是什么)
+  * [注意](#注意)
 * [Token](#token)
   * [**客户端 token 的存储方式**](#客户端-token-的存储方式)
   * [**防篡改**](#防篡改)
 * [**JWT**](#jwt)
 * [refresh token(目前没用过)](#refresh-token目前没用过)
 * [session 和 token区别](#session-和-token区别)
-* [Token是如何防止CSRF的](#token是如何防止csrf的)
+* [什么是CSRF](#什么是csrf)
+  * [Token是如何防止CSRF的](#token是如何防止csrf的)
+* [什么是XSS](#什么是xss)
 * [什么是跨域？怎么解决](#什么是跨域怎么解决)
+* [总结](#总结)
+* [参考资料](#参考资料)
 
 
 
-https://cloud.tencent.com/developer/article/1704064
 
 
-HTTP 协议是一种<font color=red>无状态协议</font>，即每次服务端接收到客户端的请求时，都是一个全新的请求，服务器并不知道客户端的历史请求记录；Session 和 Cookie 的主要目的就是为了<font color=red>弥补 HTTP 的无状态特性</font>。
+
+
+# 什么是会话
+
+所谓的会话过程就是指从打开浏览器到关闭浏览器的过程。
+
+
+
+# 为什么会出现session和cookie
+
+
+
+HTTP 协议是一种<font color=red>无状态协议</font>，即每次服务端接收到客户端的请求时，都是一个全新的请求，服务器并不知道客户端的历史请求记录；Session 和 Cookie 的主要目的就是为了**<font color=red>弥补 HTTP 的无状态特性</font>**。
+
+
 
 # Session 是什么
 
@@ -27,9 +47,10 @@ HTTP 协议是一种<font color=red>无状态协议</font>，即每次服务端�
 
 ## Session 如何判断是否是同一会话
 
-服务器第一次接收到请求时，开辟了一块 Session 空间（创建了Session对象），同时生成一个 <font color=red>sessionId</font> ，并通过响应头的 **Set-Cookie：JSESSIONID=XXXXXXX **命令，向客户端发送要求设置 Cookie 的响应； 客户端收到响应后，在本机客户端设置了一个 **JSESSIONID=XXXXXXX **的 Cookie 信息，该 Cookie 的过期时间为浏览器会话结束；
-
-接下来客户端每次向同一个网站发送请求时，请求头都会带上该 Cookie信息（包含 sessionId ）， 然后，服务器通过读取请求头中的 Cookie 信息，获取名称为 JSESSIONID 的值，得到此次请求的 sessionId。
+- 首先，客户端会发送一个http请求到服务器端。
+- 服务器端接受客户端请求后，建立一个session，并发送一个http响应到客户端，这个响应头，其中就包含Set-Cookie头部。该头部包含了sessionId。Set-Cookie格式如下，具体请看Cookie详解 `Set-Cookie: value[; expires=date][; domain=domain][; path=path][; secure]`
+- 在客户端发起的第二次请求，假如服务器给了set-Cookie，浏览器会自动在请求头中添加cookie
+- 服务器接收请求，分解cookie，验证信息，核对成功后返回response给客户端
 
 
 
@@ -67,9 +88,19 @@ HTTP 协议中的 Cookie 包括 `Web Cookie` 和`浏览器 Cookie`，它是服�
 > HttpOnly属性指定该 Cookie 无法通过 JavaScript 脚本拿到，主要是Document.cookie属性、XMLHttpRequest对象和 Request API 都拿不到该属性。这样就防止了该 Cookie 被脚本读到，只有浏览器发出 HTTP 请求时，才会带上该 Cookie。
 > —— Cookie — JavaScript 标准参考教程（alpha）
 
+
+
+## 注意
+
+- cookie只是实现session的其中一种方案。**虽然是最常用的，但并不是唯一的方法**。禁用cookie后还有其他方法存储，比如放在url中
+- 现在大多都是Session + Cookie，但是只用session不用cookie，或是只用cookie，不用session在理论上都可以保持会话状态。可是实际中因为多种原因，一般不会单独使用
+- 用session只需要在客户端保存一个id，实际上大量数据都是保存在服务端。如果全部用cookie，数据量大的时候客户端是没有那么多空间的。
+
+
+
 # Token
 
-session 的维护给服务端造成很大困扰，我们必须找地方存放它，又要考虑分布式的问题，甚至要单独为了它启用一套 Redis 集群。有没有更好的办法？
+**session 的维护给服务端造成很大困扰，我们必须找地方存放它，又要考虑分布式的问题，甚至要单独为了它启用一套 Redis 集群**。有没有更好的办法？
 
 一个登录场景，也不必往 session 存太多东西，那为什么不直接打包到 cookie 中呢？这样服务端不用存了，每次只要核验 cookie 带的「证件」有效性就可以了，也可以携带一些轻量的信息。
 
@@ -144,19 +175,32 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOiJhIiwiaWF0IjoxNTUxOTUxOTk4fQ.
 
 # session 和 token区别
 
++ session有状态，存储在服务端。
++ token 无状态.token是开发自定义颁发给客户端使用，不存储
 
- session 是「客户端在 cookie 上、数据存在服务端」的认证方案，token 是「客户端存哪都行、数据存在 token 里」的认证方案。
+
+
+# 什么是CSRF
+
+[](https://tech.meituan.com/2018/10/11/fe-security-csrf.html)
+
+CSRF（Cross-site request forgery）跨站请求伪造：攻击者诱导受害者进入第三方网站，在第三方网站中，向被攻击网站发送跨站请求。利用受害者在被攻击网站已经获取的注册凭证，绕过后台的用户验证，达到冒充用户对被攻击的网站执行某项操作的目的。
 
 
 
-# Token是如何防止CSRF的
+## Token是如何防止CSRF的
 
- CSRF 攻击只是借用了 Cookie，并不能获取 Cookie 中的信息，但是可以利用cookie发送本不属于自己系统的请求。
+ CSRF 攻击只是借用了 Cookie，并不能获取 Cookie 中的信息，但是可以利用cookie**发送本不属于自己系统的请求**。
 
 这里其实攻击者是拿得到token的！
 
++ CSRF自动防御策略：同源检测（Origin 和 Referer 验证）
+
++ token隐藏到页面。(工作量比较大)
+
 + 对token加密 ，加解密，比较耗性能。
-+ **一次性token**（每次刷新，返回token和随机数hash，后端校验token和随机数）随机数相同概率基本无
++ **一次性token**（每次刷新，返回token和随机数hash，后端校验token和随机数,）随机数相同概率基本无
+
 
 
 
@@ -164,3 +208,17 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOiJhIiwiaWF0IjoxNTUxOTUxOTk4fQ.
 
 # 什么是跨域？怎么解决
 
+
+
+# 总结
+
+1. 因为HTPP是无状态协议，所以出现了Session和Cookie
+2. 因为session是有状态的，分布式下负载均衡比较麻烦。不能单独为了登录搭建系统
+3. 所以出现了token，token是无状态的，由开发自定义，颁发给客户端。
+4. token容易被劫持，所以出现了加密机制。JWT
+
+
+
+# 参考资料
+
+https://cloud.tencent.com/developer/article/1704064
