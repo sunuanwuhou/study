@@ -16,7 +16,6 @@
 * [session 和 token区别](#session-和-token区别)
 * [什么是CSRF](#什么是csrf)
   * [Token是如何防止CSRF的](#token是如何防止csrf的)
-* [什么是XSS](#什么是xss)
 * [什么是跨域？怎么解决](#什么是跨域怎么解决)
 * [总结](#总结)
 * [参考资料](#参考资料)

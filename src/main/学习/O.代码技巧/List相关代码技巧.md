@@ -1,6 +1,8 @@
 # Table of Contents
 
 * [一个List中的对象进行唯一值属性去重，属性求和](#一个list中的对象进行唯一值属性去重属性求和)
+* [List多个字段进行排序](#list多个字段进行排序)
+* [List对某个字段进行去重](#list对某个字段进行去重)
 
 
 
@@ -21,4 +23,16 @@ List<BillsNums> result = list.stream()
 ```
 
 
+
+# List多个字段进行排序
+
+```java
+boardPoolList.stream().sorted(Comparator.comparing(BoardPool::getFlightFlow).thenComparing(BoardPool::getStartAreaCode).thenComparing(BoardPool::getFlightFlow)).collect(Collectors.toList())
+```
+
+
+
+# List对某个字段进行去重
+
+使用map进行去重
 
