@@ -9,6 +9,7 @@
 * [缓存一致性问题](#缓存一致性问题)
 * [BigKey怎么处理？](#bigkey怎么处理)
 * [RDB和AOF](#rdb和aof)
+* [Redis事务](#redis事务)
 * [主从同步](#主从同步)
 * [为什么要做集群？](#为什么要做集群)
   * [Sentinel](#sentinel)
@@ -175,6 +176,9 @@ Redis日常的使用是会存在内存碎片的，可在客户端执行info memo
 <https://blog.csdn.net/xlgen157387/article/details/61925524>
 
 
+# Redis事务
+
++ [Redis事务](../学习/G.数据库/Redis/Redis事务.md)
 
 # 主从同步
 

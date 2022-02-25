@@ -7,4 +7,5 @@ package com.qm.study.DesignPatterns.behavior.strategy.use;
  * @date 2022/2/23 21:29
  */
 public class TestParam {
-}
+
+        }

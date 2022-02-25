@@ -40,6 +40,7 @@
 + [ ] DDIA书籍阅读
 + [ ] 洗牌算法研究
 + [ ] CompletableFuture源码分析
++ [ ] 泛型擦除
 + [ ] https://www.bilibili.com/video/BV1ob4y147K9/
 
 # 公司

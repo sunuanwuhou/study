@@ -9,6 +9,7 @@
 * [**break ,continue ,return 的区别及作用**](#break-continue-return-的区别及作用)
 * [**重载（Overload）和重写（Override）的区别。重载的方法能否根据返回类型进行区分？**](#重载overload和重写override的区别重载的方法能否根据返回类型进行区分)
 * [**对象相等判断**](#对象相等判断)
+* [List和Array的区别](#list和array的区别)
 * [**BIO,NIO,AIO 有什么区别?**](#bionioaio-有什么区别)
 * [**什么是反射机制？**](#什么是反射机制)
 * [**什么是字符串常量池？**](#什么是字符串常量池)
@@ -289,6 +290,21 @@ hashCode()与equals()的相关规定
 两个对象有相同的hashcode值，它们也不一定是相等的
 
 因此，equals 方法被覆盖过，则 hashCode 方法也必须被覆盖
+
+
+
+# List和Array的区别
+
+1. 因为Array是基于索引(index)的数据结构，它使用索引在数组中搜索和读取数据是很快的。Array获取数据的时间复杂度是O(1),但是要删除数据却是开销很大的，因为这需要重排数组中的所有数据。
+2. 相对于ArrayList，LinkedList插入是更快的。因为LinkedList不像ArrayList一样，不需要改变数组的大小，也不需要在数组装满的时候要将所有的数据重新装入一个新的数组，这是ArrayList最坏的一种情况，时间复杂度是O(n)，而LinkedList中插入或删除的时间复杂度仅为O(1)。ArrayList在插入数据时还需要更新索引（除了插入数组的尾部）。
+3. 类似于插入数据，删除数据时，LinkedList也优于ArrayList。
+4. LinkedList需要更多的内存，因为ArrayList的每个索引的位置是实际的数据，而LinkedList中的每个节点中存储的是实际的数据和前后节点的位置。
+
+5） Array和List都属于顺序表。Array、ArrayList是一段连续的存储结构
+
+
+
+
 
 # **BIO,NIO,AIO 有什么区别?**
 
