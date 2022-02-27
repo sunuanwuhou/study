@@ -1,5 +1,7 @@
 package com.qm.study.DesignPatterns.behavior.strategy.use;
 
+import java.util.HashMap;
+
 /**
  * @author 01399578
  * @version 1.0
@@ -8,4 +10,14 @@ package com.qm.study.DesignPatterns.behavior.strategy.use;
  */
 public class TestParam {
 
-        }
+
+    public static void main(String[] args) {
+
+        HashMap<String,Integer> HashMap  = new HashMap<>();
+
+        Integer count = HashMap.getOrDefault("", 0);
+
+
+
+    }
+}
