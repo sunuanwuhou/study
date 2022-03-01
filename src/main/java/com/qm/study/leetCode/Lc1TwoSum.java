@@ -54,12 +54,8 @@ public class Lc1TwoSum {
     // }
 
     public static int[] twoSum(int[] nums, int target) {
-
         int[] result = new int[2];
-
         LinkedHashMap<Integer, Integer> linkedHashMap = new LinkedHashMap<>();
-
-
         for (int i = 0; i <= nums.length - 1; i++) {
 
             int temp = target - nums[i];
@@ -71,9 +67,7 @@ public class Lc1TwoSum {
             }
             linkedHashMap.put(nums[i],i);
         }
-
         return result;
-
     }
 
 }
