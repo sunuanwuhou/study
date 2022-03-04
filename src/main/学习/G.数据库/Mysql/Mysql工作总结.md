@@ -9,6 +9,7 @@
 * [死锁问题](#死锁问题)
 * [N中组合条件查询怎么做？](#n中组合条件查询怎么做)
 * [Where 1=1](#where-11)
+* [高水位清理](#高水位清理)
 
 
 
@@ -143,5 +144,13 @@ from ti_send_get_task where send_task_id='2202110312317272' limit 1,1;
 ```java
 <WHERE>
 <WHERE/>
+```
+
+
+
+# 高水位清理
+
+```java
+ALTER TABLE 表名 Engine =InnoDB
 ```
 
