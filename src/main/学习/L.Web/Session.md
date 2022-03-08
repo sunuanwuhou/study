@@ -12,6 +12,7 @@
   * [**客户端 token 的存储方式**](#客户端-token-的存储方式)
   * [**防篡改**](#防篡改)
 * [**JWT**](#jwt)
+  * [缺点](#缺点)
 * [refresh token(目前没用过)](#refresh-token目前没用过)
 * [session 和 token区别](#session-和-token区别)
 * [什么是CSRF](#什么是csrf)

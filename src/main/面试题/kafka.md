@@ -1,5 +1,8 @@
 # Table of Contents
 
+* [为什么要有消息系统](#为什么要有消息系统)
+* [KafKa顺序写保证写数据性能](#kafka顺序写保证写数据性能)
+* [Kafka副本机制保证高可用](#kafka副本机制保证高可用)
 * [什么是Rebalance](#什么是rebalance)
   * [什么时候发生Rebalance](#什么时候发生rebalance)
   * [造成的影响](#造成的影响)
