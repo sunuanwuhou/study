@@ -19,6 +19,63 @@ public class TestParam {
 
     }
 
+
+    public boolean checkInclusion(String s1, String s2) {
+
+        //首先定义一个滑动窗口
+        Map<Character, Integer> windows = new HashMap<>();
+        //存放我们需要的数据 也就是t
+        Map<Character, Integer> needs = new HashMap<>();
+        char[] charss = s1.toCharArray();
+        for (char c : charss) {
+            needs.put(c, needs.getOrDefault(c, 0) + 1);
+        }
+
+        int left = 0, right = 0;
+        int valid = 0;
+        char[] chars = s2.toCharArray();
+
+        while (right < chars.length) {
+            // 开始滑动
+            char c = chars[right];
+            //右移窗口
+            right++;
+
+            // 进行窗口内数据的一系列更新
+            if (needs.containsKey(c)) {
+                windows.put(c, windows.getOrDefault(c, 0) + 1);
+                if (needs.get(c).equals(windows.get(c))) {
+                    valid++;
+                }
+            }
+
+            // 判断左侧窗口是否要收缩
+            while (right - left >= charss.length) {
+                // 在这里更新最小覆盖子串
+                if (valid == needs.size()) {
+                    return true;
+                }
+                // d 是将移出窗口的字符
+                char d = chars[left];
+                // 左移窗口
+                left++;
+                // 进行窗口内数据的一系列更新
+                if (needs.containsKey(d)) {
+                    if (needs.get(d).equals(windows.get(d))) {
+                        valid--;
+                    }
+                    windows.put(d, windows.getOrDefault(d, 0) - 1);
+                }
+            }
+
+        }
+
+        return false;
+
+
+    }
+
+
     public static   String minWindow(String s, String t) {
         //首先定义一个滑动窗口
         Map<Character, Integer> windows = new HashMap<>();
