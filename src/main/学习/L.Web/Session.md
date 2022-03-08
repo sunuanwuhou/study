@@ -152,9 +152,15 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOiJhIiwiaWF0IjoxNTUxOTUxOTk4fQ.
 
 ![](.images/v2-355749afd88316167254eb40b0cb0739_720w.jpg)
 
+## 缺点
+
+使用了JWT，服务端无法剔除一个已登录的用户，**因为JWT一旦生成，在失效之前，总是有效的。**
 
 
-可以将JWT放入Redis的同时，一起把过期时间放入进去
+
+1. 可以将JWT放入Redis的同时，一起把过期时间放入进去
+2. 登出的时候，将redis的数据失效。
+3. 登录的时候，需要去redis做一层过滤。
 
 
 
@@ -199,7 +205,7 @@ CSRF（Cross-site request forgery）跨站请求伪造：攻击者诱导受害�
 + token隐藏到页面。(工作量比较大)
 
 + 对token加密 ，加解密，比较耗性能。
-+ **一次性token**（每次刷新，返回token和随机数hash，后端校验token和随机数,）随机数相同概率基本无
++ **一次性token**（每次刷新，**返回token和随机数hash**，后端校验token和随机数,）随机数相同概率基本无
 
 
 
