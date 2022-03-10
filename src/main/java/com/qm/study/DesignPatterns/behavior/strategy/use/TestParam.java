@@ -16,8 +16,8 @@ public class TestParam {
 
         System.out.println(minWindow("ADOBECODEBANC", "ABC"));
 
-
     }
+
 
 
 
@@ -36,12 +36,12 @@ public class TestParam {
 
             char c = chars[right];
             right++;
-            windows.put(c, windows.getOrDefault(c,0)+1);
+            windows.put(c, windows.getOrDefault(c, 0) + 1);
 
-            while (windows.get(c)>1){
+            while (windows.get(c) > 1) {
                 left++;
                 char d = chars[left];
-                windows.put(d, windows.getOrDefault(d,0)-1);
+                windows.put(d, windows.getOrDefault(d, 0) - 1);
             }
 
             max = Math.max(max, right - left);
@@ -105,11 +105,11 @@ public class TestParam {
     }
 
 
-    public static   String minWindow(String s, String t) {
+    public static String minWindow(String s, String t) {
         //首先定义一个滑动窗口
         Map<Character, Integer> windows = new HashMap<>();
         //存放我们需要的数据 也就是t
-        Map<Character, Integer> needs =new HashMap<>();
+        Map<Character, Integer> needs = new HashMap<>();
 
         for (char c : t.toCharArray()) {
             needs.put(c, needs.getOrDefault(c, 0) + 1);
@@ -161,6 +161,6 @@ public class TestParam {
         }
 
         // 返回最小覆盖子串
-        return   start+len > Integer.MAX_VALUE ?"":s.substring(start, start+len);
+        return start + len > Integer.MAX_VALUE ? "" : s.substring(start, start + len);
     }
 }
