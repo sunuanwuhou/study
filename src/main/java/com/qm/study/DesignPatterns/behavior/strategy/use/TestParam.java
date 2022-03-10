@@ -20,6 +20,35 @@ public class TestParam {
     }
 
 
+
+    public int lengthOfLongestSubstring(String s) {
+
+
+        Map<Character, Integer> windows = new HashMap<>();
+
+        int max = 0;
+
+        char[] chars = s.toCharArray();
+        int left = 0;
+        int right = 0;
+
+        while (right < chars.length) {
+
+            char c = chars[right];
+            right++;
+            windows.put(c, windows.getOrDefault(c,0)+1);
+
+            while (windows.get(c)>1){
+                left++;
+                char d = chars[left];
+                windows.put(d, windows.getOrDefault(d,0)-1);
+            }
+
+            max = Math.max(max, right - left);
+        }
+        return max;
+    }
+
     public boolean checkInclusion(String s1, String s2) {
 
         //首先定义一个滑动窗口
