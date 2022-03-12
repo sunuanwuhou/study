@@ -33,6 +33,7 @@ public class MarkDownTocTest {
                 PREFIX + "C.数据结构与算法/arithmetic",
                 PREFIX + "C.数据结构与算法/labuladong",
                 PREFIX + "D.java",
+                PREFIX + "D.java/collection",
                 PREFIX + "E.Java并发",
                 PREFIX + "F.Jvm",
                 PREFIX + "G.数据库/Mysql",

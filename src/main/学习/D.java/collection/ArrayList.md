@@ -1,3 +1,12 @@
+# Table of Contents
+
+* [概述](#概述)
+* [相关问题](#相关问题)
+  * [java本身就有数组了，为什么还要用ArrayList？](#java本身就有数组了为什么还要用arraylist)
+  * [为什么ArrayList使用的最多？](#为什么arraylist使用的最多)
+  * [线程安全怎么解决？](#线程安全怎么解决)
+
+
 
 # 概述
 ArrayList实现了List接口，是顺序容器，即元素存放的数据与放进去的顺序相同，允许放入null元素，底层通过数组实现。
