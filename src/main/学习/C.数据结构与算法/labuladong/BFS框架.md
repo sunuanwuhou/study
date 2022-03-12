@@ -2,6 +2,7 @@
 
 * [算法框架](#算法框架)
 * [二叉树的最小高度](#二叉树的最小高度)
+* [参考资料](#参考资料)
 
 
 
@@ -33,7 +34,8 @@ int BFS(Node start, Node target) {
     int step = 0; // 记录扩散的步数
 
     while (q not empty) {
-        //这行代码比较重要！！！
+        //这行代码比较重要！！！ 因为队列的数据是在动态变化的，我们需要将当前数据的数量取出来。
+      	//而不是简单的使用 q.size()
         int sz = q.size();
         /* 将当前队列中的所有节点向四周扩散 */
         for (int i = 0; i < sz; i++) {
@@ -101,3 +103,12 @@ int minDepth(TreeNode root) {
 }
 ```
 
+
+
+
+
+
+
+# 参考资料
+
+https://mp.weixin.qq.com/s/WH_XGm1-w5882PnenymZ7g
