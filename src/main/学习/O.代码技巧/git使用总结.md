@@ -16,6 +16,7 @@
 * [合并某些特定的 commit 提交(摘樱桃)](#合并某些特定的-commit-提交摘樱桃)
 * [暂存本地修改文件，切换分支](#暂存本地修改文件切换分支)
   * [idea操作](#idea操作)
+* [git回滚到之前的版本](#git回滚到之前的版本)
 
 
 # 学习网站
@@ -247,3 +248,23 @@ git stash drop stash@{index}
 ## idea操作
 
 ![image-20220208201513283](.images/image-20220208201513283.png)
+
+
+
+# git回滚到之前的版本
+
++ git reset
+  1. get reset --hard 版本号
+  2. git push -f （强制推送）
+
++ git revert
+
+  git revert是用于“反做”某一个版本，以达到撤销该版本的修改的目的。比如，我们[commit](https://so.csdn.net/so/search?q=commit&spm=1001.2101.3001.7020)了三个版本（版本一、版本二、 版本三），突然发现版本二不行（如：有bug），想要撤销版本二，但又不想影响撤销版本三的提交，就可以用 git revert 命令来反做版本二，生成新的版本四，这个版本四里会保留版本三的东西，但撤销了版本二的东西。如下图所示：
+
+
+  ![](.images/下载-1647308129114.png)
+
+
+
+1. git revert -n 8b89621019c9adc6fc4d242cd41daeb13aeb9861    即版本2
+2. git commit -m "revert add text.txt"    即 版本4
