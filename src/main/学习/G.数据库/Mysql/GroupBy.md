@@ -1,3 +1,18 @@
+# Table of Contents
+
+* [前提知识](#前提知识)
+* [例子](#例子)
+* [原理分析](#原理分析)
+  * [explain](#explain)
+  * [group by 的简单执行流程](#group-by-的简单执行流程)
+  * [where、group by 、having](#wheregroup-by-having)
+* [使用 group by 注意的问题](#使用-group-by-注意的问题)
+  * [group by一定要配合聚合函数使用嘛？](#group-by一定要配合聚合函数使用嘛)
+  * [group by 后面跟的字段一定要出现在select中嘛。](#group-by-后面跟的字段一定要出现在select中嘛)
+  * [`group by`导致的慢SQL问题](#group-by导致的慢sql问题)
+* [group by的一些优化方案](#group-by的一些优化方案)
+
+
 group by`一般用于**分组统计**，它表达的逻辑就是`根据一定的规则，进行分组`。
 
 
