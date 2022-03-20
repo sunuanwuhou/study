@@ -1,9 +1,6 @@
 package com.qm.study.DesignPatterns.behavior.strategy.use;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author 01399578
@@ -19,43 +16,51 @@ public class TestParam {
         // System.out.println(minWindow("ADOBECODEBANC", "ABC"));
 
 
-        int[] ints = {1, 3, 2};
+        int[] ints = {1, 1, 2,2};
         System.out.println(permute(ints));
 
     }
 
     static List<List<Integer>> res = new LinkedList<>();
 
-    /* 主函数，输入一组不重复的数字，返回它们的全排列 */
-   static   List<List<Integer>> permute(int[] nums) {
-        // 记录「路径」
-        LinkedList<Integer> track = new LinkedList<>();
-        backtrack(nums, track);
+    static LinkedList<Integer> track = new LinkedList<>();
+
+    //为什么要定义一个这个，如果是数组 可以直接用track.contains来判断，链表就不行了。
+    static boolean[] used;
+
+    static List<List<Integer>> permute(int[] nums) {
+        used = new boolean[nums.length];
+        Arrays.sort(nums);
+        backtrack(nums);
         return res;
     }
 
-    // 路径：记录在 track 中
-// 选择列表：nums 中不存在于 track 的那些元素
-// 结束条件：nums 中的元素全都在 track 中出现
-    static  void backtrack(int[] nums, LinkedList<Integer> track) {
-        // 触发结束条件
+    static void backtrack(int[] nums) {
+        //终止条件
         if (track.size() == nums.length) {
             res.add(new LinkedList(track));
             return;
         }
 
         for (int i = 0; i < nums.length; i++) {
-            // 排除不合法的选择
-            if (track.contains(nums[i]))
+            //已经做过决策 跳出
+            if (used[i]) {
                 continue;
-            // 做选择
+            }
+            if (i > 0 && nums[i] == nums[i - 1] && !used[i - 1]) {
+                continue;
+            }
+            //加入路径
+            used[i] = true;
             track.add(nums[i]);
-            // 进入下一层决策树
-            backtrack(nums, track);
-            // 取消选择
+            //选择列表
+            backtrack(nums);
+            //撤出路径
+            used[i] = false;
             track.removeLast();
         }
     }
+
 
     public int lengthOfLongestSubstring(String s) {
 
