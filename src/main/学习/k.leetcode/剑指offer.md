@@ -7,7 +7,9 @@
   * [[剑指 Offer 05. 替换空格](https://leetcode-cn.com/problems/ti-huan-kong-ge-lcof/)](#剑指-offer-05-替换空格httpsleetcode-cncomproblemsti-huan-kong-ge-lcof)
   * [[剑指 Offer 38. 字符串的排列](https://leetcode-cn.com/problems/zi-fu-chuan-de-pai-lie-lcof/)](#剑指-offer-38-字符串的排列httpsleetcode-cncomproblemszi-fu-chuan-de-pai-lie-lcof)
 * [链表](#链表)
+  * [[剑指 Offer 06. 从尾到头打印链表](https://leetcode-cn.com/problems/cong-wei-dao-tou-da-yin-lian-biao-lcof/)](#剑指-offer-06-从尾到头打印链表httpsleetcode-cncomproblemscong-wei-dao-tou-da-yin-lian-biao-lcof)
 * [二叉树](#二叉树)
+  * [[剑指 Offer 34. 二叉树中和为某一值的路径](https://leetcode-cn.com/problems/er-cha-shu-zhong-he-wei-mou-yi-zhi-de-lu-jing-lcof/)](#剑指-offer-34-二叉树中和为某一值的路径httpsleetcode-cncomproblemser-cha-shu-zhong-he-wei-mou-yi-zhi-de-lu-jing-lcof)
 * [参考资料](#参考资料)
 
 
@@ -190,15 +192,94 @@
 
 
 
+见全排列： [回溯算法](../C.数据结构与算法/labuladong/回溯算法.md)
+
+
+
+
+
 
 
 
 
 # 链表
 
+## [剑指 Offer 06. 从尾到头打印链表](https://leetcode-cn.com/problems/cong-wei-dao-tou-da-yin-lian-biao-lcof/)
+
+![image-20220321141533723](.images/image-20220321141533723.png)
+
+这个题目就很简单了。
+
+1. 你可以先将链表的数据放到数组，在反转数组
+2. 可以直接反转链表，在放入数组。 (如果不放数组，这个方法就好)
+3. 放到栈里面，在放入数组。
+4. 放到LinkedList中，取出最后一个
+
+```java
+ public int[] reversePrint(ListNode head) {
+        LinkedList<Integer> A=new LinkedList<Integer>();
+        while(head!=null){
+            A.add(head.val);
+            head = head.next;
+        }
+        int [] arr=new int[A.size()];
+        for(int i=0;i<arr.length;i++){
+            arr[i]=A.removeLast();
+        }
+        return arr;
+    }
+
+```
+
+
+
 
 
 # 二叉树
+
+## [剑指 Offer 34. 二叉树中和为某一值的路径](https://leetcode-cn.com/problems/er-cha-shu-zhong-he-wei-mou-yi-zhi-de-lu-jing-lcof/)
+
+搞定[回溯算法](../C.数据结构与算法/labuladong/回溯算法.md)后，你会发现特别简单
+
+
+
+![image-20220320150342494](.images/image-20220320150342494.png)
+
+```java
+    LinkedList<List<Integer>> res = new LinkedList<>();
+    LinkedList<Integer> path = new LinkedList<>();
+
+    public List<List<Integer>> pathSum(TreeNode root, int target) {
+        if (null == root) {
+            return null;
+        }
+        backTrack(root, target);
+        return res;
+    }
+
+    public void backTrack(TreeNode root, int target) {
+
+        if (null == root) {
+            return;
+        }
+
+        //加入路径
+        path.add(root.val);
+        target = target - root.val;
+
+        //终止条件  从根节点到叶子节点
+        if (target == 0&&null==root.left&&null==root.right) {
+            res.add(new LinkedList(path));
+            //为什么不加个 return 因为（根节点到叶子节点）>target
+        }
+        //选择列表
+        backTrack(root.left, target);
+        backTrack(root.right, target);
+        target = target + root.val;
+        //退出路径
+        path.removeLast();
+    }
+```
 
 
 
