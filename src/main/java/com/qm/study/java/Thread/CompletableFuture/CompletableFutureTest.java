@@ -1,4 +1,4 @@
-package com.qm.study.java.Thread;
+package com.qm.study.java.Thread.CompletableFuture;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;

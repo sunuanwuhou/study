@@ -8,6 +8,8 @@
   * [[剑指 Offer 38. 字符串的排列](https://leetcode-cn.com/problems/zi-fu-chuan-de-pai-lie-lcof/)](#剑指-offer-38-字符串的排列httpsleetcode-cncomproblemszi-fu-chuan-de-pai-lie-lcof)
 * [链表](#链表)
   * [[剑指 Offer 06. 从尾到头打印链表](https://leetcode-cn.com/problems/cong-wei-dao-tou-da-yin-lian-biao-lcof/)](#剑指-offer-06-从尾到头打印链表httpsleetcode-cncomproblemscong-wei-dao-tou-da-yin-lian-biao-lcof)
+  * [[剑指 Offer 35. 复杂链表的复制](https://leetcode-cn.com/problems/fu-za-lian-biao-de-fu-zhi-lcof/)](#剑指-offer-35-复杂链表的复制httpsleetcode-cncomproblemsfu-za-lian-biao-de-fu-zhi-lcof)
+* [其他链表题目](#其他链表题目)
 * [二叉树](#二叉树)
   * [[剑指 Offer 34. 二叉树中和为某一值的路径](https://leetcode-cn.com/problems/er-cha-shu-zhong-he-wei-mou-yi-zhi-de-lu-jing-lcof/)](#剑指-offer-34-二叉树中和为某一值的路径httpsleetcode-cncomproblemser-cha-shu-zhong-he-wei-mou-yi-zhi-de-lu-jing-lcof)
 * [参考资料](#参考资料)
@@ -232,6 +234,47 @@
 ```
 
 
+
+
+
+## [剑指 Offer 35. 复杂链表的复制](https://leetcode-cn.com/problems/fu-za-lian-biao-de-fu-zhi-lcof/)
+
+![image-20220321205200304](.images/image-20220321205200304.png)
+
+
+
+**这个难点在于你复制的时候，怎么提前将random构造出来，在你用的时候可以用得到。**
+
+1. 利用Hashmap
+
+   ```java
+    public Node copyRandomList(Node head) {
+   
+           if (head == null) {
+               return null;
+           }
+           //先全部遍历一遍 构造 原始对象->new对象
+           Map<Node, Node> map = new HashMap<>();
+           Node cur = head;
+           while (cur != null) {
+               map.put(cur, new Node(cur.val));
+               cur = cur.next;
+           }
+           cur = head;
+           while (cur != null) {
+               Node value = map.get(cur);
+               value.next = map.get(cur.next);
+               value.random = map.get(cur.random);
+               cur = cur.next;
+           }
+           return map.get(head);
+       }
+   ```
+
+   
+# 其他链表题目
+
+[其他链表题目](../k.leetcode/链表.md)
 
 
 

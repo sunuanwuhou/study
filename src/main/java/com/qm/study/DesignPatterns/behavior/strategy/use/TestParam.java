@@ -16,7 +16,7 @@ public class TestParam {
         // System.out.println(minWindow("ADOBECODEBANC", "ABC"));
 
 
-        int[] ints = {1, 1, 2,2};
+        int[] ints = {1, 1, 2, 2};
         System.out.println(permute(ints));
 
     }
@@ -34,6 +34,8 @@ public class TestParam {
         backtrack(nums);
         return res;
     }
+
+
 
     static void backtrack(int[] nums) {
         //终止条件
