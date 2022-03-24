@@ -36,6 +36,79 @@ public class TestParam {
     }
 
 
+    public boolean isPalindrome(String s) {
+
+        char[] chars = s.toCharArray();
+        int length = chars.length;
+
+        int left = 0;
+        int right = length-1;
+
+        while (left<right){
+
+            if(chars[left]!=chars[right]){
+                return false;
+            }
+
+            left++;
+            right--;
+        }
+
+        return true;
+    }
+
+
+    public void reverseString(char[] s) {
+
+        int length = s.length;
+
+        int left = 0;
+        int right = length - 1;
+
+        while (left < right) {
+
+            char temp = s[left];
+
+            s[left] = s[right];
+
+            s[right] = temp;
+        }
+
+    }
+
+
+    public int[] twoSum(int[] numbers, int target) {
+
+        int[] result = new int[2];
+
+        int length = numbers.length;
+        if (0 == length) {
+            return result;
+        }
+
+        int left = 1;
+        int right = length;
+
+        while (left < right) {
+
+            int sum = numbers[left] + numbers[right];
+
+            if (sum == target) {
+                result[0] = numbers[left];
+                result[1] = numbers[right];
+                return result;
+            } else if (sum > target) {
+                right--;
+            } else {
+                left++;
+            }
+
+        }
+
+        return result;
+
+    }
+
 
     static void backtrack(int[] nums) {
         //终止条件
