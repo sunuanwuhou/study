@@ -42,23 +42,3 @@
 + [ ] CompletableFuture源码分析
 + [ ] 泛型擦除
 + [ ] https://www.bilibili.com/video/BV1ob4y147K9/
-
-# 公司
-
-+ 众安，
-+ shein
-+ 虾皮，
-+ 有赞
-+ 迅雷，
-+ 明源云
-+ 美团深圳
-+ 腾讯
-+  阿里 
-+  字节
-+  akuka
-
-# 不能去公司名单
-
-+ 跨域速运
-+ 深信服
-+ 涂鸦智能
