@@ -3,15 +3,19 @@
 * [数组](#数组)
   * [[剑指 Offer 04. 二维数组中的查找](https://leetcode-cn.com/problems/er-wei-shu-zu-zhong-de-cha-zhao-lcof/)](#剑指-offer-04-二维数组中的查找httpsleetcode-cncomproblemser-wei-shu-zu-zhong-de-cha-zhao-lcof)
   * [[剑指 Offer 11. 旋转数组的最小数字](https://leetcode-cn.com/problems/xuan-zhuan-shu-zu-de-zui-xiao-shu-zi-lcof/)](#剑指-offer-11-旋转数组的最小数字httpsleetcode-cncomproblemsxuan-zhuan-shu-zu-de-zui-xiao-shu-zi-lcof)
+  * [[剑指 Offer 21. 调整数组顺序使奇数位于偶数前面](https://leetcode-cn.com/problems/diao-zheng-shu-zu-shun-xu-shi-qi-shu-wei-yu-ou-shu-qian-mian-lcof/)](#剑指-offer-21-调整数组顺序使奇数位于偶数前面httpsleetcode-cncomproblemsdiao-zheng-shu-zu-shun-xu-shi-qi-shu-wei-yu-ou-shu-qian-mian-lcof)
+  * [其他数组题目](#其他数组题目)
 * [字符串](#字符串)
   * [[剑指 Offer 05. 替换空格](https://leetcode-cn.com/problems/ti-huan-kong-ge-lcof/)](#剑指-offer-05-替换空格httpsleetcode-cncomproblemsti-huan-kong-ge-lcof)
   * [[剑指 Offer 38. 字符串的排列](https://leetcode-cn.com/problems/zi-fu-chuan-de-pai-lie-lcof/)](#剑指-offer-38-字符串的排列httpsleetcode-cncomproblemszi-fu-chuan-de-pai-lie-lcof)
 * [链表](#链表)
   * [[剑指 Offer 06. 从尾到头打印链表](https://leetcode-cn.com/problems/cong-wei-dao-tou-da-yin-lian-biao-lcof/)](#剑指-offer-06-从尾到头打印链表httpsleetcode-cncomproblemscong-wei-dao-tou-da-yin-lian-biao-lcof)
   * [[剑指 Offer 35. 复杂链表的复制](https://leetcode-cn.com/problems/fu-za-lian-biao-de-fu-zhi-lcof/)](#剑指-offer-35-复杂链表的复制httpsleetcode-cncomproblemsfu-za-lian-biao-de-fu-zhi-lcof)
-* [其他链表题目](#其他链表题目)
+  * [其他链表题目](#其他链表题目)
 * [二叉树](#二叉树)
   * [[剑指 Offer 34. 二叉树中和为某一值的路径](https://leetcode-cn.com/problems/er-cha-shu-zhong-he-wei-mou-yi-zhi-de-lu-jing-lcof/)](#剑指-offer-34-二叉树中和为某一值的路径httpsleetcode-cncomproblemser-cha-shu-zhong-he-wei-mou-yi-zhi-de-lu-jing-lcof)
+  * [[剑指 Offer 26. 树的子结构](https://leetcode-cn.com/problems/shu-de-zi-jie-gou-lcof/)](#剑指-offer-26-树的子结构httpsleetcode-cncomproblemsshu-de-zi-jie-gou-lcof)
+  * [其他二叉树](#其他二叉树)
 * [参考资料](#参考资料)
 
 
@@ -141,7 +145,51 @@
 
 
 
+## [剑指 Offer 21. 调整数组顺序使奇数位于偶数前面](https://leetcode-cn.com/problems/diao-zheng-shu-zu-shun-xu-shi-qi-shu-wei-yu-ou-shu-qian-mian-lcof/)
 
+![image-20220327100125147](.images/image-20220327100125147.png)
+
+```java
+public int[] exchange(int[] nums) {
+
+
+        int left = 0;
+
+        int right = nums.length - 1;
+
+
+        while (left < right) {
+
+            //判断左边的数 是不是偶数
+            //像这种  while里面还有while的一定要判断 左边界和右边界的问题
+            while (left < right&&nums[left] % 2 != 0) {
+                left++;
+            }
+            //判断右边的数 是不是奇数
+            while (left < right&&nums[right] % 2 == 0) {
+                right--;
+            }
+            //进行交换位置
+            int temp = nums[left];
+            nums[left] = nums[right];
+            nums[right] = temp;
+        }
+
+        return nums;
+
+    }
+```
+
+
+
+这个题目如果在难一点，【并保证奇数和奇数，偶数和偶数之间的相对位置不变。】我们应该怎么做。
+
+
+
+
+## 其他数组题目
+
+[其他数组题目](../k.leetcode/数组.md)
 
 
 
@@ -272,7 +320,7 @@
    ```
 
    
-# 其他链表题目
+## 其他链表题目
 
 [其他链表题目](../k.leetcode/链表.md)
 
@@ -324,6 +372,58 @@
     }
 ```
 
+
+
+## [剑指 Offer 26. 树的子结构](https://leetcode-cn.com/problems/shu-de-zi-jie-gou-lcof/)
+
+
+
+![image-20220327093521746](.images/image-20220327093521746.png)
+
+思路分析
+
+1. 我最开始是想用前序遍历，分别得到A和B的遍历顺序，然后在用遍历的方式进行判断，如果相等就是，但是这有一个问题，就是你要标记每一颗树的根节点才能作为起始位置去遍历
+2. 后面看到别人的解法，使用递归。
+
+
+
+```java
+public boolean isSubStructure(TreeNode A, TreeNode B) {
+
+        if (null == A||null == B) {
+            return false;
+        }
+        //子树可能是根节点的子树 也可能是根节点的子节点的子树
+        return dfs(A, B) || isSubStructure(A.left, B) || isSubStructure(A.right, B);
+
+    }
+
+    public boolean dfs(TreeNode A, TreeNode B) {
+        //B树所有节点都被访问过了，所以返回true  这句话不太理解
+        if (null == B) {
+            return true;
+        }
+        //A访问完了，B还没有     A和B结点不相等
+        if (null == A) {
+            return false;
+        }
+
+        return A.val == B.val && dfs(A.left, B.left) && dfs(A.right, B.right);
+
+    }
+```
+
+
+
+
+
+
+
+
+
+## 其他二叉树
+
+[其他二叉树](../k.leetcode/二叉树.md)
 
 
 
