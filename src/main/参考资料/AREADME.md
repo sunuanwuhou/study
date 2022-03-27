@@ -20,3 +20,4 @@
 + [书籍推荐](https://mp.weixin.qq.com/s/KXUKod_Dmzses_iPRpH8dg)
 + [小林coding](https://xiaolincoding.com/)
 + [源码阅读网](http://coderead.cn/home/index.html)
++ [系统设计仓库](https://github.com/donnemartin/system-design-primer/blob/master/README-zh-Hans.md)
