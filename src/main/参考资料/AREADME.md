@@ -2,7 +2,7 @@
 + [LeetCode]( https://leetcode.com/problemset/all)
 + [Mysql学习资料]
   + [从跟理解Mysql](https://juejin.cn/book/6844733769996304392)
-  + [DDIA](https://juejin.cn/book/6844733769996304392)
+  + [DDIA](https://vonng.gitbooks.io/ddia-cn/content/)
 + [Redis学习资料]()
     + https://www.pdai.tech/md/db/nosql-redis/db-redis-overview.html/
     + https://blog.csdn.net/kuaipao19950507/article/details/107772269

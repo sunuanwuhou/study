@@ -4,6 +4,7 @@
   * [[剑指 Offer 04. 二维数组中的查找](https://leetcode-cn.com/problems/er-wei-shu-zu-zhong-de-cha-zhao-lcof/)](#剑指-offer-04-二维数组中的查找httpsleetcode-cncomproblemser-wei-shu-zu-zhong-de-cha-zhao-lcof)
   * [[剑指 Offer 11. 旋转数组的最小数字](https://leetcode-cn.com/problems/xuan-zhuan-shu-zu-de-zui-xiao-shu-zi-lcof/)](#剑指-offer-11-旋转数组的最小数字httpsleetcode-cncomproblemsxuan-zhuan-shu-zu-de-zui-xiao-shu-zi-lcof)
   * [[剑指 Offer 21. 调整数组顺序使奇数位于偶数前面](https://leetcode-cn.com/problems/diao-zheng-shu-zu-shun-xu-shi-qi-shu-wei-yu-ou-shu-qian-mian-lcof/)](#剑指-offer-21-调整数组顺序使奇数位于偶数前面httpsleetcode-cncomproblemsdiao-zheng-shu-zu-shun-xu-shi-qi-shu-wei-yu-ou-shu-qian-mian-lcof)
+  * [[剑指 Offer 39. 数组中出现次数超过一半的数字](https://leetcode-cn.com/problems/shu-zu-zhong-chu-xian-ci-shu-chao-guo-yi-ban-de-shu-zi-lcof/)](#剑指-offer-39-数组中出现次数超过一半的数字httpsleetcode-cncomproblemsshu-zu-zhong-chu-xian-ci-shu-chao-guo-yi-ban-de-shu-zi-lcof)
   * [其他数组题目](#其他数组题目)
 * [字符串](#字符串)
   * [[剑指 Offer 05. 替换空格](https://leetcode-cn.com/problems/ti-huan-kong-ge-lcof/)](#剑指-offer-05-替换空格httpsleetcode-cncomproblemsti-huan-kong-ge-lcof)
@@ -183,6 +184,64 @@ public int[] exchange(int[] nums) {
 
 
 这个题目如果在难一点，【并保证奇数和奇数，偶数和偶数之间的相对位置不变。】我们应该怎么做。
+
+
+
+
+
+## [剑指 Offer 39. 数组中出现次数超过一半的数字](https://leetcode-cn.com/problems/shu-zu-zhong-chu-xian-ci-shu-chao-guo-yi-ban-de-shu-zi-lcof/)
+
+
+
++ 方法一：首先对数组进行排序，在一个有序数组中，次数超过一半的必定是中位数，那么可以直接取出中位数，然后遍历数组，看中位数是否出现次数超过一半，这取决于排序的时间复杂度，最快为O(nlogn)。
+
++ 方法二：使用HashMap存储，在遍历得到大于一半的数字。
+
++ 解题思路：[【摩尔投票】数组中出现次数超过一半的数字 - 数组中出现次数超过一半的数字 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/shu-zu-zhong-chu-xian-ci-shu-chao-guo-yi-ban-de-shu-zi-lcof/solution/mo-er-tou-piao-shu-zu-zhong-chu-xian-ci-8xbnz/)
+
+  + 不同候选人的选票之间，可以一一抵消。
+
+  + 若当前胜利者存在多张选票时，不同的候选人的票，只能抵消一张当前胜利者的票。
+
+  + 若当前双方的选票被抵消为零，下一次抽出的候选人，**将作为暂时的胜利者领先。**
+
+    > 最后一个是有限制条件的！！也就是**数组中一定有超过一半的元素！！**
+
+
+
+```java
+ public int majorityElement(int[] nums) {
+
+        int count = 0;
+        int temp = 0;
+
+        for (int i = 0; i < nums.length; i++) {
+            if (count == 0) {
+                temp = nums[i];
+                count++;
+            } else {
+                if (temp == nums[i]) {
+                    count++;
+                } else {
+                    count--;
+                }
+            }
+        }
+        return temp;
+
+    }
+```
+
+
+
+
+
+
+
+
+
+
+
 
 
 
