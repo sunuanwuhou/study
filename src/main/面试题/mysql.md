@@ -397,7 +397,7 @@ count(*)会忽略所有的列，直接统计所有列数，不要使用count(列
 # 慢SQL解决思路
 
 
-+ [慢SQl解决思路.md](../学习/G.数据库/Mysql/Mysql整体流程.md)
++ [慢SQl解决思路.md](../学习/G.数据库/Mysql/Mysql整体流程-慢SQl.md)
 
 
 

@@ -10,6 +10,11 @@
   * [查询执行引擎](#查询执行引擎)
   * [返回结果给客户端](#返回结果给客户端)
 * [**慢SQL解决思路**](#慢sql解决思路)
+  * [**通过慢查日志等定位那些执行效率较低的 SQL 语句**](#通过慢查日志等定位那些执行效率较低的-sql-语句)
+  * [**explain 分析SQL的执行计划**](#explain-分析sql的执行计划)
+  * [**show profile 分析**](#show-profile-分析)
+  * [**trace**](#trace)
+  * [具体步骤](#具体步骤)
 * [总结](#总结)
 * [参考资料](#参考资料)
 
@@ -112,10 +117,68 @@ MySQL通过关键字将SQL语句进行解析，并生成一颗对应的解析树
 
 # **慢SQL解决思路**
 
-我们从两个方面来进行阐述：
+
+## **通过慢查日志等定位那些执行效率较低的 SQL 语句**
+
+## **explain 分析SQL的执行计划**
+
+   ​	需要重点关注 type、rows、filtered、extra。
+
+  
+
+   type 由上至下，效率越来越高：
+
+   - ALL 全表扫描
+   - index 索引全扫描
+   - range 索引范围扫描，常用语<,<=,>=,between,in 等操作
+   - ref 使用非唯一索引扫描或唯一索引前缀扫描，返回单条记录，常出现在关联查询中
+   - eq_ref 类似 ref，区别在于使用的是唯一索引，使用主键的关联查询
+   - const/system 单条记录，系统会把匹配行中的其他列作为常数处理，如主键或唯一索引查询
+   - null MySQL 不访问任何表或索引，直接返回结果
+   - 虽然上至下，效率越来越高，但是根据 cost 模型，假设有两个索引 idx1(a, b, c),idx2(a, c)，SQL 为"select * from t where a = 1 and b in (1, 2) order by c";如果走 idx1，那么是 type 为 range，如果走 idx2，那么 type 是 ref；当需要扫描的行数，使用 idx2 大约是 idx1 的 5 倍以上时，会用 idx1，否则会用 idx2
+
+   
+
+Extra：
+
+- **Using filesort：**MySQL 需要额外的一次传递，以找出如何按排序顺序检索行。通过根据联接类型浏览所有行并为所有匹配 WHERE 子句的行保存排序关键字和行的指针来完成排序。然后关键字被排序，并按排序顺序检索行；
+- **Using temporary：**使用了临时表保存中间结果，性能特别差，需要重点优化；
+- **Using index：**表示相应的 select 操作中使用了覆盖索引（Coveing Index）,避免访问了表的数据行，效率不错！如果同时出现 using where，意味着无法直接通过索引查找来查询到符合条件的数据；
+- **Using index condition：**MySQL5.6 之后新增的 ICP，using index condtion 就是使用了 ICP（索引下推），在存储引擎层进行数据过滤，而不是在服务层过滤，利用索引现有的数据减少回表的数据。
+
+
+
+## **show profile 分析**
+
+了解 SQL 执行的线程的状态及消耗的时间。
+
+默认是关闭的，开启语句“set profiling = 1;”
+
+```mysql
+SHOW PROFILES ;
+SHOW PROFILE FOR QUERY  #{id};
+```
+
+
+
+##  **trace**
+
+trace 分析优化器如何选择执行计划，通过 trace 文件能够进一步了解为什么优惠券选择 A 执行计划而不选择 B 执行计划。
+
+```mysql
+set optimizer_trace="enabled=on";
+set optimizer_trace_max_mem_size=1000000;
+select * from information_schema.optimizer_trace;
+```
+
+## 具体步骤
+
+我们以下几个方面来进行阐述：
 
 - 数据库表索引设置不合理
 - SQL语句有问题，需要优化
+- 该有其他方式实现，ES、数仓等
+- 数据碎片来数据
 
 ![](.images/下载-1633771449247.png)
 
@@ -169,3 +232,4 @@ SQL优化
 # 参考资料
 
 + https://mp.weixin.qq.com/s/9XKYvA5hmwictkbd42w-Ug
++ https://mp.weixin.qq.com/s/q3eaqHuRgSHQY7UWEZDemQ
