@@ -103,7 +103,7 @@ Znode分为四种类型：
 
 # Zookeeper和Redis分布式锁的比较
 
-
+![](.images/下载-1648700509984.png)
 
 
 

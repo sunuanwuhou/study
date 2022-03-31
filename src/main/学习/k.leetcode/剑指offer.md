@@ -4,7 +4,8 @@
   * [[剑指 Offer 04. 二维数组中的查找](https://leetcode-cn.com/problems/er-wei-shu-zu-zhong-de-cha-zhao-lcof/)](#剑指-offer-04-二维数组中的查找httpsleetcode-cncomproblemser-wei-shu-zu-zhong-de-cha-zhao-lcof)
   * [[剑指 Offer 11. 旋转数组的最小数字](https://leetcode-cn.com/problems/xuan-zhuan-shu-zu-de-zui-xiao-shu-zi-lcof/)](#剑指-offer-11-旋转数组的最小数字httpsleetcode-cncomproblemsxuan-zhuan-shu-zu-de-zui-xiao-shu-zi-lcof)
   * [[剑指 Offer 21. 调整数组顺序使奇数位于偶数前面](https://leetcode-cn.com/problems/diao-zheng-shu-zu-shun-xu-shi-qi-shu-wei-yu-ou-shu-qian-mian-lcof/)](#剑指-offer-21-调整数组顺序使奇数位于偶数前面httpsleetcode-cncomproblemsdiao-zheng-shu-zu-shun-xu-shi-qi-shu-wei-yu-ou-shu-qian-mian-lcof)
-  * [[剑指 Offer 39. 数组中出现次数超过一半的数字](https://leetcode-cn.com/problems/shu-zu-zhong-chu-xian-ci-shu-chao-guo-yi-ban-de-shu-zi-lcof/)](#剑指-offer-39-数组中出现次数超过一半的数字httpsleetcode-cncomproblemsshu-zu-zhong-chu-xian-ci-shu-chao-guo-yi-ban-de-shu-zi-lcof)
+  * [[剑指 Offer 39. 数组中出现次数超过一半的数字](https://leetcode-cn.com/problems/shu-zu-zhong-chu-xian-ci-shu-chao-guo-yi-ban-de-shu-zi-lcof/)(经典题目)](#剑指-offer-39-数组中出现次数超过一半的数字httpsleetcode-cncomproblemsshu-zu-zhong-chu-xian-ci-shu-chao-guo-yi-ban-de-shu-zi-lcof经典题目)
+  * [[162. 寻找峰值](https://leetcode-cn.com/problems/find-peak-element/)](#162-寻找峰值httpsleetcode-cncomproblemsfind-peak-element)
   * [其他数组题目](#其他数组题目)
 * [字符串](#字符串)
   * [[剑指 Offer 05. 替换空格](https://leetcode-cn.com/problems/ti-huan-kong-ge-lcof/)](#剑指-offer-05-替换空格httpsleetcode-cncomproblemsti-huan-kong-ge-lcof)
@@ -187,9 +188,19 @@ public int[] exchange(int[] nums) {
 
 
 
+> 相对位置是指,12345678     2468 相对位置不变 
+
+那么这题就很做做了,奇数放一个数组,偶数放一个数组
 
 
-## [剑指 Offer 39. 数组中出现次数超过一半的数字](https://leetcode-cn.com/problems/shu-zu-zhong-chu-xian-ci-shu-chao-guo-yi-ban-de-shu-zi-lcof/)
+
+
+
+
+
+
+
+## [剑指 Offer 39. 数组中出现次数超过一半的数字](https://leetcode-cn.com/problems/shu-zu-zhong-chu-xian-ci-shu-chao-guo-yi-ban-de-shu-zi-lcof/)(经典题目)
 
 
 
@@ -238,6 +249,84 @@ public int[] exchange(int[] nums) {
 
 
 
+
+
+
+
+
+
+
+
+
+
+## [162. 寻找峰值](https://leetcode-cn.com/problems/find-peak-element/)
+
+![image-20220331181624335](.images/image-20220331181624335.png)
+
+峰值元素是指其值**严格大于左右相邻值**的元素。
+
+题目要求 `O(log n)`的做法，我们先看看 `O(n)`的解法
+
+
+
++ 常规解法：
+
+```java
+ public int findPeakElement(int[] nums) {
+        int length = nums.length;
+        if (1 == length) {
+            return 0;
+        }
+        //峰值有可能出现在 第一个 中间  最后一个
+        for (int i = 0; i < length; i++) {
+            if (i == 0 && nums[i] > nums[i + 1]) {
+                return i;
+            } else if (i == length - 1 && nums[i - 1] < nums[i]) {
+                return i;
+            } else if (nums[i] > nums[i + 1] && nums[i - 1] < nums[i]) {
+                return i;
+            }
+        }
+        return -1;
+    }
+```
+
+
+为什么要写常规解法呢，如果题目要求你求出全部的峰值，就可以用上了，但本题只是随机一个即可。
+
++ 二分法:
+
+```java
+  public int findPeakElement(int[] nums) {
+        int length = nums.length;
+        if (1 == length) {
+            return 0;
+        }
+
+        // 先特判两边情况
+        if(nums[0] > nums[1]) return 0;
+        if(nums[length - 1] > nums[length - 2]) return length - 1;
+
+        int left = 0;
+        int right = length - 1;
+
+        while (left <= right) {
+
+            int mid = (left + right) / 2;
+
+            if (mid >= 1&mid < length - 1&&nums[mid - 1] < nums[mid] && nums[mid] > nums[mid + 1]) {
+                return mid;
+            } else if (mid >= 1&& nums[mid - 1] > nums[mid]){
+                //mid已经比较过 
+                right = mid - 1;
+            } else if (mid < length - 1 && nums[mid] < nums[mid+1]) {
+                left = mid + 1;
+            }
+        }
+
+        return -1;
+    }
+```
 
 
 
