@@ -158,7 +158,11 @@ select * from information_schema.optimizer_trace
 
 # Order By 优化
 
-将Order by后面的字段 是由联合索引或者覆盖索引，这样就不会用到文件排序或者rowid排序了
+1. 将Order by后面的字段 是由**联合索引或者覆盖索引**，这样就不会用到文件排序或者rowid排序了
+
+2. SQL 语句中包含 limit 的情况下，**通过成本评估有可能会使用优先队列**来避免磁盘文件排序，提升排序效率。
+
+   
 
 
 ## 索引存储顺序与order by不一致，如何优化？
@@ -205,5 +209,9 @@ select * from staff where city in ('深圳') order by age limit 10;
 
 # 参考资料
 
-[https://mp.weixin.qq.com/s/h9jWeoyiBGnQLvDrtXqVWw](https://mp.weixin.qq.com/s/h9jWeoyiBGnQLvDrtXqVWw)
++ [https://mp.weixin.qq.com/s/h9jWeoyiBGnQLvDrtXqVWw](https://mp.weixin.qq.com/s/h9jWeoyiBGnQLvDrtXqVWw)
+
++ https://mp.weixin.qq.com/s/YBWbEahWp0uVN_n9jAFU0A?forceh5=1 这个毕竟硬核，可以先看上面的 再看下面的
+
+  
 
