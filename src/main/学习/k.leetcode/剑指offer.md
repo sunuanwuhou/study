@@ -6,6 +6,8 @@
   * [[剑指 Offer 21. 调整数组顺序使奇数位于偶数前面](https://leetcode-cn.com/problems/diao-zheng-shu-zu-shun-xu-shi-qi-shu-wei-yu-ou-shu-qian-mian-lcof/)](#剑指-offer-21-调整数组顺序使奇数位于偶数前面httpsleetcode-cncomproblemsdiao-zheng-shu-zu-shun-xu-shi-qi-shu-wei-yu-ou-shu-qian-mian-lcof)
   * [[剑指 Offer 39. 数组中出现次数超过一半的数字](https://leetcode-cn.com/problems/shu-zu-zhong-chu-xian-ci-shu-chao-guo-yi-ban-de-shu-zi-lcof/)(经典题目)](#剑指-offer-39-数组中出现次数超过一半的数字httpsleetcode-cncomproblemsshu-zu-zhong-chu-xian-ci-shu-chao-guo-yi-ban-de-shu-zi-lcof经典题目)
   * [[162. 寻找峰值](https://leetcode-cn.com/problems/find-peak-element/)](#162-寻找峰值httpsleetcode-cncomproblemsfind-peak-element)
+  * [[剑指 Offer 45. 把数组排成最小的数](https://leetcode-cn.com/problems/ba-shu-zu-pai-cheng-zui-xiao-de-shu-lcof/)](#剑指-offer-45-把数组排成最小的数httpsleetcode-cncomproblemsba-shu-zu-pai-cheng-zui-xiao-de-shu-lcof)
+  * [[剑指 Offer 03. 数组中重复的数字](https://leetcode-cn.com/problems/shu-zu-zhong-zhong-fu-de-shu-zi-lcof/)](#剑指-offer-03-数组中重复的数字httpsleetcode-cncomproblemsshu-zu-zhong-zhong-fu-de-shu-zi-lcof)
   * [其他数组题目](#其他数组题目)
 * [字符串](#字符串)
   * [[剑指 Offer 05. 替换空格](https://leetcode-cn.com/problems/ti-huan-kong-ge-lcof/)](#剑指-offer-05-替换空格httpsleetcode-cncomproblemsti-huan-kong-ge-lcof)
@@ -330,6 +332,77 @@ public int[] exchange(int[] nums) {
 
 
 
+
+
+## [剑指 Offer 45. 把数组排成最小的数](https://leetcode-cn.com/problems/ba-shu-zu-pai-cheng-zui-xiao-de-shu-lcof/)
+
+![image-20220401194700757](.images/image-20220401194700757.png)
+
+题解：[🗡☞offer45.把数组排成最小的数 - 把数组排成最小的数 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/ba-shu-zu-pai-cheng-zui-xiao-de-shu-lcof/solution/offer45ba-shu-zu-pai-cheng-zui-xiao-de-s-eh8d/)
+
+
+
+![image-20220401194751753](.images/image-20220401194751753.png)
+
+
+```java
+class Solution {
+    public String minNumber(int[] nums) {
+        String[] strs = new String[nums.length];
+        for(int i = 0; i < nums.length; i++){
+            strs[i] = String.valueOf(nums[i]);
+        }
+        Arrays.sort(strs, (x,y) -> (x+y).compareTo(y+x));
+        StringBuilder ans = new StringBuilder();
+        for(String s : strs)
+            ans.append(s);
+        return ans.toString();
+    }
+}
+```
+
+
+
+## [剑指 Offer 03. 数组中重复的数字](https://leetcode-cn.com/problems/shu-zu-zhong-zhong-fu-de-shu-zi-lcof/)
+
+![image-20220401194931256](.images/image-20220401194931256.png)
+
++ 解法一：使用hashmap
+
++ 解法二：原地替换：[剑指 Offer 03. 数组中重复的数字（哈希表 / 原地交换，清晰图解） - 数组中重复的数字 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/shu-zu-zhong-zhong-fu-de-shu-zi-lcof/solution/mian-shi-ti-03-shu-zu-zhong-zhong-fu-de-shu-zi-yua/)
+
+  ​	算法流程：
+
+  1. 遍历数组 nums ，设索引初始值为 i = 0i=0 :
+
+     + 若 nums[i] = i： 说明此数字已在对应索引位置，无需交换，因此跳过；
+     + 若 nums[nums[i]] = nums[i] ： 代表索引 nums[i] 处和索引 i 处的元素值都为 nums[i] ，即找到一组重复值，返回此值 nums[i] ；
+     + 否则： 交换索引为 i 和 nums[i]的元素值，将此数字交换至对应索引位置。
+  2. 若遍历完毕尚未返回，则返回 -1−1 。
+
+
+
+```java
+class Solution {
+    public int findRepeatNumber(int[] nums) {
+        int i = 0;
+        while(i < nums.length) {
+            if(nums[i] == i) {
+                i++;
+                continue;
+            }
+            if(nums[nums[i]] == nums[i]) return nums[i];
+            int tmp = nums[i];
+            nums[i] = nums[tmp];
+            nums[tmp] = tmp;
+        }
+        return -1;
+    }
+}
+```
+
++ 解法三：二分法
++ 解法四：先排序，重复的元素自然在一起乐。
 
 
 
