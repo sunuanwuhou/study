@@ -1,3 +1,11 @@
+# Table of Contents
+
+* [映射(map/flatMap)](#映射mapflatmap)
+* [**归约(reduce)**](#归约reduce)
+* [收集(collect)](#收集collect)
+* [参考资料](#参考资料)
+
+
 
 
 

@@ -1,3 +1,12 @@
+# Table of Contents
+
+* [什么是建造者模式](#什么是建造者模式)
+* [@Builder使用](#builder使用)
+  * [@Builder中使用 @Singular 注释集合](#builder中使用-singular-注释集合)
+  * [@Builder.Default 的使用](#builderdefault-的使用)
+  * [缺点](#缺点)
+
+
 # 什么是建造者模式
 
 
