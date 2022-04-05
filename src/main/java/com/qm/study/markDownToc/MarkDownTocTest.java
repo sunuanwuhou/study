@@ -15,8 +15,7 @@ public class MarkDownTocTest {
 
     // private static final Logger logger= LoggerFactory.getLogger(MarkDownTocTest.class);
 
-    public static final String PREFIX = "/src/main/学习/";
-    public static final String PREFIX_MIAN = "/src/main/面试题/";
+    public static final String PREFIX_MIAN = "/src/main/";
 
     public static void main(String[] args) {
 
@@ -24,7 +23,6 @@ public class MarkDownTocTest {
 
 
         String[] str = new String[]{
-                PREFIX,
                 PREFIX_MIAN,
         };
 
