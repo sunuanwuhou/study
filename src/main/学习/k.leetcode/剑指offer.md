@@ -15,10 +15,12 @@
 * [链表](#链表)
   * [[剑指 Offer 06. 从尾到头打印链表](https://leetcode-cn.com/problems/cong-wei-dao-tou-da-yin-lian-biao-lcof/)](#剑指-offer-06-从尾到头打印链表httpsleetcode-cncomproblemscong-wei-dao-tou-da-yin-lian-biao-lcof)
   * [[剑指 Offer 35. 复杂链表的复制](https://leetcode-cn.com/problems/fu-za-lian-biao-de-fu-zhi-lcof/)](#剑指-offer-35-复杂链表的复制httpsleetcode-cncomproblemsfu-za-lian-biao-de-fu-zhi-lcof)
+  * [[83. 删除排序链表中的重复元素](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list/)](#83-删除排序链表中的重复元素httpsleetcode-cncomproblemsremove-duplicates-from-sorted-list)
   * [其他链表题目](#其他链表题目)
 * [二叉树](#二叉树)
   * [[剑指 Offer 34. 二叉树中和为某一值的路径](https://leetcode-cn.com/problems/er-cha-shu-zhong-he-wei-mou-yi-zhi-de-lu-jing-lcof/)](#剑指-offer-34-二叉树中和为某一值的路径httpsleetcode-cncomproblemser-cha-shu-zhong-he-wei-mou-yi-zhi-de-lu-jing-lcof)
   * [[剑指 Offer 26. 树的子结构](https://leetcode-cn.com/problems/shu-de-zi-jie-gou-lcof/)](#剑指-offer-26-树的子结构httpsleetcode-cncomproblemsshu-de-zi-jie-gou-lcof)
+  * [[剑指 Offer 32 - I. 从上到下打印二叉树](https://leetcode-cn.com/problems/cong-shang-dao-xia-da-yin-er-cha-shu-lcof/)](#剑指-offer-32---i-从上到下打印二叉树httpsleetcode-cncomproblemscong-shang-dao-xia-da-yin-er-cha-shu-lcof)
   * [其他二叉树](#其他二叉树)
 * [参考资料](#参考资料)
 
@@ -541,6 +543,49 @@ class Solution {
    ```
 
    
+
+## [83. 删除排序链表中的重复元素](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list/)
+
+
+
+这个同数组去重是一样的，用快慢指针去做，快指针探测下一个数据是否重复，如果下一个数据不重复，就将快指针的val复制给慢指针。
+
+
+
+```java
+ public ListNode deleteDuplicates(ListNode head) {
+
+
+        if(null==head){
+            return null;
+        }
+
+        ListNode fast=head;
+        ListNode slow=head;
+
+
+        while(fast!=null){
+
+            if(fast.val!=slow.val){
+                slow=slow.next;
+                slow.val=fast.val;
+            }
+
+            fast=fast.next;
+        }
+		//fast走完后，需要从slow后面断掉剩余部分
+        slow.next=null;
+        return head;
+       
+    }
+```
+
+
+
+
+
+
+
 ## 其他链表题目
 
 [其他链表题目](../k.leetcode/链表.md)
@@ -636,7 +681,44 @@ public boolean isSubStructure(TreeNode A, TreeNode B) {
 
 
 
+## [剑指 Offer 32 - I. 从上到下打印二叉树](https://leetcode-cn.com/problems/cong-shang-dao-xia-da-yin-er-cha-shu-lcof/)
 
+
+
+![image-20220406163226220](.images/image-20220406163226220.png)
+
+
+
+第一反应这不是二叉树的层次遍历吗
+
+细看不就是层次遍历BFS吗
+
+```java
+ public int[] levelOrder(TreeNode root) {
+
+        if (null == root) {
+            return new int[0];
+        }
+        List<Integer> resList = new LinkedList<>();
+
+        Queue<TreeNode> queue = new LinkedList<>();
+
+        queue.add(root);
+
+        while (!queue.isEmpty()) {
+
+            TreeNode node = queue.poll();
+            resList.add(node.val);
+            if(node.left != null) queue.add(node.left);
+            if(node.right != null) queue.add(node.right);
+        }
+        //转化为数组
+        int[] res = new int[resList.size()];
+        for(int i = 0; i < resList.size(); i++)
+            res[i] = resList.get(i);
+        return res;
+    }
+```
 
 
 
