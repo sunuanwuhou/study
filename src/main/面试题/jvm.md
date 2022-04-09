@@ -7,10 +7,12 @@
 * [内存泄漏和内存溢出](#内存泄漏和内存溢出)
 * [垃圾回收基础](#垃圾回收基础)
 * [垃圾收集器](#垃圾收集器)
+* [如何排查 OOM 的问题？](#如何排查-oom-的问题)
 * [**java jvm 调优**](#java-jvm-调优)
 * [**了解GC产生的原因**：](#了解gc产生的原因)
 * [**排查FGC问题**](#排查fgc问题)
 * [FGC频繁的线上案例介绍](#fgc频繁的线上案例介绍)
+* [参考资料](#参考资料)
 
 
 
@@ -65,6 +67,14 @@
 
 # 垃圾收集器
 [垃圾收集器](../学习/F.Jvm/垃圾收集器.md)
+
+
+# 如何排查 OOM 的问题？
+
+- 1.增加两个参数 -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/tmp/heapdump.hprof，当 OOM 发生时自动 dump 堆内存信息到指定目录；
+- 2.同时 jstat 查看监控 JVM 的内存和 GC 情况，先观察问题大概出在什么区域；
+- 3.使用工具载入到 dump 文件，分析大对象的占用情况。
+
 
 
 # **java jvm 调优**
@@ -488,7 +498,9 @@ DirectMemory容量可通过-XX:MaxDirectMemorySize指定，如果不指定，则
 
  
 
- 
+ # 参考资料
+
+https://mp.weixin.qq.com/s/UrJ3cu8GvlOSg5CagrX64g
 
  
 
