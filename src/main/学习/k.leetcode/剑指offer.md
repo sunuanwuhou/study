@@ -21,6 +21,8 @@
   * [[剑指 Offer 34. 二叉树中和为某一值的路径](https://leetcode-cn.com/problems/er-cha-shu-zhong-he-wei-mou-yi-zhi-de-lu-jing-lcof/)](#剑指-offer-34-二叉树中和为某一值的路径httpsleetcode-cncomproblemser-cha-shu-zhong-he-wei-mou-yi-zhi-de-lu-jing-lcof)
   * [[剑指 Offer 26. 树的子结构](https://leetcode-cn.com/problems/shu-de-zi-jie-gou-lcof/)](#剑指-offer-26-树的子结构httpsleetcode-cncomproblemsshu-de-zi-jie-gou-lcof)
   * [[剑指 Offer 32 - I. 从上到下打印二叉树](https://leetcode-cn.com/problems/cong-shang-dao-xia-da-yin-er-cha-shu-lcof/)](#剑指-offer-32---i-从上到下打印二叉树httpsleetcode-cncomproblemscong-shang-dao-xia-da-yin-er-cha-shu-lcof)
+  * [[剑指 Offer 32 - II. 从上到下打印二叉树 II](https://leetcode-cn.com/problems/cong-shang-dao-xia-da-yin-er-cha-shu-ii-lcof/)](#剑指-offer-32---ii-从上到下打印二叉树-iihttpsleetcode-cncomproblemscong-shang-dao-xia-da-yin-er-cha-shu-ii-lcof)
+  * [[剑指 Offer 32 - III. 从上到下打印二叉树 III](https://leetcode-cn.com/problems/cong-shang-dao-xia-da-yin-er-cha-shu-iii-lcof/)](#剑指-offer-32---iii-从上到下打印二叉树-iiihttpsleetcode-cncomproblemscong-shang-dao-xia-da-yin-er-cha-shu-iii-lcof)
   * [其他二叉树](#其他二叉树)
 * [参考资料](#参考资料)
 
@@ -693,6 +695,16 @@ public boolean isSubStructure(TreeNode A, TreeNode B) {
 
 细看不就是层次遍历BFS吗
 
+
+
+【3,9,20,15,7】
+
+注意看遍历的时候，这题是没有区分层次的，每一个是跟在后面的
+
+如果是层次的话
+
+[[3].[9.20],[15,7]]
+
 ```java
  public int[] levelOrder(TreeNode root) {
 
@@ -720,6 +732,73 @@ public boolean isSubStructure(TreeNode A, TreeNode B) {
     }
 ```
 
+## [剑指 Offer 32 - II. 从上到下打印二叉树 II](https://leetcode-cn.com/problems/cong-shang-dao-xia-da-yin-er-cha-shu-ii-lcof/)
+
+这题就是层次遍历拉 
+
+## [剑指 Offer 32 - III. 从上到下打印二叉树 III](https://leetcode-cn.com/problems/cong-shang-dao-xia-da-yin-er-cha-shu-iii-lcof/)
+
+![image-20220409192943650](.images/image-20220409192943650.png)
+
+这题一看不就是二叉树的层次遍历吗
+
+只不过每遍历一次需要反转下当前节点的位置，这里需要用一个**变量**来控制，是正序遍历还是逆序遍历
+
+
+
+```java
+  public List<List<Integer>> levelOrder(TreeNode root) {
+
+        List<List<Integer>> res = new LinkedList<>();
+
+        if (null == root) {
+            return res;
+        }
+        Queue<TreeNode> qe = new LinkedList<>();
+
+        qe.add(root);
+
+        // true 正序遍历 false 逆序
+        boolean flag = true;
+
+        while (!qe.isEmpty()) {
+
+            int size = qe.size();
+
+            LinkedList<Integer> temp = new LinkedList<>();
+
+            for (int i = 0; i < size; i++) {
+
+                TreeNode poll = qe.poll();
+
+                if (flag) {
+                    temp.addLast(poll.val);
+                } else {
+                    temp.addFirst(poll.val);
+                }
+                if (null != poll.left) {
+                    qe.add(poll.left);
+                }
+                if (null != poll.right) {
+                    qe.add(poll.right);
+                }
+            }
+            res.add(temp);
+            flag = !flag;
+        }
+
+        return res;
+    }
+```
+
+
+
+![image-20220409194856704](.images/image-20220409194856704.png)
+
+看网上也有人用其他方法来判断是否正序还是倒序
+
+1. 奇数层 偶数层
+2. 负负得正 其实跟flag一样的意思
 
 
 
