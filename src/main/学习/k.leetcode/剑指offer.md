@@ -1,19 +1,21 @@
 # Table of Contents
 
 * [数组](#数组)
-  * [[剑指 Offer 04. 二维数组中的查找](https://leetcode-cn.com/problems/er-wei-shu-zu-zhong-de-cha-zhao-lcof/)](#剑指-offer-04-二维数组中的查找httpsleetcode-cncomproblemser-wei-shu-zu-zhong-de-cha-zhao-lcof)
-  * [[剑指 Offer 11. 旋转数组的最小数字](https://leetcode-cn.com/problems/xuan-zhuan-shu-zu-de-zui-xiao-shu-zi-lcof/)](#剑指-offer-11-旋转数组的最小数字httpsleetcode-cncomproblemsxuan-zhuan-shu-zu-de-zui-xiao-shu-zi-lcof)
-  * [[剑指 Offer 21. 调整数组顺序使奇数位于偶数前面](https://leetcode-cn.com/problems/diao-zheng-shu-zu-shun-xu-shi-qi-shu-wei-yu-ou-shu-qian-mian-lcof/)](#剑指-offer-21-调整数组顺序使奇数位于偶数前面httpsleetcode-cncomproblemsdiao-zheng-shu-zu-shun-xu-shi-qi-shu-wei-yu-ou-shu-qian-mian-lcof)
-  * [[剑指 Offer 39. 数组中出现次数超过一半的数字](https://leetcode-cn.com/problems/shu-zu-zhong-chu-xian-ci-shu-chao-guo-yi-ban-de-shu-zi-lcof/)(经典题目)](#剑指-offer-39-数组中出现次数超过一半的数字httpsleetcode-cncomproblemsshu-zu-zhong-chu-xian-ci-shu-chao-guo-yi-ban-de-shu-zi-lcof经典题目)
-  * [[162. 寻找峰值](https://leetcode-cn.com/problems/find-peak-element/)](#162-寻找峰值httpsleetcode-cncomproblemsfind-peak-element)
-  * [[剑指 Offer 45. 把数组排成最小的数](https://leetcode-cn.com/problems/ba-shu-zu-pai-cheng-zui-xiao-de-shu-lcof/)](#剑指-offer-45-把数组排成最小的数httpsleetcode-cncomproblemsba-shu-zu-pai-cheng-zui-xiao-de-shu-lcof)
-  * [[剑指 Offer 03. 数组中重复的数字](https://leetcode-cn.com/problems/shu-zu-zhong-zhong-fu-de-shu-zi-lcof/)](#剑指-offer-03-数组中重复的数字httpsleetcode-cncomproblemsshu-zu-zhong-zhong-fu-de-shu-zi-lcof)
+  * [[剑指 Offer 04. 二维数组中的查找]](#剑指-offer-04-二维数组中的查找)
+  * [[剑指 Offer 11. 旋转数组的最小数字]](#剑指-offer-11-旋转数组的最小数字)
+  * [[剑指 Offer 21. 调整数组顺序使奇数位于偶数前面]](#剑指-offer-21-调整数组顺序使奇数位于偶数前面)
+  * [[剑指 Offer 39. 数组中出现次数超过一半的数字](经典题目)](#剑指-offer-39-数组中出现次数超过一半的数字经典题目)
+  * [[162. 寻找峰值]](#162-寻找峰值)
+  * [[剑指 Offer 45. 把数组排成最小的数]](#剑指-offer-45-把数组排成最小的数)
+  * [[剑指 Offer 03. 数组中重复的数字]](#剑指-offer-03-数组中重复的数字)
   * [其他数组题目](#其他数组题目)
 * [字符串](#字符串)
-  * [[剑指 Offer 05. 替换空格](https://leetcode-cn.com/problems/ti-huan-kong-ge-lcof/)](#剑指-offer-05-替换空格httpsleetcode-cncomproblemsti-huan-kong-ge-lcof)
-  * [[剑指 Offer 38. 字符串的排列](https://leetcode-cn.com/problems/zi-fu-chuan-de-pai-lie-lcof/)](#剑指-offer-38-字符串的排列httpsleetcode-cncomproblemszi-fu-chuan-de-pai-lie-lcof)
+  * [[剑指 Offer 05. 替换空格]](#剑指-offer-05-替换空格)
+  * [[剑指 Offer 38. 字符串的排列]](#剑指-offer-38-字符串的排列)
+  * [[剑指 Offer 58 - I. 翻转单词顺序]](#剑指-offer-58---i-翻转单词顺序)
+  * [滑动窗口](#滑动窗口)
 * [链表](#链表)
-  * [[剑指 Offer 06. 从尾到头打印链表](https://leetcode-cn.com/problems/cong-wei-dao-tou-da-yin-lian-biao-lcof/)](#剑指-offer-06-从尾到头打印链表httpsleetcode-cncomproblemscong-wei-dao-tou-da-yin-lian-biao-lcof)
+  * [[剑指 Offer 06. 从尾到头打印链表]](#剑指-offer-06-从尾到头打印链表)
   * [[剑指 Offer 35. 复杂链表的复制](https://leetcode-cn.com/problems/fu-za-lian-biao-de-fu-zhi-lcof/)](#剑指-offer-35-复杂链表的复制httpsleetcode-cncomproblemsfu-za-lian-biao-de-fu-zhi-lcof)
   * [[83. 删除排序链表中的重复元素](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list/)](#83-删除排序链表中的重复元素httpsleetcode-cncomproblemsremove-duplicates-from-sorted-list)
   * [其他链表题目](#其他链表题目)
@@ -33,7 +35,9 @@
 
 # 数组
 
-## [剑指 Offer 04. 二维数组中的查找](https://leetcode-cn.com/problems/er-wei-shu-zu-zhong-de-cha-zhao-lcof/)
+## [剑指 Offer 04. 二维数组中的查找]
+
+ [剑指 Offer 04. 二维数组中的查找](https://leetcode-cn.com/problems/er-wei-shu-zu-zhong-de-cha-zhao-lcof/)
 
 ![image-20220319105004038](.images/image-20220319105004038.png)
 
@@ -72,7 +76,9 @@
 
 
 
-## [剑指 Offer 11. 旋转数组的最小数字](https://leetcode-cn.com/problems/xuan-zhuan-shu-zu-de-zui-xiao-shu-zi-lcof/)
+## [剑指 Offer 11. 旋转数组的最小数字]
+
+ [剑指 Offer 11. 旋转数组的最小数字](https://leetcode-cn.com/problems/xuan-zhuan-shu-zu-de-zui-xiao-shu-zi-lcof/)
 
 ![image-20220319111432853](.images/image-20220319111432853.png)
 
@@ -153,7 +159,9 @@
 
 
 
-## [剑指 Offer 21. 调整数组顺序使奇数位于偶数前面](https://leetcode-cn.com/problems/diao-zheng-shu-zu-shun-xu-shi-qi-shu-wei-yu-ou-shu-qian-mian-lcof/)
+## [剑指 Offer 21. 调整数组顺序使奇数位于偶数前面]
+
+[剑指 Offer 21. 调整数组顺序使奇数位于偶数前面](https://leetcode-cn.com/problems/diao-zheng-shu-zu-shun-xu-shi-qi-shu-wei-yu-ou-shu-qian-mian-lcof/)
 
 ![image-20220327100125147](.images/image-20220327100125147.png)
 
@@ -206,7 +214,9 @@ public int[] exchange(int[] nums) {
 
 
 
-## [剑指 Offer 39. 数组中出现次数超过一半的数字](https://leetcode-cn.com/problems/shu-zu-zhong-chu-xian-ci-shu-chao-guo-yi-ban-de-shu-zi-lcof/)(经典题目)
+## [剑指 Offer 39. 数组中出现次数超过一半的数字](经典题目)
+
+[剑指 Offer 39. 数组中出现次数超过一半的数字](https://leetcode-cn.com/problems/shu-zu-zhong-chu-xian-ci-shu-chao-guo-yi-ban-de-shu-zi-lcof/)
 
 
 
@@ -265,7 +275,9 @@ public int[] exchange(int[] nums) {
 
 
 
-## [162. 寻找峰值](https://leetcode-cn.com/problems/find-peak-element/)
+## [162. 寻找峰值]
+
+[162. 寻找峰值](https://leetcode-cn.com/problems/find-peak-element/)
 
 ![image-20220331181624335](.images/image-20220331181624335.png)
 
@@ -338,7 +350,9 @@ public int[] exchange(int[] nums) {
 
 
 
-## [剑指 Offer 45. 把数组排成最小的数](https://leetcode-cn.com/problems/ba-shu-zu-pai-cheng-zui-xiao-de-shu-lcof/)
+## [剑指 Offer 45. 把数组排成最小的数]
+
+[剑指 Offer 45. 把数组排成最小的数](https://leetcode-cn.com/problems/ba-shu-zu-pai-cheng-zui-xiao-de-shu-lcof/)
 
 ![image-20220401194700757](.images/image-20220401194700757.png)
 
@@ -367,7 +381,10 @@ class Solution {
 
 
 
-## [剑指 Offer 03. 数组中重复的数字](https://leetcode-cn.com/problems/shu-zu-zhong-zhong-fu-de-shu-zi-lcof/)
+## [剑指 Offer 03. 数组中重复的数字]
+
+
+[剑指 Offer 03. 数组中重复的数字](https://leetcode-cn.com/problems/shu-zu-zhong-zhong-fu-de-shu-zi-lcof/)
 
 ![image-20220401194931256](.images/image-20220401194931256.png)
 
@@ -420,7 +437,9 @@ class Solution {
 
 # 字符串
 
-## [剑指 Offer 05. 替换空格](https://leetcode-cn.com/problems/ti-huan-kong-ge-lcof/)
+## [剑指 Offer 05. 替换空格]
+
+[剑指 Offer 05. 替换空格](https://leetcode-cn.com/problems/ti-huan-kong-ge-lcof/)
 
 ![image-20220319152400026](.images/image-20220319152400026.png)
 
@@ -461,7 +480,9 @@ class Solution {
            }
    ```
 
-## [剑指 Offer 38. 字符串的排列](https://leetcode-cn.com/problems/zi-fu-chuan-de-pai-lie-lcof/)
+## [剑指 Offer 38. 字符串的排列]
+
+[剑指 Offer 38. 字符串的排列](https://leetcode-cn.com/problems/zi-fu-chuan-de-pai-lie-lcof/)
 
 ![image-20220319160022318](.images/image-20220319160022318.png)
 
@@ -473,13 +494,68 @@ class Solution {
 
 
 
+## [剑指 Offer 58 - I. 翻转单词顺序]
+
+[剑指 Offer 58 - I. 翻转单词顺序](https://leetcode-cn.com/problems/fan-zhuan-dan-ci-shun-xu-lcof/)
+
+
+
+![image-20220410220717944](.images/image-20220410220717944.png)
+
+
++ 这题目第一反应就是用空格分隔，然后倒序下就可以了，但是面试肯定是不建议的是吧。
+
++ 看了下官方题解，本质也是一样的。就是改成双指针来做了
+  + 倒序遍历字符串 ss ，记录单词左右索引边界 ii , jj ；
+  + 每确定一个单词的边界，则将其添加至单词列表 resres ；
+  + 最终，将单词列表拼接为字符串，并返回即可。
+
+```java
+  public String reverseWords(String s) {
+
+        s.trim();
+
+        int r = s.length() - 1;
+
+        int i = r;
+        StringBuilder res = new StringBuilder();
+        while (r >= 0) {
+            
+            while (i >= 0 && s.charAt(i) != ' ') {
+                i--;
+            }
+            //找到一个单词 加进去
+            res.append(s.substring(i + 1, r + 1) + " ");
+            //跳过单词之间的空字符
+            while (i >= 0 && s.charAt(i) == ' ') {
+                i--;
+            }
+            r = i;
+        }
+        return res.toString().trim();
+    }
+```
+
+
+
+
+
+
+
+
+## 滑动窗口
+
+ [滑动窗口](../C.数据结构与算法/labuladong/滑动窗口.md)
+
 
 
 
 
 # 链表
 
-## [剑指 Offer 06. 从尾到头打印链表](https://leetcode-cn.com/problems/cong-wei-dao-tou-da-yin-lian-biao-lcof/)
+## [剑指 Offer 06. 从尾到头打印链表]
+
+[剑指 Offer 06. 从尾到头打印链表](https://leetcode-cn.com/problems/cong-wei-dao-tou-da-yin-lian-biao-lcof/)
 
 ![image-20220321141533723](.images/image-20220321141533723.png)
 
@@ -815,3 +891,4 @@ public boolean isSubStructure(TreeNode A, TreeNode B) {
 # 参考资料
 
 https://www.cnblogs.com/gzshan/p/10910831.html
+

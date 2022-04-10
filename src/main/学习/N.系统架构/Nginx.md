@@ -1,6 +1,11 @@
 # Table of Contents
 
 * [NG内置变量](#ng内置变量)
+* [监听域名](#监听域名)
+* [监听端口](#监听端口)
+* [监听域名和端口](#监听域名和端口)
+* [负载均衡](#负载均衡)
+* [静态资源](#静态资源)
 * [root和alias](#root和alias)
 * [proxy_pass](#proxy_pass)
 * [Nginx转发Host问题](#nginx转发host问题)
@@ -18,11 +23,117 @@
 
 
 
+https://blog.51cto.com/u_15274085/2919075
+
+
+
+
+
+# 监听域名
+
+
+
+```nginx
+server {
+    # Listen to yourdomain.com
+    server_name yourdomain.com;
+    # Listen to multiple domains  server_name yourdomain.com www.yourdomain.com;
+    # Listen to all domains
+    server_name *.yourdomain.com;
+    # Listen to all top-level domains
+    server_name yourdomain.*;
+    # Listen to unspecified Hostnames (Listens to IP address itself)
+    server_name "";
+}
+```
+
+
+
+# 监听端口
+
+```nginx
+server {
+    # Standard HTTP Protocol
+    listen 80;
+    # Standard HTTPS Protocol
+    listen 443 ssl;
+    # For http2
+    listen 443 ssl http2;
+    # Listen on 80 using IPv6
+    listen [::]:80;
+    # Listen only on using IPv6
+    listen [::]:80 ipv6only=on;
+}
+```
+
+
+
+# 监听域名和端口
+
+```nginx
+server {
+        listen       80; #监听端口
+        server_name  manage.enjoyment.com;# 监听域名
+
+		# 头信息
+        proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header X-Forwarded-Server $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+		# location请求映射规则，/ 代表一切请求路径
+        location / {
+			proxy_pass http://127.0.0.1:9001; # 代理转发，所有manage.enjoyment.com和80访问的请求，都会被转发到http://127.0.0.1:9001处理
+			proxy_connect_timeout 600;
+			proxy_read_timeout 600;
+        }
+    }
+```
+
+
+
+# 负载均衡
+
+```nginx
+upstream node_js {
+    server 0.0.0.0:3000;
+    server 0.0.0.0:4000;
+    server 123.131.121.122;
+}
+
+server {
+    listen 80;
+    server_name yourdomain.com;
+    location / {
+        proxy_pass http://node_js;
+    }
+}
+```
+
+
+
+
+
+# 静态资源
+
+```nginx
+server {
+    listen 80;
+    server_name yourdomain.com;
+    location / {
+        root /path/to/website;  # 代理转发，所有yourdomain.com和80访问的请求，都会被转发到/path/to/website路径下
+    }
+}
+```
+
+
+
+
+
 
 
 # root和alias
 
-https://www.jianshu.com/p/44fc4d7771e3
+https://cloud.tencent.com/developer/article/1945979
 
 
 
@@ -32,15 +143,20 @@ root与alias主要区别在于nginx如何解释location后面的uri，这会使�
 + root的处理结果是：`root路径＋location路径`
 + alias的处理结果是：使用alias路径`替换`location路径
 
-```xml
+```nginx
 server {
     listen 80;
     server_name test.html.com;
  
-    location ^~ /test/html/ {
-        root   /workspace/www;
-	    alias   /workspace/1;
+     location /img/ {
+        root /var/www/image
     }
+	# 若按照上述配置的话，访问/img目录里面的文件时, nginx会自动去/var/www/image/img去找  【root+location】
+
+	location /img/ {
+ 		alias /var/www/image/
+	}
+	# 若按照上述配置的话，访问/img目录里面的文件时, nginx会自动去/var/www/image目录找文件  【alias路径替换location】
 }
 ```
 
@@ -50,8 +166,11 @@ server {
 
 ![image-20220108141329957](.images/image-20220108141329957.png)
 
-
 对于自定义请求头，【**使用变量**】的时候，可以采取这种方式进行转发。
+
+如果实在链接需要带/ 
+
+可以使用rewrite 重写规则
 
 这个当时搞了我好久。。。。贼难忘
 
@@ -64,10 +183,11 @@ NG转发的时候，要注意host
 参考地址： https://www.cnblogs.com/operationhome/p/14232793.html
 
 
+
 # rewrite
 
 + 原始地址：api/test
-+ 配置： rewrite "^/api/(.*)$" /$1 break;
++ 配置： rewrite "^/api/(.*)$" /$$1 break;
 + 真实访问：/test
 
 > ```javascript
