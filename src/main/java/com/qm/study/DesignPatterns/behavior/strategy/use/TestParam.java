@@ -16,10 +16,36 @@ public class TestParam {
         // System.out.println(minWindow("ADOBECODEBANC", "ABC"));
 
 
-        int[] ints = {3, 4, 3,2,1};
-        System.out.println(findPeakElement(ints));
+        String multiply = multiply("123","456");
 
     }
+
+
+
+        public static String multiply(String num1, String num2) {
+
+            int n = num1.length(), m = num2.length();
+            int[] A = new int[n], B = new int[m];
+            for (int i = n - 1; i >= 0; i--) A[n - 1 - i] = num1.charAt(i) - '0'; //反向存贮
+            for (int i = m - 1; i >= 0; i--) B[m - 1 - i] = num2.charAt(i) - '0';
+
+            int[] C = new int[n + m];
+            for (int i = 0; i < n; i++)
+                for (int j = 0; j < m; j++)
+                    C[i + j] += A[i] * B[j];
+            int t = 0; //存贮进位
+            for (int i = 0; i < C.length; i++) {
+                t += C[i];
+                C[i] = t % 10;
+                t /= 10;
+            }
+            int k = C.length - 1;
+            while (k > 0 && C[k] == 0) k--;   //去除前导0
+            StringBuilder sb = new StringBuilder();
+            while (k >= 0) sb.append((char)(C[k--] + '0')); //反转
+            return sb.toString();
+        }
+
 
     public static int findPeakElement(int[] nums) {
         int length = nums.length;

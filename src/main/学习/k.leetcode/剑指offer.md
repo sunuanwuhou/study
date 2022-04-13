@@ -13,19 +13,26 @@
   * [[剑指 Offer 05. 替换空格]](#剑指-offer-05-替换空格)
   * [[剑指 Offer 38. 字符串的排列]](#剑指-offer-38-字符串的排列)
   * [[剑指 Offer 58 - I. 翻转单词顺序]](#剑指-offer-58---i-翻转单词顺序)
+  * [[43. 字符串相乘]](#43-字符串相乘)
   * [滑动窗口](#滑动窗口)
 * [链表](#链表)
   * [[剑指 Offer 06. 从尾到头打印链表]](#剑指-offer-06-从尾到头打印链表)
-  * [[剑指 Offer 35. 复杂链表的复制](https://leetcode-cn.com/problems/fu-za-lian-biao-de-fu-zhi-lcof/)](#剑指-offer-35-复杂链表的复制httpsleetcode-cncomproblemsfu-za-lian-biao-de-fu-zhi-lcof)
-  * [[83. 删除排序链表中的重复元素](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list/)](#83-删除排序链表中的重复元素httpsleetcode-cncomproblemsremove-duplicates-from-sorted-list)
+  * [[剑指 Offer 35. 复杂链表的复制]](#剑指-offer-35-复杂链表的复制)
+  * [[83. 删除排序链表中的重复元素]](#83-删除排序链表中的重复元素)
   * [其他链表题目](#其他链表题目)
 * [二叉树](#二叉树)
-  * [[剑指 Offer 34. 二叉树中和为某一值的路径](https://leetcode-cn.com/problems/er-cha-shu-zhong-he-wei-mou-yi-zhi-de-lu-jing-lcof/)](#剑指-offer-34-二叉树中和为某一值的路径httpsleetcode-cncomproblemser-cha-shu-zhong-he-wei-mou-yi-zhi-de-lu-jing-lcof)
+  * [[剑指 Offer 34. 二叉树中和为某一值的路径]](#剑指-offer-34-二叉树中和为某一值的路径)
   * [[剑指 Offer 26. 树的子结构](https://leetcode-cn.com/problems/shu-de-zi-jie-gou-lcof/)](#剑指-offer-26-树的子结构httpsleetcode-cncomproblemsshu-de-zi-jie-gou-lcof)
   * [[剑指 Offer 32 - I. 从上到下打印二叉树](https://leetcode-cn.com/problems/cong-shang-dao-xia-da-yin-er-cha-shu-lcof/)](#剑指-offer-32---i-从上到下打印二叉树httpsleetcode-cncomproblemscong-shang-dao-xia-da-yin-er-cha-shu-lcof)
   * [[剑指 Offer 32 - II. 从上到下打印二叉树 II](https://leetcode-cn.com/problems/cong-shang-dao-xia-da-yin-er-cha-shu-ii-lcof/)](#剑指-offer-32---ii-从上到下打印二叉树-iihttpsleetcode-cncomproblemscong-shang-dao-xia-da-yin-er-cha-shu-ii-lcof)
   * [[剑指 Offer 32 - III. 从上到下打印二叉树 III](https://leetcode-cn.com/problems/cong-shang-dao-xia-da-yin-er-cha-shu-iii-lcof/)](#剑指-offer-32---iii-从上到下打印二叉树-iiihttpsleetcode-cncomproblemscong-shang-dao-xia-da-yin-er-cha-shu-iii-lcof)
   * [其他二叉树](#其他二叉树)
+* [虾皮算法题](#虾皮算法题)
+      * [[43. 字符串相乘](https://leetcode-cn.com/problems/multiply-strings/)](#43-字符串相乘httpsleetcode-cncomproblemsmultiply-strings)
+      * [[14. 最长公共前缀](https://leetcode-cn.com/problems/longest-common-prefix/)](#14-最长公共前缀httpsleetcode-cncomproblemslongest-common-prefix)
+      * [[662. 二叉树最大宽度](https://leetcode-cn.com/problems/maximum-width-of-binary-tree/)](#662-二叉树最大宽度httpsleetcode-cncomproblemsmaximum-width-of-binary-tree)
+      * [[50. Pow(x, n)](https://leetcode-cn.com/problems/powx-n/)](#50-powx-nhttpsleetcode-cncomproblemspowx-n)
+      * [[52. N皇后 II](https://leetcode-cn.com/problems/n-queens-ii/)](#52-n皇后-iihttpsleetcode-cncomproblemsn-queens-ii)
 * [参考资料](#参考资料)
 
 
@@ -540,6 +547,82 @@ class Solution {
 
 
 
+## [43. 字符串相乘]
+
+[43. 字符串相乘](https://leetcode-cn.com/problems/multiply-strings/)
+
+![image-20220412092251751](.images/image-20220412092251751.png)
+
+
+
+思路分析：[字符串相乘 | 图解字符串模拟 | 最通俗易懂的题解 【c++/java版】 - 字符串相乘 - 力扣（LeetCode） (leetcode-cn.com)](https://leetcode-cn.com/problems/multiply-strings/solution/zi-fu-chuan-mo-ni-zui-tong-su-yi-dong-de-ru8u/)
+
+
+
+以num1 = 123 , num2 = 456为例：我们遍历 num2 每一位与 num1 进行相乘，将每一步的结果进行累加，在这个过程如果相乘或者相加的结果大于等于10 ，我们都要去满10进位，如下图所示：
+
+![](.images/1627702268-tJozGH-image.png)
+
+这样模拟普通竖式计算的方法较为复杂，我们可以考虑优化版的竖式计算。
+
+**优化竖式**
+
+其实在相乘或者相加计算过程的每一位，**我们可以考虑先不去满10进位，等到计算完所有的相乘结果以后，最终将其加到一块，再去满10进位** ，最后的结果和普通竖式 一样，但却可以大大简化我们的模拟过程。(如下图所示)
+
+![image-20220412193650291](.images/image-20220412193650291.png)
+
+
+
+具体过程如下：
+
++ 长度是n和长度是m的数字相乘，**最多只有n + m**位，为了方便计算，将num1和num2反向存储到A[]和B[]中，即位数低的在数组前面，且开一个大小是n + m的C[]存储计算后的答案。
++ 两个数相乘时，将A[i] * B[j]的结果累加到C[i + j]中，最后C[i + j]表示i + j这个位数的值是C
++ 由于C[]数组中的某些位数字可能是大于等于10的，我们从0枚举到n + m - 1，进行满10进位， 将所有位的值全部变成个位数。
++ 最后将C[]数组反转输出。
+
+```java
+ public String multiply(String num1, String num2) {
+
+        int m = num1.length();
+        int n = num2.length();
+
+        int[] A = new int[m];
+        int[] B = new int[n];
+		//反转字符串
+        for (int i = m - 1; i >= 0; i--) {
+            A[m - 1 - i] = num1.charAt(i) - '0';
+        }
+
+        for (int i = n - 1; i >= 0; i--) {
+            B[n - 1 - i] = num2.charAt(i) - '0';
+        }
+
+     	//进行求和
+        int[] C = new int[m + n];
+
+        for (int i = 0; i <= m - 1; i++) {
+            for (int j = 0; j <= n - 1; j++) {
+                C[i + j] += A[i] * B[j];
+            }
+        }
+        //进行 进位
+        int t = 0;
+        for (int i = 0; i <= C.length - 1; i++) {
+            t += C[i];
+            C[i] = t % 10;
+            t = t / 10;
+        }
+        //是否去掉头部的o
+        int k = C.length - 1;
+        while (k > 0 && C[k] == 0) k--;
+        StringBuilder sb = new StringBuilder();
+        while (k >= 0) sb.append((char) (C[k--] + '0')); //反转
+        return sb.toString();
+
+    }
+```
+
+
 
 
 
@@ -586,7 +669,9 @@ class Solution {
 
 
 
-## [剑指 Offer 35. 复杂链表的复制](https://leetcode-cn.com/problems/fu-za-lian-biao-de-fu-zhi-lcof/)
+## [剑指 Offer 35. 复杂链表的复制]
+
+[剑指 Offer 35. 复杂链表的复制](https://leetcode-cn.com/problems/fu-za-lian-biao-de-fu-zhi-lcof/)
 
 ![image-20220321205200304](.images/image-20220321205200304.png)
 
@@ -622,13 +707,17 @@ class Solution {
 
    
 
-## [83. 删除排序链表中的重复元素](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list/)
+## [83. 删除排序链表中的重复元素]
 
-
+[83. 删除排序链表中的重复元素](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list/)
 
 这个同数组去重是一样的，用快慢指针去做，快指针探测下一个数据是否重复，如果下一个数据不重复，就将快指针的val复制给慢指针。
 
+**不管数组还是链表，首先都要先排序。**
 
+
+
+![image-20220412091319059](.images/image-20220412091319059.png)
 
 ```java
  public ListNode deleteDuplicates(ListNode head) {
@@ -672,7 +761,10 @@ class Solution {
 
 # 二叉树
 
-## [剑指 Offer 34. 二叉树中和为某一值的路径](https://leetcode-cn.com/problems/er-cha-shu-zhong-he-wei-mou-yi-zhi-de-lu-jing-lcof/)
+## [剑指 Offer 34. 二叉树中和为某一值的路径]
+
+
+ [剑指 Offer 34. 二叉树中和为某一值的路径](https://leetcode-cn.com/problems/er-cha-shu-zhong-he-wei-mou-yi-zhi-de-lu-jing-lcof/)
 
 搞定[回溯算法](../C.数据结构与算法/labuladong/回溯算法.md)后，你会发现特别简单
 
@@ -886,6 +978,33 @@ public boolean isSubStructure(TreeNode A, TreeNode B) {
 
 
 
+
+
+
+# 虾皮算法题
+
+#### [43. 字符串相乘](https://leetcode-cn.com/problems/multiply-strings/)
+
+#### [14. 最长公共前缀](https://leetcode-cn.com/problems/longest-common-prefix/)
+
+#### [662. 二叉树最大宽度](https://leetcode-cn.com/problems/maximum-width-of-binary-tree/)
+
+#### [50. Pow(x, n)](https://leetcode-cn.com/problems/powx-n/)
+
+
+
+
+
++ 困难
+
+  #### [52. N皇后 II](https://leetcode-cn.com/problems/n-queens-ii/)
+
+  253
+
+  
+
+
+  ![](.images/微信图片_20220412092033.jpg)
 
 
 # 参考资料
