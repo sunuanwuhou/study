@@ -1,8 +1,5 @@
 package com.qm.study.leetCode;
 
-import java.util.HashSet;
-import java.util.Set;
-
 /**
  * @author 01399578
  * @version 1.0
@@ -15,30 +12,48 @@ public class 快乐数 {
     public static void main(String[] args) {
 
 
-        int n=156;
+        int n=1;
 
         System.out.println(n%10);
         System.out.println(n/10);
+
+        System.out.println( isHappy(4));;
     }
 
 
-    public boolean isHappy(int n) {
+    // public static boolean isHappy(int n) {
+    //
+    //     Set record = new HashSet();
+    //     while (n != 1 && !record.contains(n)) {
+    //         record.add(n);
+    //         n = getNextNum(n);
+    //     }
+    //     return n == 1;
+    // }
 
-        Set record = new HashSet();
-        while (n != 1 && !record.contains(n)) {
-            record.add(n);
-            n = getNextNum(n);
+
+    public static boolean isHappy(int n) {
+
+        int slow = n;
+        int fast = getNextNum(n);
+
+        while (slow!=fast){
+            slow = getNextNum(slow);
+            fast = getNextNum(getNextNum(fast));
         }
-        return n == 1;
+
+        return fast == 1;
     }
 
-    public int getNextNum(int num) {
+
+    public static  int getNextNum(int num) {
         int res = 0;
-        while (num > 0) {
+        while (num>0){
             int temp = num % 10;
             res += temp * temp;
-            num = num / 10;
+            num /= 10;
         }
+
         return res;
     }
 }

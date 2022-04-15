@@ -8,6 +8,7 @@
   * [[162. 寻找峰值]](#162-寻找峰值)
   * [[剑指 Offer 45. 把数组排成最小的数]](#剑指-offer-45-把数组排成最小的数)
   * [[剑指 Offer 03. 数组中重复的数字]](#剑指-offer-03-数组中重复的数字)
+  * [[202. 快乐数](https://leetcode-cn.com/problems/happy-number/)](#202-快乐数httpsleetcode-cncomproblemshappy-number)
   * [其他数组题目](#其他数组题目)
 * [字符串](#字符串)
   * [[剑指 Offer 05. 替换空格]](#剑指-offer-05-替换空格)
@@ -433,6 +434,75 @@ class Solution {
 + 解法四：先排序，重复的元素自然在一起乐。
 
 
+
+## [202. 快乐数](https://leetcode-cn.com/problems/happy-number/)
+
+[202. 快乐数](https://leetcode-cn.com/problems/happy-number/)
+
+![image-20220414090756098](.images/image-20220414090756098.png)
+
+思路分析
+
+1. 首先肯定有一个方法计算当前数的下一个值。
+
+   ```java
+   
+       public static  int getNextNum(int num) {
+           int res = 0;
+           while (num>0){
+               int temp = num % 10;
+               res += temp * temp;
+               num /= 10;
+           }
+   
+           return res;
+       }
+   ```
+
+   
+
+2. 按照一系列的数字来判断我们是否进入了一个循环。 Hash 
+
+
+
++ 解法一
+
+  ```java
+      public static boolean isHappy(int n) {
+  
+          Set record = new HashSet();
+          while (n != 1 && !record.contains(n)) {
+              record.add(n);
+              n = getNextNum(n);
+          }
+          return n == 1;
+      }
+  ```
+
+  但是如果无限大下去，栈空间就boom了
+
++ 解法二
+
+  我们可以用链表有环来解决这个问题,使用快慢指针来解决这个问题
+
+  如果 `n` 是一个快乐数，即没有循环，那么快跑者最终会比慢跑者先到达数字 1。
+
+  如果 `n` 不是一个快乐的数字，那么最终快跑者和慢跑者将在同一个数字上相遇。
+
+```java
+public static boolean isHappy(int n) {
+
+    int slow = n;
+    int fast = getNextNum(n);
+
+    while (slow!=fast){
+        slow = getNextNum(slow);
+        fast = getNextNum(getNextNum(fast));
+    }
+
+    return fast == 1;
+}
+```
 
 
 
