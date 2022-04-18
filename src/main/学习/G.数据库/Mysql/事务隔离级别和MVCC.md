@@ -441,6 +441,15 @@ SELECT * FROM hero WHERE number = 1; # 得到的列name的值仍为'刘备'
 
 # MySQL InnoDB 引擎 RR 隔离级别是否解决了幻读
 
+引用一个 github 上面的评论 [地址](https://github.com/Yhzhtk/note/issues/42#issuecomment-424079787)：
+
+> Mysql官方给出的幻读解释是：只要在一个事务中，第二次select多出了row就算幻读。
+> a事务先select，b事务insert确实会加一个gap锁，但是如果b事务commit，这个gap锁就会释放（释放后a事务可以随意dml操作），a事务再select出来的结果在MVCC下还和第一次select一样，接着a事务不加条件地update，这个update会作用在所有行上（包括b事务新加的），a事务再次select就会出现b事务中的新行，并且这个新行已经被update修改了，实测在RR级别下确实如此。
+>
+> 如果这样理解的话，Mysql的RR级别确实防不住幻读
+
+
+
 
 
 + 在快照读读情况下，mysql通过mvcc来避免幻读。快照读不会有幻读的数据
@@ -533,8 +542,15 @@ https://www.cnblogs.com/wudanyang/p/10655180.html
 
 ## RC和RR怎么选择？
 
-1.  在RR隔离级别下，存在间隙锁，导致出现死锁的几率比RC大的多！
-2.  在RR隔离级别下，条件列未命中索引会锁表！而在RC隔离级别下，只锁行
+那为什么MySQL官方默认隔离级别是RR，而有些大厂选择了RC作为默认的隔离级别呢？
+
++ 提升并发
+
+RC 在加锁的过程中，不需要添加`Gap Lock`和 `Next-Key Lock `的，只对要修改的记录添加行级锁就行了。因此RC的支持的并发度比RR高得多，
+
+- 减少死锁
+
+正是因为RR隔离级别增加了`Gap Lock`和 `Next-Key Lock `锁，因此它相对于RC，更容易产生死锁。
 
 
 
