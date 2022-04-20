@@ -16,11 +16,77 @@ public class TestParam {
         // System.out.println(minWindow("ADOBECODEBANC", "ABC"));
 
 
-        String multiply = multiply("123","456");
+        System.out.println(generateParenthesis(3));
 
     }
 
+  static   class Node {
+        /**
+         * 当前得到的字符串
+         */
+        private String res;
+        /**
+         * 剩余左括号数量
+         */
+        private int left;
+        /**
+         * 剩余右括号数量
+         */
+        private int right;
 
+        public Node(String str, int left, int right) {
+            this.res = str;
+            this.left = left;
+            this.right = right;
+        }
+    }
+
+    public static List<String> generateParenthesis(int n) {
+        List<String> res = new ArrayList<>();
+        if (n == 0) {
+            return res;
+        }
+        Queue<Node> queue = new LinkedList<>();
+        queue.offer(new Node("", n, n));
+
+        while (!queue.isEmpty()) {
+
+            Node curNode = queue.poll();
+            if (curNode.left == 0 && curNode.right == 0) {
+                res.add(curNode.res);
+            }
+            if (curNode.left > 0) {
+                queue.offer(new Node(curNode.res + "(", curNode.left - 1, curNode.right));
+            }
+            if (curNode.right > 0 && curNode.left < curNode.right) {
+                queue.offer(new Node(curNode.res + ")", curNode.left, curNode.right - 1));
+            }
+        }
+        return res;
+    }
+
+    public String longestCommonPrefix(String[] strs) {
+
+        if (strs.length == 0) {
+            return "";
+        }
+
+        //默认第一个元素
+        String res = strs[0];
+
+        //从第二个元素开始 遍历元素的每个字符 与res比较，缩减res的范围
+        for (int i = 1; i <= strs.length - 1; i++) {
+
+            int j = 0;
+
+            while (j < strs[i].length() && j < res.length() && strs[i].charAt(j) == res.charAt(j)) {
+                j++;
+            }
+            res = res.substring(0, j);
+        }
+
+        return res;
+    }
 
         public static String multiply(String num1, String num2) {
 

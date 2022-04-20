@@ -13,7 +13,7 @@
 * [filtered](#filtered)
 * [Extra](#extra)
 * [Json格式的执行计划](#json格式的执行计划)
-* [Extented EXPLAIN](#extented-explain)
+* [SHOW WARNINGS](#show-warnings)
 
 
 
@@ -890,7 +890,7 @@ EXPLAIN: {
 > 其实就只用关注`prefix_cost` 就好了 ！
 
 
-# Extented EXPLAIN
+# SHOW WARNINGS
 
 最后，设计`MySQL`的大叔还为我们留了个彩蛋，在我们使用`EXPLAIN`语句查看了某个查询的执行计划后，紧接着还可以使用`SHOW WARNINGS`语句查看与这个查询的执行计划有关的一些扩展信息，比如这样：
 

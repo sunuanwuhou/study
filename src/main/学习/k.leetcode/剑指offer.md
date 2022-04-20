@@ -8,7 +8,7 @@
   * [[162. 寻找峰值]](#162-寻找峰值)
   * [[剑指 Offer 45. 把数组排成最小的数]](#剑指-offer-45-把数组排成最小的数)
   * [[剑指 Offer 03. 数组中重复的数字]](#剑指-offer-03-数组中重复的数字)
-  * [[202. 快乐数](https://leetcode-cn.com/problems/happy-number/)](#202-快乐数httpsleetcode-cncomproblemshappy-number)
+  * [[202. 快乐数]](#202-快乐数)
   * [其他数组题目](#其他数组题目)
 * [字符串](#字符串)
   * [[剑指 Offer 05. 替换空格]](#剑指-offer-05-替换空格)
@@ -16,6 +16,9 @@
   * [[剑指 Offer 58 - I. 翻转单词顺序]](#剑指-offer-58---i-翻转单词顺序)
   * [[43. 字符串相乘]](#43-字符串相乘)
   * [滑动窗口](#滑动窗口)
+* [[22. 括号生成]](#22-括号生成)
+* [[14. 最长公共前缀]](#14-最长公共前缀)
+      * [[14. 最长公共前缀](https://leetcode-cn.com/problems/longest-common-prefix/)](#14-最长公共前缀httpsleetcode-cncomproblemslongest-common-prefix)
 * [链表](#链表)
   * [[剑指 Offer 06. 从尾到头打印链表]](#剑指-offer-06-从尾到头打印链表)
   * [[剑指 Offer 35. 复杂链表的复制]](#剑指-offer-35-复杂链表的复制)
@@ -23,14 +26,13 @@
   * [其他链表题目](#其他链表题目)
 * [二叉树](#二叉树)
   * [[剑指 Offer 34. 二叉树中和为某一值的路径]](#剑指-offer-34-二叉树中和为某一值的路径)
-  * [[剑指 Offer 26. 树的子结构](https://leetcode-cn.com/problems/shu-de-zi-jie-gou-lcof/)](#剑指-offer-26-树的子结构httpsleetcode-cncomproblemsshu-de-zi-jie-gou-lcof)
-  * [[剑指 Offer 32 - I. 从上到下打印二叉树](https://leetcode-cn.com/problems/cong-shang-dao-xia-da-yin-er-cha-shu-lcof/)](#剑指-offer-32---i-从上到下打印二叉树httpsleetcode-cncomproblemscong-shang-dao-xia-da-yin-er-cha-shu-lcof)
-  * [[剑指 Offer 32 - II. 从上到下打印二叉树 II](https://leetcode-cn.com/problems/cong-shang-dao-xia-da-yin-er-cha-shu-ii-lcof/)](#剑指-offer-32---ii-从上到下打印二叉树-iihttpsleetcode-cncomproblemscong-shang-dao-xia-da-yin-er-cha-shu-ii-lcof)
-  * [[剑指 Offer 32 - III. 从上到下打印二叉树 III](https://leetcode-cn.com/problems/cong-shang-dao-xia-da-yin-er-cha-shu-iii-lcof/)](#剑指-offer-32---iii-从上到下打印二叉树-iiihttpsleetcode-cncomproblemscong-shang-dao-xia-da-yin-er-cha-shu-iii-lcof)
+  * [[剑指 Offer 26. 树的子结构]](#剑指-offer-26-树的子结构)
+  * [[剑指 Offer 32 - I. 从上到下打印二叉树]](#剑指-offer-32---i-从上到下打印二叉树)
+  * [[剑指 Offer 32 - II. 从上到下打印二叉树 II]](#剑指-offer-32---ii-从上到下打印二叉树-ii)
+  * [[剑指 Offer 32 - III. 从上到下打印二叉树 III]](#剑指-offer-32---iii-从上到下打印二叉树-iii)
   * [其他二叉树](#其他二叉树)
 * [虾皮算法题](#虾皮算法题)
-      * [[43. 字符串相乘](https://leetcode-cn.com/problems/multiply-strings/)](#43-字符串相乘httpsleetcode-cncomproblemsmultiply-strings)
-      * [[14. 最长公共前缀](https://leetcode-cn.com/problems/longest-common-prefix/)](#14-最长公共前缀httpsleetcode-cncomproblemslongest-common-prefix)
+      * [[14. 最长公共前缀](https://leetcode-cn.com/problems/longest-common-prefix/)](#14-最长公共前缀httpsleetcode-cncomproblemslongest-common-prefix-1)
       * [[662. 二叉树最大宽度](https://leetcode-cn.com/problems/maximum-width-of-binary-tree/)](#662-二叉树最大宽度httpsleetcode-cncomproblemsmaximum-width-of-binary-tree)
       * [[50. Pow(x, n)](https://leetcode-cn.com/problems/powx-n/)](#50-powx-nhttpsleetcode-cncomproblemspowx-n)
       * [[52. N皇后 II](https://leetcode-cn.com/problems/n-queens-ii/)](#52-n皇后-iihttpsleetcode-cncomproblemsn-queens-ii)
@@ -435,7 +437,7 @@ class Solution {
 
 
 
-## [202. 快乐数](https://leetcode-cn.com/problems/happy-number/)
+## [202. 快乐数]
 
 [202. 快乐数](https://leetcode-cn.com/problems/happy-number/)
 
@@ -704,6 +706,59 @@ public static boolean isHappy(int n) {
 
 
 
+# [22. 括号生成]
+
+ [括号生成](../C.数据结构与算法/labuladong/括号生成.md)
+
+
+
+
+
+
+
+
+
+# [14. 最长公共前缀]
+
+#### [14. 最长公共前缀](https://leetcode-cn.com/problems/longest-common-prefix/)
+
+
+
+
+
+![image-20220419094159743](.images/image-20220419094159743.png)
+
+
+
+```java
+   public String longestCommonPrefix(String[] strs) {
+
+        if (strs.length == 0) {
+            return "";
+        }
+
+        //默认第一个元素
+        String res = strs[0];
+
+        //从第二个元素开始 遍历元素的每个字符 与res比较，缩减res的范围
+        for (int i = 1; i <= strs.length - 1; i++) {
+
+            int j = 0;
+
+            while (j < strs[i].length() && j < res.length() && strs[i].charAt(j) == res.charAt(j)) {
+                j++;
+            }
+            res = res.substring(0, j);
+        }
+
+        return res;
+    }
+```
+
+
+
+
+
 # 链表
 
 ## [剑指 Offer 06. 从尾到头打印链表]
@@ -880,7 +935,9 @@ public static boolean isHappy(int n) {
 
 
 
-## [剑指 Offer 26. 树的子结构](https://leetcode-cn.com/problems/shu-de-zi-jie-gou-lcof/)
+## [剑指 Offer 26. 树的子结构]
+
+[剑指 Offer 26. 树的子结构](https://leetcode-cn.com/problems/shu-de-zi-jie-gou-lcof/)
 
 
 
@@ -921,7 +978,9 @@ public boolean isSubStructure(TreeNode A, TreeNode B) {
 
 
 
-## [剑指 Offer 32 - I. 从上到下打印二叉树](https://leetcode-cn.com/problems/cong-shang-dao-xia-da-yin-er-cha-shu-lcof/)
+## [剑指 Offer 32 - I. 从上到下打印二叉树]
+
+[剑指 Offer 32 - I. 从上到下打印二叉树](https://leetcode-cn.com/problems/cong-shang-dao-xia-da-yin-er-cha-shu-lcof/)
 
 
 
@@ -970,11 +1029,16 @@ public boolean isSubStructure(TreeNode A, TreeNode B) {
     }
 ```
 
-## [剑指 Offer 32 - II. 从上到下打印二叉树 II](https://leetcode-cn.com/problems/cong-shang-dao-xia-da-yin-er-cha-shu-ii-lcof/)
+## [剑指 Offer 32 - II. 从上到下打印二叉树 II]
+
+[剑指 Offer 32 - II. 从上到下打印二叉树 II](https://leetcode-cn.com/problems/cong-shang-dao-xia-da-yin-er-cha-shu-ii-lcof/)
 
 这题就是层次遍历拉 
 
-## [剑指 Offer 32 - III. 从上到下打印二叉树 III](https://leetcode-cn.com/problems/cong-shang-dao-xia-da-yin-er-cha-shu-iii-lcof/)
+## [剑指 Offer 32 - III. 从上到下打印二叉树 III]
+
+
+[剑指 Offer 32 - III. 从上到下打印二叉树 III](https://leetcode-cn.com/problems/cong-shang-dao-xia-da-yin-er-cha-shu-iii-lcof/)
 
 ![image-20220409192943650](.images/image-20220409192943650.png)
 
@@ -1052,8 +1116,6 @@ public boolean isSubStructure(TreeNode A, TreeNode B) {
 
 
 # 虾皮算法题
-
-#### [43. 字符串相乘](https://leetcode-cn.com/problems/multiply-strings/)
 
 #### [14. 最长公共前缀](https://leetcode-cn.com/problems/longest-common-prefix/)
 
