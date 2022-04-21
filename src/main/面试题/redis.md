@@ -24,6 +24,7 @@
 * [Redis为什么变慢了?](#redis为什么变慢了)
 * [如何找出前缀为XX的key](#如何找出前缀为xx的key)
 * [Guava+redis实现多级缓存](#guavaredis实现多级缓存)
+* [怎么利用Redis实现数据的去重](#怎么利用redis实现数据的去重)
 
 
 
@@ -537,6 +538,14 @@ scan命令或者其他的scan如SSCAN ，HSCAN，ZSCAN命令，可以**不用阻
 # Guava+redis实现多级缓存
 
 [Guava+redis实现多级缓存](../学习/I.分布式/Guava+redis实现多级缓存.md)
+
+
+
+
+
+# 怎么利用Redis实现数据的去重
+
+[怎么利用Redis实现数据的去重](../学习/G.数据库/Redis/怎么利用Redis实现数据的去重.md)
 
 
 
