@@ -23,6 +23,7 @@
   * [[剑指 Offer 06. 从尾到头打印链表]](#剑指-offer-06-从尾到头打印链表)
   * [[剑指 Offer 35. 复杂链表的复制]](#剑指-offer-35-复杂链表的复制)
   * [[83. 删除排序链表中的重复元素]](#83-删除排序链表中的重复元素)
+* [[61. 旋转链表]](#61-旋转链表)
   * [其他链表题目](#其他链表题目)
 * [二叉树](#二叉树)
   * [[剑指 Offer 34. 二叉树中和为某一值的路径]](#剑指-offer-34-二叉树中和为某一值的路径)
@@ -32,9 +33,6 @@
   * [[剑指 Offer 32 - III. 从上到下打印二叉树 III]](#剑指-offer-32---iii-从上到下打印二叉树-iii)
   * [其他二叉树](#其他二叉树)
 * [虾皮算法题](#虾皮算法题)
-      * [[14. 最长公共前缀](https://leetcode-cn.com/problems/longest-common-prefix/)](#14-最长公共前缀httpsleetcode-cncomproblemslongest-common-prefix-1)
-      * [[662. 二叉树最大宽度](https://leetcode-cn.com/problems/maximum-width-of-binary-tree/)](#662-二叉树最大宽度httpsleetcode-cncomproblemsmaximum-width-of-binary-tree)
-      * [[50. Pow(x, n)](https://leetcode-cn.com/problems/powx-n/)](#50-powx-nhttpsleetcode-cncomproblemspowx-n)
       * [[52. N皇后 II](https://leetcode-cn.com/problems/n-queens-ii/)](#52-n皇后-iihttpsleetcode-cncomproblemsn-queens-ii)
 * [参考资料](#参考资料)
 
@@ -876,6 +874,45 @@ public static boolean isHappy(int n) {
 
 
 
+# [61. 旋转链表]
+
+ [61. 旋转链表](https://leetcode-cn.com/problems/rotate-list/)
+
+![image-20220422221436090](.images/image-20220422221436090.png)
+
+
+
+1. 这题要注意k可能是一个很大的数，大于链表的长度，需要取模
+2. 移动的位数等于将从倒数第k个数,也就是头需要移动 n-k-1
+
+```java
+ public ListNode rotateRight(ListNode head, int k) {
+
+        //先拼接成环，在从头部向后移动，断开其位置 ，就是旋转后的位置
+        if (head == null || k == 0) return head;
+        int n = 0;               //链表的长度
+        ListNode tail = null;  //尾节点
+        for (ListNode p = head; p != null; p = p.next) {
+            tail = p;
+            n++;
+        }
+        k %= n;
+        ListNode p = head;
+        // tail   head   k
+        // 
+        for (int i = 0; i < n - k - 1; i++) p = p.next;   //找到链表的第n-k个节点
+        tail.next = head;
+        head = p.next;
+        p.next = null;
+        return head;  //返回新的头节点
+    }
+```
+
+
+
+
+
+
 
 
 ## 其他链表题目
@@ -1116,14 +1153,6 @@ public boolean isSubStructure(TreeNode A, TreeNode B) {
 
 
 # 虾皮算法题
-
-#### [14. 最长公共前缀](https://leetcode-cn.com/problems/longest-common-prefix/)
-
-#### [662. 二叉树最大宽度](https://leetcode-cn.com/problems/maximum-width-of-binary-tree/)
-
-#### [50. Pow(x, n)](https://leetcode-cn.com/problems/powx-n/)
-
-
 
 
 

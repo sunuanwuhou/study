@@ -13,6 +13,7 @@
   * [retries和retry.backoff.ms](#retries和retrybackoffms)
   * [compression.type](#compressiontype)
   * [linger.ms](#lingerms)
+* [Kafka如何保证分区有序](#kafka如何保证分区有序)
 * [总结](#总结)
 
 
@@ -233,6 +234,28 @@ acks 是生产者客户端中一个非常重要的参数，它涉及**消息的�
 生产者客户端会在 ProducerBatch 被填满或等待时间超过linger.ms 值时发送出去。增大这个参数的值会增加消息的延迟，但是同时能提升一定的吞吐量。
 
 这个linger.ms参数与TCP协议中的Nagle算法有异曲同工之妙。
+
+
+
+
+
+
+
+# Kafka如何保证分区有序
+
+- 通过配置 `max.in.flight.requests.per.connection = 1`
+  这个配置是 生产者 往 服务度 发送数据的请求数，
+  配置为1，则一次只能发送1个请求，
+  如果失败继续重试，知道成功，
+  才会进行下一个请求的发送，
+  这样就保证了消息的有序性，
+  但是相对性能就大大降低了。
+- 通过生产者幂等特性
+  幂等的保证是需要给每条消息加一个 Seqnum的，
+  也就是每个消息都有自己的序号，
+  服务端对于比当前最新的Seqnum大于1的消息，
+  是会拒绝的，
+  所以也可以保证消息的顺序性
 
 
 

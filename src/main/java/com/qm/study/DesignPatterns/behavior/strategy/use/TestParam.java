@@ -20,7 +20,53 @@ public class TestParam {
 
     }
 
-  static   class Node {
+
+    public static ListNode rotateRight(ListNode head, int k) {
+
+        //先拼接成环，在从头部向后移动，断开其位置 ，就是旋转后的位置
+        if (null == head) {
+            return null;
+        }
+        if(0==k){
+            return head;
+        }
+
+        ListNode temp = head;
+        while (null!=temp.next){
+            temp = temp.next;
+        }
+        temp.next = head;
+        //现在从head开始 遍历k个节点
+        ListNode cur = head;
+
+
+        for(int i=0;i<=k-1;i++ ){
+            cur = cur.next;
+        }
+        ListNode newHead = cur.next;
+        cur.next = null;
+        return newHead;
+    }
+
+    public static class ListNode {
+        int val;
+        ListNode next;
+
+        ListNode() {
+        }
+
+        ListNode(int val) {
+            this.val = val;
+        }
+
+        ListNode(int val, ListNode next) {
+            this.val = val;
+            this.next = next;
+        }
+    }
+
+
+    static class Node {
         /**
          * 当前得到的字符串
          */
@@ -88,29 +134,29 @@ public class TestParam {
         return res;
     }
 
-        public static String multiply(String num1, String num2) {
+    public static String multiply(String num1, String num2) {
 
-            int n = num1.length(), m = num2.length();
-            int[] A = new int[n], B = new int[m];
-            for (int i = n - 1; i >= 0; i--) A[n - 1 - i] = num1.charAt(i) - '0'; //反向存贮
-            for (int i = m - 1; i >= 0; i--) B[m - 1 - i] = num2.charAt(i) - '0';
+        int n = num1.length(), m = num2.length();
+        int[] A = new int[n], B = new int[m];
+        for (int i = n - 1; i >= 0; i--) A[n - 1 - i] = num1.charAt(i) - '0'; //反向存贮
+        for (int i = m - 1; i >= 0; i--) B[m - 1 - i] = num2.charAt(i) - '0';
 
-            int[] C = new int[n + m];
-            for (int i = 0; i < n; i++)
-                for (int j = 0; j < m; j++)
-                    C[i + j] += A[i] * B[j];
-            int t = 0; //存贮进位
-            for (int i = 0; i < C.length; i++) {
-                t += C[i];
-                C[i] = t % 10;
-                t /= 10;
-            }
-            int k = C.length - 1;
-            while (k > 0 && C[k] == 0) k--;   //去除前导0
-            StringBuilder sb = new StringBuilder();
-            while (k >= 0) sb.append((char)(C[k--] + '0')); //反转
-            return sb.toString();
+        int[] C = new int[n + m];
+        for (int i = 0; i < n; i++)
+            for (int j = 0; j < m; j++)
+                C[i + j] += A[i] * B[j];
+        int t = 0; //存贮进位
+        for (int i = 0; i < C.length; i++) {
+            t += C[i];
+            C[i] = t % 10;
+            t /= 10;
         }
+        int k = C.length - 1;
+        while (k > 0 && C[k] == 0) k--;   //去除前导0
+        StringBuilder sb = new StringBuilder();
+        while (k >= 0) sb.append((char) (C[k--] + '0')); //反转
+        return sb.toString();
+    }
 
 
     public static int findPeakElement(int[] nums) {
@@ -120,8 +166,8 @@ public class TestParam {
         }
 
         // 先特判两边情况
-        if(nums[0] > nums[1]) return 0;
-        if(nums[length - 1] > nums[length - 2]) return length - 1;
+        if (nums[0] > nums[1]) return 0;
+        if (nums[length - 1] > nums[length - 2]) return length - 1;
 
         int left = 0;
         int right = length - 1;
@@ -130,19 +176,17 @@ public class TestParam {
 
             int mid = (left + right) / 2;
 
-            if (mid >= 1&mid < length - 1&&nums[mid - 1] < nums[mid] && nums[mid] > nums[mid + 1]) {
+            if (mid >= 1 & mid < length - 1 && nums[mid - 1] < nums[mid] && nums[mid] > nums[mid + 1]) {
                 return mid;
-            } else if (mid >= 1&& nums[mid - 1] > nums[mid]){
+            } else if (mid >= 1 && nums[mid - 1] > nums[mid]) {
                 right = mid - 1;
-            } else if (mid < length - 1 && nums[mid] < nums[mid+1]) {
+            } else if (mid < length - 1 && nums[mid] < nums[mid + 1]) {
                 left = mid + 1;
             }
         }
 
         return -1;
     }
-
-
 
 
     static List<List<Integer>> res = new LinkedList<>();
@@ -166,11 +210,11 @@ public class TestParam {
         int length = chars.length;
 
         int left = 0;
-        int right = length-1;
+        int right = length - 1;
 
-        while (left<right){
+        while (left < right) {
 
-            if(chars[left]!=chars[right]){
+            if (chars[left] != chars[right]) {
                 return false;
             }
 

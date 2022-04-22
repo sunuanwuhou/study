@@ -13,6 +13,7 @@
 * [tryAcquireNanos()](#tryacquirenanos)
 * [ConditionObject](#conditionobject)
 * [问题解答](#问题解答)
+* [回答关键](#回答关键)
 
 
 
@@ -870,3 +871,18 @@ if a next field appears to be null, we can scan prev's from the tail to double-c
 + 为什么要从尾部开始索引
 
 上面问题说过了pre.next并不可可靠。保险起见，从队尾开始索引。
+
+
+
+
+
+# 回答关键
+
+AQS（抽象同步队列）的核心回答要点就是：
+
+- state 状态的维护。
+- CLH队列
+- ConditionObject通知
+- 模板方法设计模式
+- 独占与共享模式。
+- 自定义同步器。
