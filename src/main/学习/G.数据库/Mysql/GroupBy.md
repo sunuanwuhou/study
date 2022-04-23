@@ -11,6 +11,7 @@
   * [group by 后面跟的字段一定要出现在select中嘛。](#group-by-后面跟的字段一定要出现在select中嘛)
   * [`group by`导致的慢SQL问题](#group-by导致的慢sql问题)
 * [group by的一些优化方案](#group-by的一些优化方案)
+* [参考资料](#参考资料)
 
 
 group by`一般用于**分组统计**，它表达的逻辑就是`根据一定的规则，进行分组`。
@@ -183,3 +184,21 @@ select max(age)  from staff group by city;
   ```
 
   执行计划的`Extra`字段可以看到，执行没有再使用临时表，而是只有排序
+
+![image-20220423171224131](.images/image-20220423171224131.png)
+
+
+
+执行流程如下：
+
+1. 初始化 sort_buffer，放入city字段；
+2. 扫描表staff，依次取出city的值,存入 sort_buffer 中；
+3. 扫描完成后，对 sort_buffer的city字段做排序
+4. 排序完成后，就得到了一个有序数组。
+5. 根据有序数组，统计每个值出现的次数。
+
+
+
+# 参考资料
+
+https://mp.weixin.qq.com/s?__biz=Mzg3NzU5NTIwNg==&mid=2247497527&idx=1&sn=1f30251d88b0e935bfffc3e8eaf53f28&chksm=cf22281ef855a1084fe84a7b257db5734c7b982c6ddaf9ef497d4e31e60faebd5f329e3c55a6&token=2101142450&lang=zh_CN&scene=21#wechat_redirect

@@ -162,6 +162,8 @@ select * from information_schema.optimizer_trace
 
 2. SQL 语句中包含 limit 的情况下，**通过成本评估有可能会使用优先队列**来避免磁盘文件排序，提升排序效率。
 
+3. 适当调大**max_length_for_sort_data** 配置，直接走全排序，避免走rowid然后回表。
+
    
 
 

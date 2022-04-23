@@ -9,6 +9,7 @@
   * [[剑指 Offer 45. 把数组排成最小的数]](#剑指-offer-45-把数组排成最小的数)
   * [[剑指 Offer 03. 数组中重复的数字]](#剑指-offer-03-数组中重复的数字)
   * [[202. 快乐数]](#202-快乐数)
+  * [杨辉三角](#杨辉三角)
   * [其他数组题目](#其他数组题目)
 * [字符串](#字符串)
   * [[剑指 Offer 05. 替换空格]](#剑指-offer-05-替换空格)
@@ -503,6 +504,54 @@ public static boolean isHappy(int n) {
     return fast == 1;
 }
 ```
+
+
+
+## 杨辉三角
+
+ [118. 杨辉三角](https://leetcode-cn.com/problems/pascals-triangle/)
+
+给定一个非负整数 *`numRows`，*生成「杨辉三角」的前 *`numRows`* 行。
+
+在「杨辉三角」中，每个数是它左上方和右上方的数的和。
+
+![](.images/1626927345-DZmfxB-PascalTriangleAnimated2.gif)
+
+
+
+
+
+![image-20220423180658310](.images/image-20220423180658310.png)
+
+
+
+```java
+public List<List<Integer>> generate(int numRows) {
+
+        List<List<Integer>> res = new ArrayList<>();
+
+        for (int i = 0; i < numRows; i++) {
+            List<Integer> ans = new ArrayList<>();
+            for (int j = 0; j <= i; j++) {
+				//首尾
+                if (j == 0 || j == i) {
+                    ans.add(1);
+                } else {
+                    //等于上一次的 i+ i-1
+                    ans.add(res.get(i - 1).get(j - 1) + res.get(i - 1).get(j));
+                }
+
+            }
+            res.add(ans);
+        }
+        return res;
+    }
+```
+
+
+
+
+
 
 
 
