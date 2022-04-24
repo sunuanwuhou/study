@@ -50,6 +50,9 @@ for (Receipt receipt : receiptList) {
 
   ```java
   public interface IReceiptHandleStrategy {
+  
+  	 Integer key();
+  	
       void handleReceipt(Receipt receipt);
   }
   ```
@@ -63,6 +66,12 @@ for (Receipt receipt : receiptList) {
       public void handleReceipt(Receipt receipt) {
           System.out.println("解析报文MT2101:" + receipt.getMessage());
       }
+      @Override
+      public Integer key() {
+          // 开发时可以使用枚举，这里省略
+          return key;
+      }
+  
   
   }
   
@@ -71,6 +80,11 @@ for (Receipt receipt : receiptList) {
       @Override
       public void handleReceipt(Receipt receipt) {
           System.out.println("解析报文MT1101:" + receipt.getMessage());
+      }
+          @Override
+      public Integer key() {
+          // 开发时可以使用枚举，这里省略
+          return key;
       }
   
   }
@@ -103,14 +117,17 @@ for (Receipt receipt : receiptList) {
 + 策略工厂
 
   ```java
-  public class ReceiptHandleStrategyFactory {
+  public class ReceiptHandleStrategyFactory  implements ApplicationContextAware {
   
       private static Map<String,IReceiptHandleStrategy> receiptHandleStrategyMap;
   
-      private ReceiptHandleStrategyFactory(){
-          this.receiptHandleStrategyMap = new HashMap<>();
-          this.receiptHandleStrategyMap.put("MT2101",new Mt2101ReceiptHandleStrategy());
-          this.receiptHandleStrategyMap.put("MT8104",new Mt8104ReceiptHandleStrategy());
+   	@Override
+      public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+          // 获取HandleData的所有bean对象
+          Map<String, HandleData> beansOfType = applicationContext.getBeansOfType(IReceiptHandleStrategy.class);
+          beansOfType.values().stream().forEach(item -> {
+              receiptHandleStrategyMap.put(item.key(), item);
+          });
       }
   
       public static IReceiptHandleStrategy getReceiptHandleStrategy(String receiptType){
