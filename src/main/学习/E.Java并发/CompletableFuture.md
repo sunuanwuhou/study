@@ -126,7 +126,11 @@ CompletableFuture的supplyAsync方法，提供了异步执行的功能，线程�
 
 + thenAccept/thenAcceptAsync ： 第一个任务执行完成后，执行第二个回调方法任务，会将该第一个任务的执行结果，作为入参，传递到第二个任务的回调方法中，但是二个任务回调方法是**没有返回值**的。
 
-+ #### exceptionally:某个任务执行异常时，执行的回调方法;并且有**抛出异常作为参数**，传递到回调方法。
+  
+
+ ## exceptionally:
+
+ ## 某个任务执行异常时，执行的回调方法;并且有**抛出异常作为参数**，传递到回调方法。
 
   ```java
        // 创建异步执行任务:
@@ -137,8 +141,7 @@ CompletableFuture的supplyAsync方法，提供了异步执行的功能，线程�
           });
           // 如果执行异常:
           cf.exceptionally((e) -> {
-              e.printStackTrace();
-              return null;
+              e.pri（）
           });
   ```
 
@@ -263,7 +266,28 @@ public class AcceptEitherTest {
 
 ## AllOf
 
+所有任务都执行完成后，才执行 allOf返回的CompletableFuture。如果任意一个任务异常，allOf的CompletableFuture，执行get方法，会抛出异常
 
+```
+public class allOfFutureTest {
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
+
+        CompletableFuture<Void> a = CompletableFuture.runAsync(()->{
+            System.out.println("我执行完了");
+        });
+        CompletableFuture<Void> b = CompletableFuture.runAsync(() -> {
+            System.out.println("我也执行完了");
+        });
+        CompletableFuture<Void> allOfFuture = CompletableFuture.allOf(a, b).whenComplete((m,k)->{
+            System.out.println("finish");
+        });
+    }
+}
+//输出
+我执行完了
+我也执行完了
+finish
+```
 
 ## AnyOf
 

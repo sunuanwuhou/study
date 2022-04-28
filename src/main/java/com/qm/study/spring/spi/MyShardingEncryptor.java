@@ -1,4 +1,4 @@
-// package com.qm.study.spi;
+// package com.qm.study.spring.spi;
 //
 // import org.apache.shardingsphere.spi.encrypt.ShardingEncryptor;
 //
