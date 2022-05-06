@@ -1,3 +1,19 @@
+# Table of Contents
+
+* [MapStruct](#mapstruct)
+  * [引入依赖](#引入依赖)
+  * [普通转换model](#普通转换model)
+  * [特殊转换model](#特殊转换model)
+  * [参考资料](#参考资料)
+* [Converter](#converter)
+  * [继承Converter](#继承converter)
+    * [如果方法命名不一样](#如果方法命名不一样)
+    * [如果方法命名一样(推荐)](#如果方法命名一样推荐)
+    * [**那我理解是不是所有的转换搞一个mapper就可以了？**](#那我理解是不是所有的转换搞一个mapper就可以了)
+  * [**MapStruct Spring Extensions**](#mapstruct-spring-extensions)
+* [参考链接](#参考链接)
+
+
 
 
 
