@@ -20,6 +20,12 @@
   * [Next-Key Locks](#next-key-locks)
   * [插入意向锁LOCK_INSERT_INTENTION](#插入意向锁lock_insert_intention)
   * [隐式锁](#隐式锁)
+* [如何查看事务加锁情况](#如何查看事务加锁情况)
+  * [使用infomation_schema数据库中的表获取锁信息](#使用infomation_schema数据库中的表获取锁信息)
+    * [**INNODB_TRX**](#innodb_trx)
+    * [INNODB_LOCKS](#innodb_locks)
+    * [INNODB_LOCK_WAITS](#innodb_lock_waits)
+  * [使用show engine innodb status 命令(推荐)](#使用show-engine-innodb-status-命令推荐)
 * [总结](#总结)
 * [疑惑](#疑惑)
 
@@ -408,6 +414,121 @@ MDL 是在事务提交后才会释放，这意味着**事务执行期间，MDL �
 - 情景二：对于二级索引记录来说，本身并没有`trx_id`隐藏列，但是在二级索引页面的`Page Header`部分有一个`PAGE_MAX_TRX_ID`属性，该属性代表对该页面做改动的最大的`事务id`，如果`PAGE_MAX_TRX_ID`属性值小于当前最小的活跃`事务id`，那么说明对该页面做修改的事务都已经提交了，否则就需要在页面中定位到对应的二级索引记录，然后回表找到它对应的聚簇索引记录，然后再重复`情景一`的做法。
 
 
+
+# 如何查看事务加锁情况
+
+
+
+## 使用infomation_schema数据库中的表获取锁信息
+
+`infomation_schema`数据库中，有几个表跟锁紧密关联的。
+
+- **INNODB_TRX**：该表存储了InnoDB当前正在执行的事务信息，包括事务id、事务状态（比如事务是在运行还是在等待获取某个所）等。
+
+- **INNODB_LOCKS**：该表记录了一些锁信息，包括两个方面：1.如果一个事务想要获取某个锁，但未获取到，则记录该锁信息。2. 如果一个事务获取到了某个锁，但是这个锁阻塞了别的事务，则记录该锁信息。
+
+- **INNODB_LOCK_WAITS**:表明每个阻塞的事务是因为获取不到哪个事务持有的锁而阻塞。
+
+  
+
+
+
+### **INNODB_TRX**
+
+```mysql
+begin;
+select  * from table limit  1 for update ;
+
+ select *
+ from information_schema.INNODB_TRX;
+```
+
+![image-20220506202618110](.images/image-20220506202618110.png)
+
+表中可以看到一个事务id为`621317`正在运行汇中，它的隔离级别为`REPEATABLE READ`。我们一般关注这几个参数：
+
+- trx_tables_locked：该事务当前加了多少个表级锁。
+- trx_rows_locked：表示当前加了多少个行级锁。
+- trx_lock_structs：表示该事务生成了多少个内存中的锁结构。
+
+
+
+### INNODB_LOCKS
+
+一般系统中，发生某个事务**因为获取不到锁而被阻塞时**，该表才会有记录。
+
+
+
+事务A、B执行如下：
+
+```mysql
+//语句1  621319
+begin;
+select  * from km_site_meter where  site_id =1 limit  1 for update ;
+
+//语句2 621323
+begin;
+update km_site_meter set meter_no='1' where  site_id=1
+
+```
+
+![image-20220506203244711](.images/image-20220506203244711.png)
+
+**可以看到两个事务Id `621321`和`621319`都持有什么锁**，就是看那个`lock_mode和lock_type`哈。
+
+但是并看不出是**哪个锁在等待那个锁导致的阻塞**，这时候就可以看`INNODB_LOCK_WAITS`表啦。
+
+
+
+### INNODB_LOCK_WAITS
+
+INNODB_LOCK_WAITS 表明每个事务是因为获取不到哪个事务持有的锁而阻塞。
+
+![image-20220506203549554](.images/image-20220506203549554.png)
+
+- requesting_trx_id：表示因为获取不到锁而被阻塞的事务的事务id
+- blocking_trx_id：表示因为获取到别的事务需要的锁而导致其被阻塞的事务的事务Id。 **其实就是占用锁的事务**
+
+
+
+## 使用show engine innodb status 命令(推荐)
+
+**INNODB_LOCKS** 和 **INNODB_LOCK_WAITS** 在MySQL 8.0已被移除，其实就是不鼓励我们用这两个表来获取表信息。
+
+而我们还可以用`show engine innodb status`获取当前系统各个事务的加锁信息。
+
+```mysql
+show engine innodb status
+```
+
+在看死锁日志的时候，我们一般先把这个变量`innodb_status_output_locks`打开哈，它是MySQL 5.6.16 引入的
+
+
+
+一定要打开这个！！！!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+```mysql
+set global  innodb_status_output_locks =on;
+```
+
+![image-20220506205253612](.images/image-20220506205253612.png)
+
+status有很多信息，我们主要关注`TRANSACTIONS`
+
+
+
+![image-20220506205912183](.images/image-20220506205912183.png)
+
+这结构锁的关键词需要记住一下哈：
+
+- `lock_mode X locks gap before rec`表示X型的gap锁
+- `lock_mode X locks rec but not gap`表示 X型的记录锁（Record Lock）
+- `lock mode X` 一般表示 X型临键锁（next-key 锁）
+
+
+
+- `TRX HAS BEEN WAITING 7 SEC FOR THIS LOCK TO BE GRANTED`表示它在等这个锁
+- `RECORD LOCKS space id 267 page no 4 n bits 80 index c of table `test2`.`t5` trx id 1644853 lock_mode X locks gap before rec insert intention waiting`表示一个锁结构，这个锁结构的Space ID是267，page number是4，n_bits属性为80，对应的索引是`c`，这个锁结构中存放的锁类型是X型的插入意向Gap锁。
 
 
 
