@@ -9,6 +9,12 @@
   * [AllOf](#allof)
   * [AnyOf](#anyof)
   * [thenCompose](#thencompose)
+* [异常处理whenComplete](#异常处理whencomplete)
+* [异常处理 handle](#异常处理-handle)
+  * [1. handle的特点](#1-handle的特点)
+  * [2. handle和thenApply的区别](#2-handle和thenapply的区别)
+  * [3. handle和whenComplete的区别](#3-handle和whencomplete的区别)
+  * [测试案例](#测试案例)
 * [CompletableFuture使用有哪些注意点](#completablefuture使用有哪些注意点)
   * [1. Future需要获取返回值，才能获取异常信息](#1-future需要获取返回值才能获取异常信息)
   * [2. CompletableFuture的get()方法是阻塞的。](#2-completablefuture的get方法是阻塞的)
@@ -144,42 +150,6 @@ CompletableFuture的supplyAsync方法，提供了异步执行的功能，线程�
               e.pri（）
           });
   ```
-
-+ whenComplete:某个任务执行完成后，执行的回调方法，**无返回值**；并且whenComplete方法返回的CompletableFuture的**result是上个任务的结果**。
-
-  ```java
-  public static void main(String[] args) throws ExecutionException, InterruptedException {
-  
-          CompletableFuture<String> orgFuture = CompletableFuture.supplyAsync(
-                  ()->{
-                      System.out.println("当前线程名称：" + Thread.currentThread().getName());
-                      try {
-                          Thread.sleep(2000L);
-                      } catch (InterruptedException e) {
-                          e.printStackTrace();
-                      }
-                      return "捡田螺的小男孩";
-                  }
-          );
-  
-          CompletableFuture<String> rstFuture = orgFuture.whenComplete((a, throwable) -> {
-              System.out.println("当前线程名称：" + Thread.currentThread().getName());
-              System.out.println("上个任务执行完啦，还把" + a + "传过来");
-              if ("捡田螺的小男孩".equals(a)) {
-                  System.out.println("666");
-              }
-              System.out.println("233333");
-          });
-  
-          System.out.pri
-  ```
-
-  
-
-+ handle
-
-
-上面这些api
 
 # 多个任务组合关系
 
@@ -332,6 +302,189 @@ thenCompose方法会在某个任务执行完成后，将该任务的执行结果
 
 
 
+
+
+# 异常处理 exceptionally
+
+
+
+在写代码时，经常需要对异常进行处理，最常用的就是try catch。
+
+在用CompletableFuture编写[多线程](https://so.csdn.net/so/search?q=多线程&spm=1001.2101.3001.7020)时，如果需要处理异常，可以用exceptionally，它的作用相当于catch。
+
+exceptionally的特点：
+
+- 当出现异常时，会触发回调方法exceptionally
+- exceptionally中可指定默认返回结果，如果出现异常，则返回默认的返回结果
+
+
+
+```java
+public class Thread01_Exceptionally {
+
+	public static void main(String[] args) throws InterruptedException, ExecutionException {
+
+		CompletableFuture<Double> future = CompletableFuture.supplyAsync(() -> {
+
+			if (Math.random() < 0.5) {
+				throw new RuntimeException("抛出异常");
+			}
+
+			System.out.println("正常结束");
+			return 1.1;
+		}).thenApply(result -> {
+
+			System.out.println("thenApply接收到的参数 = " + result);
+			return result;
+		}).exceptionally(new Function<Throwable, Double>() {
+
+			@Override
+			public Double apply(Throwable throwable) {
+				System.out.println("异常：" + throwable.getMessage());
+				return 0.0;
+			}
+		});
+
+		System.out.println("最终返回的结果 = " + future.get());
+
+	}
+}
+
+```
+
+
+
+
+
+# 异常处理whenComplete
+
+
+
+当CompletableFuture的任务不论是**正常完成**还是**出现异常**它都会调用**whenComplete**这[回调函数](https://so.csdn.net/so/search?q=回调函数&spm=1001.2101.3001.7020)。
+
+- **正常完成**：whenComplete返回结果和上级任务一致，异常为null；
+- **出现异常**：whenComplete返回结果为null，异常为上级任务的异常；
+
+```java
+  public static void sendMsg() {
+        AtomicReference<Request> request = new AtomicReference<>(new Request());
+        AtomicReference<Response> response = new AtomicReference<>(new Response());
+        CompletableFuture.runAsync(() -> {
+            request.set(new Request());
+            //发送http信息
+            response.set(send(request.get()));
+        }).whenComplete(new BiConsumer<Void, Throwable>() {
+            @Override
+            public void accept(Void unused, Throwable throwable) {
+                //记录日志
+                Response response1 = response.get();
+
+                if (null != throwable) {
+                    //记录错误日志信息
+                }
+                insertLog(request.get(), response1);
+            }
+        });
+    }
+```
+
+
+
+经过二元组处理后
+
+```java
+    public static void sendMsg() {
+        CompletableFuture.supplyAsync(() -> {
+            //发送http信息
+            Request request = new Request();
+            Response response = send(request);
+            return new TwoTuple(request, response);
+        }).whenComplete((twoTuple, throwable) -> {
+            if (null != throwable) {
+                //记录错误日志信息
+            }
+            insertLog((Request) twoTuple.getFirst(), (Response) twoTuple.getSecond());
+        });
+    }
+```
+
+
+
+
+
+# 异常处理 handle
+
+## 1. handle的特点
+
+在写代码时，我们常用try…catch…finally这样的代码块处理异常。
+
+而handle就像finally，**不论正常返回还是出异常都会进入handle，类似whenComplete。**
+
+handle()一般接收new BiFunction<T, Throwable, R>();
+
+- T：就是任务传入的对象类型
+- Throwable：就是任务传入的异常
+- R：就是handle自己返回的对象类型
+
+## 2. handle和thenApply的区别
+
+handle和thenApply的区别：
+
+- thenApply：任务出现异常就**不会**进入thenApply
+- handle：任务出现异常**也会**进入handle，可对异常处理
+
+## 3. handle和whenComplete的区别
+
+handle和whenComplete的区别：
+
+- handle对传入值进行**转换**，并产生自己的返回结果，T -> R
+- whenComplete的返回值和上级任务传入的结果**一致**，不能对其转换
+
+
+
+## 测试案例
+
+- supplyAsync中线程返回的是部门**Dept**
+- handle接收到传入的Dept，并User赋值deptId和deptName，然后返回**User**
+
+
+
+```java
+public class Thread04_Handle {
+
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
+        DeptService deptService = new DeptService();
+        UserService userService = new UserService();
+
+        CompletableFuture<User> future = CompletableFuture
+                .supplyAsync(() -> {
+                            //int a = 1 / 0;//如果出现异常，那么thenApply则不执行
+                            return deptService.getById(1);
+                        }
+                )
+                .handle(new BiFunction<Dept, Throwable, User>() {
+                            @Override
+                            public User apply(Dept dept, Throwable throwable) {
+                                if (throwable != null){
+                                    System.out.println(throwable.getMessage());
+                                    return null;
+                                } else {
+                                    User user = new User(1, "winter", 32, dept.getId(), dept.getName());
+                                    return userService.save(user);
+                                }
+                            }
+                        }
+                );
+
+        System.out.println("线程：" + Thread.currentThread().getName() +
+                " 结果：" + future.get());
+    }
+}
+
+```
+
+
+
 # CompletableFuture使用有哪些注意点
 
 ## 1. Future需要获取返回值，才能获取异常信息
@@ -379,3 +532,6 @@ https://blog.csdn.net/CoderBruis/article/details/103181520
 [廖雪峰](https://www.liaoxuefeng.com/wiki/1252599548343744/1306581182447650)
 
 https://juejin.cn/post/6970558076642394142
+
+https://blog.csdn.net/winterking3/article/details/116477522  异常处理
+

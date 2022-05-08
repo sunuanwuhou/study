@@ -16,9 +16,24 @@ public class TestParam {
         // System.out.println(minWindow("ADOBECODEBANC", "ABC"));
 
 
-        System.out.println(generateParenthesis(3));
+        System.out.println(quickPow(3,10));
 
     }
+
+
+    public static double quickPow(double x, long y) {
+        double ret = 1.0;
+        while(y != 0){
+            if((y & 1) != 0) {
+                ret = ret * x;
+            }
+            x = x * x;
+            y >>= 1;
+            System.out.println("x="+x+"y="+y+"ret="+ret);
+        }
+        return ret;
+    }
+
 
 
     public static ListNode rotateRight(ListNode head, int k) {

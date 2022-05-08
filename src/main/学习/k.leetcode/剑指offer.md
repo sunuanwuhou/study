@@ -18,13 +18,13 @@
   * [[43. 字符串相乘]](#43-字符串相乘)
   * [滑动窗口](#滑动窗口)
 * [[22. 括号生成]](#22-括号生成)
-* [[14. 最长公共前缀]](#14-最长公共前缀)
+  * [[14. 最长公共前缀]](#14-最长公共前缀)
       * [[14. 最长公共前缀](https://leetcode-cn.com/problems/longest-common-prefix/)](#14-最长公共前缀httpsleetcode-cncomproblemslongest-common-prefix)
 * [链表](#链表)
   * [[剑指 Offer 06. 从尾到头打印链表]](#剑指-offer-06-从尾到头打印链表)
   * [[剑指 Offer 35. 复杂链表的复制]](#剑指-offer-35-复杂链表的复制)
   * [[83. 删除排序链表中的重复元素]](#83-删除排序链表中的重复元素)
-* [[61. 旋转链表]](#61-旋转链表)
+  * [[61. 旋转链表]](#61-旋转链表)
   * [其他链表题目](#其他链表题目)
 * [二叉树](#二叉树)
   * [[剑指 Offer 34. 二叉树中和为某一值的路径]](#剑指-offer-34-二叉树中和为某一值的路径)
@@ -34,6 +34,7 @@
   * [[剑指 Offer 32 - III. 从上到下打印二叉树 III]](#剑指-offer-32---iii-从上到下打印二叉树-iii)
   * [其他二叉树](#其他二叉树)
 * [虾皮算法题](#虾皮算法题)
+  * [[50. Pow(x, n)]](#50-powx-n)
       * [[52. N皇后 II](https://leetcode-cn.com/problems/n-queens-ii/)](#52-n皇后-iihttpsleetcode-cncomproblemsn-queens-ii)
 * [参考资料](#参考资料)
 
@@ -765,7 +766,7 @@ public List<List<Integer>> generate(int numRows) {
 
 
 
-# [14. 最长公共前缀]
+## [14. 最长公共前缀]
 
 #### [14. 最长公共前缀](https://leetcode-cn.com/problems/longest-common-prefix/)
 
@@ -923,7 +924,7 @@ public List<List<Integer>> generate(int numRows) {
 
 
 
-# [61. 旋转链表]
+## [61. 旋转链表]
 
  [61. 旋转链表](https://leetcode-cn.com/problems/rotate-list/)
 
@@ -1202,6 +1203,68 @@ public boolean isSubStructure(TreeNode A, TreeNode B) {
 
 
 # 虾皮算法题
+
+## [50. Pow(x, n)]
+
+ [50. Pow(x, n)](https://leetcode.cn/problems/powx-n/)
+
+![image-20220508092447612](.images/image-20220508092447612.png)
+
++ 经典解题
+
+https://leetcode.cn/problems/powx-n/solution/50-powx-n-kuai-su-mi-de-ji-chu-zhi-shi-d-z7ny/
+
+
+
++ 思路分析
+
+  正常情况下，计算x ^ y 直接，将x*x *x *x .....乘以y次，时间复杂度为O(logn)。
+
+  这里需要介绍下 **分治思想** ，所为分治就是分而治之。
+
+  但是如果我们将其转化为`(x*x) ^ (y/2)`就只需要执行一半的时间了，那么如果是`()(x*x) * (x*x)) ^ (y/2/2)`就只用四分之一的时间了，好家伙我直呼好家伙这不就是 **O(logn)** 的方式么。
+
+  但这里有一个问题，你怎么知道y能一直被二整除呢？如果不能被整除怎么办？举个大家都会举的例子，计算3 ^ 10，第一次转化为了9 ^ 5 但下一次5/2不够除该怎么办？转化为（9^4）*（9^1），即：
+
+
+
+```java
+class Solution {
+    public double myPow(double x, int n) {
+        //为什么是long呢 因为n可能大于int的最大值
+        long N = n;
+        return N >= 0 ? quickPow(x, N) : 1.0 / quickPow(x, -N);
+    }
+
+    public double quickPow(double x, long y) {
+        double ret = 1.0;
+        while(y != 0){
+            if((y & 1) != 0) {
+                ret = ret * x;
+            }
+            x = x * x;
+            y >>= 1;
+        }
+        return ret;
+    }
+}
+
+//如果最开始看不懂，可以打印每次的数据，就明白了。
+//是逐渐拆解公式 我们以3^10为列
+3^10
+9^5
+9^4*9^1
+81^2*9^1
+6561^1*9^1
+   
+```
+
+
+
+
+
+
+
 
 
 
