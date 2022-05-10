@@ -9,6 +9,7 @@
     + [TCP半连接队列和全连接队列](TCP半连接队列和全连接队列.md)
     + [TCP可靠机制](TCP可靠机制.md)
     + [TCP粘包](TCP粘包.md)
+    + [TCP缺陷](TCP缺陷.md)
 + [HTTP]()
     + [HttpClient](HttpClient.md)
     + [Http小知识](Http小知识.md)
