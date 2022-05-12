@@ -26,6 +26,8 @@ List<BillsNums> result = list.stream()
 
 # List多个字段进行排序
 
+排序一般都是默认升序
+
 ```java
 boardPoolList.stream().sorted(Comparator.comparing(BoardPool::getFlightFlow).thenComparing(BoardPool::getStartAreaCode).thenComparing(BoardPool::getFlightFlow)).collect(Collectors.toList())
 ```
@@ -34,5 +36,15 @@ boardPoolList.stream().sorted(Comparator.comparing(BoardPool::getFlightFlow).the
 
 # List对某个字段进行去重
 
-使用map进行去重
+本质是先转map然后在values
+
+```java
+public static <T> Predicate<T> distinctByKey(Function<? super T, Object> keyExtractor) {
+    Map<Object, Boolean> map = new HashMap<>();
+    return t -> map.putIfAbsent(keyExtractor.apply(t), Boolean.TRUE) == null;
+}
+List<Book> distinctNameBooks3 = books.stream().filter(distinctByKey(o -> o.getName())).collect(Collectors.toList());
+System.out.println(distinctNameBooks3);
+
+```
 
