@@ -412,6 +412,33 @@ public class Thread01_Exceptionally {
 
 
 
+再次优化后
+
+```java
+ public static void sendMsg() {
+        CompletableFuture.supplyAsync(() -> {
+            try {
+                Thread.sleep(2);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println("发送消息");
+            //发送http信息
+            Request request = new Request();
+            Response response = send(request);
+            return new TwoTuple<>(request, response);//注意这里 泛型
+        }).whenComplete((twoTuple, throwable) -> {
+            System.out.println("记录日志");
+            if (null != throwable) {
+                //记录错误日志信息
+            }
+            insertLog(twoTuple.first,twoTuple.second);//注意这里 泛型
+        });
+    }
+```
+
+
+
 
 
 # 异常处理 handle

@@ -6,6 +6,7 @@ import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
+import com.qm.study.utils.Base64Utils;
 
 import java.io.IOException;
 import java.nio.file.FileSystems;
@@ -30,10 +31,13 @@ public class QrCodeUtils {
 
     public static void main(String[] args) {
 
+
+
+
         String str = "华仔进来了";
         String root = "\\src\\main\\java\\com\\qm\\study\\utils\\QRCode\\QRTest.png";
         try {
-            generateQRCodeImage(str, 350, 350, System.getProperty ("user.dir")+root);
+            generateQRCodeImage(  Base64Utils.GetImageStr("C:\\Users\\USER\\Desktop\\Snipaste_2022-05-12_22-36-46.png"), 350, 350, System.getProperty ("user.dir")+root);
             System.out.println("二维码生成完毕");
         } catch (WriterException e) {
             e.printStackTrace();

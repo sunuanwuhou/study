@@ -31,13 +31,13 @@ public class demo1 {
             //发送http信息
             Request request = new Request();
             Response response = send(request);
-            return new TwoTuple(request, response);
+            return new TwoTuple<>(request, response);//注意这里 泛型
         }).whenComplete((twoTuple, throwable) -> {
             System.out.println("记录日志");
             if (null != throwable) {
                 //记录错误日志信息
             }
-            insertLog((Request) twoTuple.getFirst(), (Response) twoTuple.getSecond());
+            insertLog(twoTuple.first,twoTuple.second);//注意这里 泛型
         });
     }
 

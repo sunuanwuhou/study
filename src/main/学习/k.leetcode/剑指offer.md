@@ -17,9 +17,10 @@
   * [[剑指 Offer 58 - I. 翻转单词顺序]](#剑指-offer-58---i-翻转单词顺序)
   * [[43. 字符串相乘]](#43-字符串相乘)
   * [滑动窗口](#滑动窗口)
-* [[22. 括号生成]](#22-括号生成)
+  * [[22. 括号生成]](#22-括号生成)
   * [[14. 最长公共前缀]](#14-最长公共前缀)
-      * [[14. 最长公共前缀](https://leetcode-cn.com/problems/longest-common-prefix/)](#14-最长公共前缀httpsleetcode-cncomproblemslongest-common-prefix)
+  * [[5]最长回文子串](#5最长回文子串)
+  * [[647. 回文子串]](#647-回文子串)
 * [链表](#链表)
   * [[剑指 Offer 06. 从尾到头打印链表]](#剑指-offer-06-从尾到头打印链表)
   * [[剑指 Offer 35. 复杂链表的复制]](#剑指-offer-35-复杂链表的复制)
@@ -754,7 +755,7 @@ public List<List<Integer>> generate(int numRows) {
 
 
 
-# [22. 括号生成]
+## [22. 括号生成]
 
  [括号生成](../C.数据结构与算法/labuladong/括号生成.md)
 
@@ -762,13 +763,9 @@ public List<List<Integer>> generate(int numRows) {
 
 
 
-
-
-
-
 ## [14. 最长公共前缀]
 
-#### [14. 最长公共前缀](https://leetcode-cn.com/problems/longest-common-prefix/)
+ [14. 最长公共前缀](https://leetcode-cn.com/problems/longest-common-prefix/)
 
 
 
@@ -802,6 +799,57 @@ public List<List<Integer>> generate(int numRows) {
         return res;
     }
 ```
+
+
+
+
+##  [5]最长回文子串 
+
+**回文串就是正着读和反着读都一样的字符串**。
+
+**寻找回文串的问题核心思想是：从中间开始向两边扩散来判断回文串**。对于最长回文子串，就是这个意思：
+
+但是边界问题要注意处理
+
+1. 回文串是奇数  aba
+2. 回文串是偶数 abba
+
+```java
+public String longestPalindrome(String s) {
+        String res = "";
+        for (int i = 0; i < s.length(); i++) {
+        //当前元素一 i为中心的回文串
+        String s1 = palindrome(s, i, i);
+        //当前元素一 i i+1为中心的回文串
+        String s2 = palindrome(s, i, i +1);
+        res = s1.length() > res.length() ? s1 : res;
+        res = s2.length() > res.length() ? s2 : res;
+        }
+        return res;
+        }
+
+public String palindrome(String s, int left, int right) {
+        while (left >=0 && right < s.length() && s.charAt(left) == s.charAt(right)) {
+        right++;
+        left--;
+        }
+        return s.substring(left + 1, right);
+    }
+```
+
+
+
+参考资料：https://zhuanlan.zhihu.com/p/107792552
+
+
+
+##  [647. 回文子串]
+
+ [647. 回文子串](https://leetcode.cn/problems/palindromic-substrings/)
+
+
+
+
 
 
 

@@ -12,28 +12,52 @@ public class TestParam {
 
 
     public static void main(String[] args) {
+        System.out.println(countSubstrings("aaa"));
+    }
 
-        // System.out.println(minWindow("ADOBECODEBANC", "ABC"));
 
+    public static int countSubstrings(String s) {
+        int res = 0;
+        for (int i = 0; i < s.length(); i++) {
+            //当前元素一 i为中心的回文串
+            String s1 = palindrome(s, i, i);
 
-        System.out.println(quickPow(3,10));
+            System.out.println("s1="+s1);
+            //当前元素一 i i+1为中心的回文串
+            String s2 = palindrome(s, i, i + 1);
 
+            System.out.println("s2="+s2);
+
+            if (s1.length() > 0)
+                res++;
+            if (s2.length() > 0)
+                res++;
+        }
+
+        return res;
+    }
+
+    public static String palindrome(String s, int left, int right) {
+        while (left >= 0 && right < s.length() && s.charAt(left) == s.charAt(right)) {
+            right++;
+            left--;
+        }
+        return s.substring(left + 1, right);
     }
 
 
     public static double quickPow(double x, long y) {
         double ret = 1.0;
-        while(y != 0){
-            if((y & 1) != 0) {
+        while (y != 0) {
+            if ((y & 1) != 0) {
                 ret = ret * x;
             }
             x = x * x;
             y >>= 1;
-            System.out.println("x="+x+"y="+y+"ret="+ret);
+            System.out.println("x=" + x + "y=" + y + "ret=" + ret);
         }
         return ret;
     }
-
 
 
     public static ListNode rotateRight(ListNode head, int k) {
@@ -42,12 +66,12 @@ public class TestParam {
         if (null == head) {
             return null;
         }
-        if(0==k){
+        if (0 == k) {
             return head;
         }
 
         ListNode temp = head;
-        while (null!=temp.next){
+        while (null != temp.next) {
             temp = temp.next;
         }
         temp.next = head;
@@ -55,7 +79,7 @@ public class TestParam {
         ListNode cur = head;
 
 
-        for(int i=0;i<=k-1;i++ ){
+        for (int i = 0; i <= k - 1; i++) {
             cur = cur.next;
         }
         ListNode newHead = cur.next;
