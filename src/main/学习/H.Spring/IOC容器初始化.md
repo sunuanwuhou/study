@@ -134,12 +134,11 @@ ApplicationContext context=new ClassPathXmlApplicationContext("bean.xml");
              	3. 派发之前步骤产生的事件
 
 12. **finishBeanFactoryInitialization(beanFactory);重点**
-
-    + beanFactory.preInstantiateSingletons() 初始化剩下的bean
-
-        1. 拿到所有bean的定义信息 循环创建以及初始化
-
-        2. bean不是抽象的，是单实例的，是懒加载
++ beanFactory.preInstantiateSingletons() 初始化剩下的bean
+    
+    1. 拿到所有bean的定义信息 循环创建以及初始化
+    
+    2. bean不是抽象的，是单实例的，是懒加载
 ```java
 1.判断是否是factoryBean
 2.getBean()->doGetBean
@@ -188,6 +187,7 @@ ApplicationContext context=new ClassPathXmlApplicationContext("bean.xml");
                      		return bean;
                      	}
     2.如果没有返回代理对象 就创建bean 
+        AbstractAutowireCapableBeanFactory
      Object beanInstance = doCreateBean(beanName, mbdToUse, args);
         1.创建bean实例 
              instanceWrapper = createBeanInstance(beanName, mbd, args);
