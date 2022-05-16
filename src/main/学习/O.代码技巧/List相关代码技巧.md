@@ -29,7 +29,15 @@ List<BillsNums> result = list.stream()
 排序一般都是默认升序
 
 ```java
-boardPoolList.stream().sorted(Comparator.comparing(BoardPool::getFlightFlow).thenComparing(BoardPool::getStartAreaCode).thenComparing(BoardPool::getFlightFlow)).collect(Collectors.toList())
+boardPoolList.stream()
+  .sorted(//注意这里的sorted是在一个()内
+    Comparator.comparing(BoardPool::getFlightFlow)
+    .thenComparing(BoardPool::getStartAreaCode)
+    .thenComparing(BoardPool::getFlightFlow,Comparator.reversed())
+).collect(Collectors.toList())
+ //对1升序
+     //对2升序
+    //对3降序
 ```
 
 

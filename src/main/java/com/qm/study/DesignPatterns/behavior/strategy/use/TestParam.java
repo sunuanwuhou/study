@@ -15,34 +15,49 @@ public class TestParam {
         System.out.println(countSubstrings("aaa"));
     }
 
+    public static int countSubstringsa(String s) {
+        // 中心扩展法
+        int ans = 0;
+        for (int center = 0; center < 2 * s.length() - 1; center++) {
+            // left和right指针和中心点的关系是？
+            // 首先是left，有一个很明显的2倍关系的存在，其次是right，可能和left指向同一个（偶数时），也可能往后移动一个（奇数）
+            // 大致的关系出来了，可以选择带两个特殊例子进去看看是否满足。
+            int left = center / 2;
+            int right = left + center % 2;
 
+            while (left >= 0 && right < s.length() && s.charAt(left) == s.charAt(right)) {
+                ans++;
+                left--;
+                right++;
+            }
+        }
+        return ans;
+    }
+
+
+
+    //aaa
     public static int countSubstrings(String s) {
         int res = 0;
         for (int i = 0; i < s.length(); i++) {
             //当前元素一 i为中心的回文串
-            String s1 = palindrome(s, i, i);
-
-            System.out.println("s1="+s1);
+            res+= palindrome(s, i, i);
             //当前元素一 i i+1为中心的回文串
-            String s2 = palindrome(s, i, i + 1);
+            res+=  palindrome(s, i, i + 1);
 
-            System.out.println("s2="+s2);
-
-            if (s1.length() > 0)
-                res++;
-            if (s2.length() > 0)
-                res++;
         }
 
         return res;
     }
 
-    public static String palindrome(String s, int left, int right) {
+    public static int palindrome(String s, int left, int right) {
+        int count = 0;
         while (left >= 0 && right < s.length() && s.charAt(left) == s.charAt(right)) {
+            count++;
             right++;
             left--;
         }
-        return s.substring(left + 1, right);
+        return count;
     }
 
 

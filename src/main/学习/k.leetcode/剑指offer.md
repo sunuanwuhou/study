@@ -849,6 +849,33 @@ public String palindrome(String s, int left, int right) {
 
 
 
+```java
+public static int countSubstrings(String s) {
+        int res = 0;
+        for (int i = 0; i < s.length(); i++) {
+            //当前元素一 i为中心的回文串
+            res+= palindrome(s, i, i);
+            //当前元素一 i i+1为中心的回文串
+            res+=  palindrome(s, i, i + 1);
+
+        }
+
+        return res;
+    }
+
+//为什么不用第五题的写法呢 
+//当测试用例为 aaa的时候 ，index=1时， left=1 right=1 ，会吃掉一个 ‘a’
+    public static int palindrome(String s, int left, int right) {
+        int count = 0;
+        while (left >= 0 && right < s.length() && s.charAt(left) == s.charAt(right)) {
+            count++;
+            right++;
+            left--;
+        }
+        return count;
+    }
+```
+
 
 
 
