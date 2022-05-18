@@ -582,6 +582,43 @@ https://blog.csdn.net/CoderBruis/article/details/103181520
 
       对于外面的线程处理完成，是需要依赖里面的线程处理完毕的，如果使用同一个线程池的话，阻塞队列会发生线程互相等待！！
 
+
+# 并行模板抽取
+
+```java
+
+public class CompletableFutureUtils {
+
+
+    @Autowired
+    private ThreadPoolExecutor threadPoolExecutor;
+
+    public void test() {
+        runAsync(this::testMethod);
+        CompletableFuture<UserDTO> userDTOCompletableFuture = supplyAsync(this::testMethod);
+    }
+    public void test1(Object object) {
+        runAsync(()-> testMethod(object));
+        CompletableFuture<UserDTO> userDTOCompletableFuture = supplyAsync(()-> testMethod(object));
+    }
+    public UserDTO testMethod() {
+        return new UserDTO();
+    }
+    public UserDTO testMethod(Object object) {
+        return new UserDTO();
+    }
+
+    //下面这2个方法是可以抽出来  封装不同的线程池进行管理
+    public void runAsync(Runnable runnable) {
+        CompletableFuture.runAsync(runnable, threadPoolExecutor);
+    }
+    public <U> CompletableFuture<U> supplyAsync(Supplier<U> supplier) {
+        return CompletableFuture.supplyAsync(supplier, threadPoolExecutor);
+    }
+
+}
+
+```
       
 
 # 参考资料
