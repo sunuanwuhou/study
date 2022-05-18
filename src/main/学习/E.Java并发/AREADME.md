@@ -24,5 +24,6 @@
         + [CyclicBarrier](CyclicBarrier.md)
         + [Semaphore](Semaphore.md)
         + [CompletableFuture](CompletableFuture.md)
+        + [CompletionService](CompletionService.md)
 + [参考资料](由浅入深Java并发.pdf) 
     
