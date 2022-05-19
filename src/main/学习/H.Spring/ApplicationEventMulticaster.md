@@ -279,5 +279,9 @@ if (this.earlyApplicationEvents != null) {
     }
 ```
 
+# 自定义ApplicationEventMulticaster
+   
++ 可以根据注解类型，确定Listen是同步还是异步
 
+https://blog.csdn.net/uk8692/article/details/105920785
 
