@@ -279,9 +279,162 @@ if (this.earlyApplicationEvents != null) {
     }
 ```
 
+
+
+## invokeListener
+
+```java
+    protected void invokeListener(ApplicationListener<?> listener, ApplicationEvent event) {
+        ErrorHandler errorHandler = this.getErrorHandler();
+        if (errorHandler != null) {
+            try {
+                this.doInvokeListener(listener, event);
+            } catch (Throwable var5) {
+                errorHandler.handleError(var5);
+            }
+        } else {
+            this.doInvokeListener(listener, event);
+        }
+
+    }
+
+
+  private void doInvokeListener(ApplicationListener listener, ApplicationEvent event) {
+        try {
+            //掉方法
+            listener.onApplicationEvent(event);
+        } catch (ClassCastException var6) {
+            String msg = var6.getMessage();
+            if (msg != null && !this.matchesClassCastMessage(msg, event.getClass())) {
+                throw var6;
+            }
+
+            Log logger = LogFactory.getLog(this.getClass());
+            if (logger.isTraceEnabled()) {
+                logger.trace("Non-matching event type for listener: " + listener, var6);
+            }
+        }
+
+    }
+```
+
+
+
+# EventPublisher
+
+不能每次发布事件 都注入applicationContext，可以封装一个类
+
+```java
+@Component
+public class EventPublisher implements ApplicationContextAware {
+    private ApplicationContext applicationContext;
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.applicationContext = applicationContext;
+    }
+
+    public void publishEvent(ApplicationEvent event){
+        applicationContext.publishEvent(event);
+    }
+}
+```
+
+
+
+
 # 自定义ApplicationEventMulticaster
-   
+
 + 可以根据注解类型，确定Listen是同步还是异步
+
+```java
+@Documented
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.METHOD)
+public @interface EventType {
+    EventTypeEnum value() default EventTypeEnum.SYNC;
+}
+
+```
+
+```java
+public enum EventTypeEnum {
+    ASYNC, //异步
+    SYNC;  //同步
+}
+```
+
+
+
+```java
+
+@Component("applicationEventMulticaster")
+public class MyApplicationEventMulticaster extends SimpleApplicationEventMulticaster {
+
+    private static final Logger logger = LoggerFactory.getLogger(MyApplicationEventMulticaster.class);
+
+
+    @Resource(name = "delayEvaluateExecutor")
+    private ThreadPoolTaskExecutor threadPoolTaskExecutor;
+
+    public MyApplicationEventMulticaster() {
+        System.out.println("设置广播器的TaskExecutor>>>>>>>>>>>>>>>>>>>>>");
+        setTaskExecutor(threadPoolTaskExecutor);
+    }
+
+    @Override
+    public void multicastEvent(ApplicationEvent event, ResolvableType eventType) {
+        ResolvableType type = eventType != null ? eventType : this.resolveDefaultEventType(event);
+        if(null!=threadPoolTaskExecutor){
+            setTaskExecutor(threadPoolTaskExecutor);
+        }
+        Executor executor = this.getTaskExecutor();
+        Iterator var5 = this.getApplicationListeners(event, type).iterator();
+
+        //默认异步
+        EventTypeEnum defaultEventType = EventTypeEnum.SYNC;
+
+        while (var5.hasNext()) {
+            ApplicationListener<?> listener = (ApplicationListener) var5.next();
+            try {
+                Class<? extends ApplicationListener> cls = listener.getClass();
+
+                Method onApplicationEventMethod = cls.getMethod("onApplicationEvent", ApplicationEvent.class);
+                if (onApplicationEventMethod.isAnnotationPresent(EventType.class)) {
+                    EventType annotation = onApplicationEventMethod.getAnnotation(EventType.class);
+                    defaultEventType = annotation.value();
+                }
+                printLog(defaultEventType, cls);
+                if (executor != null && EventTypeEnum.ASYNC.equals(defaultEventType)) {
+                    executor.execute(() -> {
+                        this.invokeListener(listener, event);
+                    });
+                } else {
+                    this.invokeListener(listener, event);
+                }
+
+            } catch (Exception e) {
+                logger.error("错误信息:{}", e.getMessage());
+            }
+
+
+        }
+    }
+
+    private void printLog(EventTypeEnum defaultEventType, Class<? extends ApplicationListener> cls) {
+        if(cls.getName().contains("com.sf.ares.service.web.dispatch")){
+            logger.info("当前Listener:{},方法类型:{}", cls.getName(), defaultEventType);
+        }
+    }
+
+    private ResolvableType resolveDefaultEventType(ApplicationEvent event) {
+        return ResolvableType.forInstance(event);
+    }
+}
+
+```
+
+
 
 https://blog.csdn.net/uk8692/article/details/105920785
 
