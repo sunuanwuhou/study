@@ -11,6 +11,9 @@
   * [初始化监听器](#初始化监听器)
   * [发布事件](#发布事件-1)
     * [multicastEvent](#multicastevent)
+  * [invokeListener](#invokelistener)
+* [EventPublisher](#eventpublisher)
+* [自定义ApplicationEventMulticaster](#自定义applicationeventmulticaster)
 
 
 # 基础组件
@@ -197,6 +200,20 @@ protected void registerListeners() {
 
 
 
+### 添加监听器
+
+```
+AbstractApplicationEventMulticaster
+```
+
+ `getApplicationEventMulticaster().addApplicationListenerBean(listenerBeanName);`
+
+
+
+
+
+
+
 ## 发布事件
 
 `applicationContext.publishEvent`
@@ -281,7 +298,15 @@ if (this.earlyApplicationEvents != null) {
 
 
 
-## invokeListener
+### getApplicationListeners
+
+
+
+
+
+
+
+### invokeListener
 
 ```java
     protected void invokeListener(ApplicationListener<?> listener, ApplicationEvent event) {

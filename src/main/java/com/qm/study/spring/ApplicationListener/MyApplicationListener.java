@@ -9,7 +9,7 @@ public class MyApplicationListener implements ApplicationListener<MyApplicationE
     @Override
     public void onApplicationEvent(MyApplicationEvent event) {
 
-        System.out.println("MyApplicationListener 收到消息: " + event.getMessage());
+        System.out.println("MyApplicationListener 收到消息: " + event.getSource());
 
     }
 }
