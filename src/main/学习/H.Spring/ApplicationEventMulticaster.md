@@ -9,9 +9,11 @@
 * [源码分析](#源码分析)
   * [初始化派发器](#初始化派发器)
   * [初始化监听器](#初始化监听器)
+    * [添加监听器](#添加监听器)
   * [发布事件](#发布事件-1)
     * [multicastEvent](#multicastevent)
-  * [invokeListener](#invokelistener)
+    * [getApplicationListeners](#getapplicationlisteners)
+    * [invokeListener](#invokelistener)
 * [EventPublisher](#eventpublisher)
 * [自定义ApplicationEventMulticaster](#自定义applicationeventmulticaster)
 

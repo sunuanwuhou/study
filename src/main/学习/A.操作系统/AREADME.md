@@ -15,3 +15,7 @@
 + [没有操作系统，程序还可以运行吗](没有操作系统，程序还可以运行吗.md)
 + [零拷贝](零拷贝.md)
 + [零散知识点](零散知识点.md)
++ [内存]()
+    + [虚拟内存](虚拟内存.md)
+    + [内存满了怎么处理](https://mp.weixin.qq.com/s/EsU9FT9D9K5Rt1BM0ySVmw)
+    + [不同进程对应相同的虚拟地址，在 TLB 是如何区分的？](https://mp.weixin.qq.com/s/ru-Y9NO-3dBaS__hWmgAEA)
