@@ -1,0 +1,101 @@
+# 普通时间类
+
+```java
+System.currentTimeMillis
+System.nanoTime
+new Date
+```
+
+
+
+
+
+
+
+# StopWatch(推荐)
+
+> Spring 实现时间统计的本质还是使用了 Java
+> 的内置方法 `System.nanoTime()` 来实现的。
+
+
+
+```java
+StopWatch sw = new StopWatch("test");
+sw.start("task1");
+// do something
+Thread.sleep(100);
+sw.stop();
+sw.start("task2");
+// do something
+Thread.sleep(200);
+sw.stop();
+System.out.println("sw.prettyPrint()~~~~~~~~~~~~~~~~~");
+System.out.println(sw.prettyPrint());
+
+
+// 清空计时器
+stopwatch.reset();
+```
+
+
+
+# AutoCloseable
+
+try(){}执行完毕之后，会调用方法AutoCloseable#close方法；只要实现了AutoCloseable接口，都可使用try(){}语法。
+
+```java
+
+public class Cost implements AutoCloseable {
+    private long start;
+
+    private String taskName;
+
+    public Cost(String taskName) {
+        this.start = System.currentTimeMillis();
+        this.taskName = taskName;
+    }
+
+    @Override
+    public void close() throws Exception {
+        System.out.println("cost:" + taskName + "-time: " + (System.currentTimeMillis() - start) + " ms");
+    }
+}
+```
+
+
+
+```java
+try (Cost cost = new Cost("task1")) {
+    // 模拟执行业务代码
+    TimeUnit.SECONDS.sleep(1);
+} catch (Exception e) {
+    e.printStackTrace();
+}
+try (Cost cost = new Cost("task2")) {
+    // 模拟执行业务代码
+    TimeUnit.SECONDS.sleep(1);
+} catch (Exception e) {
+    e.printStackTrace();
+}
+
+cost:task1-time: 1002 ms
+cost:task2-time: 1000 ms
+```
+
+
+
+
+
+# 总结
+
+感觉网上找的统计都挺麻烦的
+
+
+
+
+
+# 参考资料
+
+https://blog.51cto.com/u_15257216/2862220
+
+# 
