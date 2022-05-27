@@ -252,8 +252,8 @@ Thread Ref -> Thread -> ThreaLocalMap -> Entry -> value
 > 解决办法
 
 + 所以, 为了避免出现内存泄露的情况, ThreadLocal提供了一个清除线程中对象的方法, 即 remove, 其实内部实现就是调用 ThreadLocalMap 的remove方法
++ `remove`**方法中会把Entry中的key和value都设置成null**，这样就能被GC及时回收，无需触发额外的清理机制，所以它能解决内存泄露问题。
 + 使用了线程池，可以达到“线程复用”的效果。但是归还线程之前记得清除`ThreadLocalMap`，要不然再取出该线程的时候，`ThreadLocal`变量还会存在。这就不仅仅是内存泄露的问题了，整个业务逻辑都可能会出错。
-+ 
 
 ![](.images/下载-1634718770685.png)
 
@@ -291,3 +291,147 @@ ThreadLocal 往往存放的数据量不会特别大（而且key 是弱引用又�
 
 
 
+
+
+## 为什么Entry的value不被设计为弱引用？
+
+Entry的value可能被其他地方引用，如果改为弱引用，被GC回收，会影响其他业务数据的使用。
+
+
+
+
+
+# 父子线程如何共享数据/线程池中如何共享数据？
+
+
+
+但在实际工作中，有可能是在父子线程中共享数据的。即在父线程中往ThreadLocal设置了值，在子线程中能够获取到。
+
+使用`InheritableThreadLocal`，它是JDK自带的类，继承了ThreadLocal类。
+
+
+
++ 单线程
+
+```java
+public class ThreadLocalTest {
+
+    public static void main(String[] args) {
+        InheritableThreadLocal<Integer> threadLocal = new InheritableThreadLocal<>();
+        threadLocal.set(6);
+        System.out.println("父线程获取数据：" + threadLocal.get());
+
+        new Thread(() -> {
+            System.out.println("子线程获取数据：" + threadLocal.get());
+        }).start();
+    }
+}
+
+父线程获取数据：6
+子线程获取数据：6
+```
+
+
+
++ 线程池
+
+  ```java
+  private static void fun1() {
+      InheritableThreadLocal<Integer> threadLocal = new InheritableThreadLocal<>();
+      threadLocal.set(6);
+      System.out.println("父线程获取数据：" + threadLocal.get());
+  
+      ExecutorService executorService = Executors.newSingleThreadExecutor();
+  
+      threadLocal.set(6);
+      executorService.submit(() -> {
+          System.out.println("第一次从线程池中获取数据：" + threadLocal.get());
+      });
+  
+      threadLocal.set(7);
+      executorService.submit(() -> {
+          System.out.println("第二次从线程池中获取数据：" + threadLocal.get());
+      });
+  }
+  父线程获取数据：6
+  第一次从线程池中获取数据：6
+  第二次从线程池中获取数据：6
+  ```
+
+  **由于这个例子中使用了单例线程池，固定线程数是1。**
+
+  第一次submit任务的时候，该线程池会自动创建一个线程。因为使用了InheritableThreadLocal，**所以创建线程时，会调用它的init方法**，将父线程中的inheritableThreadLocals数据复制到子线程中。所以我们看到，在主线程中将数据设置成6，第一次从线程池中获取了正确的数据6。
+
+  之后，在主线程中又将数据改成7，但在第二次从线程池中获取数据却依然是6。
+
+  因为第二次submit任务的时候，**线程池中已经有一个线程了，就直接拿过来复用，不会再重新创建线程了**。所以不会再调用线程的init方法，所以第二次其实没有获取到最新的数据7，还是获取的老数据6。
+
+  那么，这该怎么办呢？
+
+  答：使用`TransmittableThreadLocal`，它并非JDK自带的类，而是阿里巴巴开源jar包中的类。
+  
+
+## TransmittableThreadLocal
+
+```java
+<dependency>
+   <groupId>com.alibaba</groupId>
+   <artifactId>transmittable-thread-local</artifactId>
+   <version>2.11.0</version>
+   <scope>compile</scope>
+</dependency>
+```
+
+```java
+private static void fun2() throws Exception {
+    TransmittableThreadLocal<Integer> threadLocal = new TransmittableThreadLocal<>();
+    threadLocal.set(6);
+    System.out.println("父线程获取数据：" + threadLocal.get());
+
+    ExecutorService ttlExecutorService = TtlExecutors.getTtlExecutorService(Executors.newFixedThreadPool(1));
+
+    threadLocal.set(6);
+    ttlExecutorService.submit(() -> {
+        System.out.println("第一次从线程池中获取数据：" + threadLocal.get());
+    });
+
+    threadLocal.set(7);
+    ttlExecutorService.submit(() -> {
+        System.out.println("第二次从线程池中获取数据：" + threadLocal.get());
+    });
+
+}
+```
+
+如果你仔细观察这个例子，你可能会发现，代码中除了使用`TransmittableThreadLocal`类之外，还使用了`TtlExecutors.getTtlExecutorService`方法，去创建`ExecutorService`对象。
+
+这是非常重要的地方，如果没有这一步，`TransmittableThreadLocal`在线程池中共享数据将不会起作用。
+
+创建`ExecutorService`对象，底层的submit方法会`TtlRunnable`或`TtlCallable`对象。
+
+
+
+以TtlRunnable类为例，它实现了`Runnable`接口，同时还实现了它的run方法：
+
+```JAVA
+public void run() {
+    Map<TransmittableThreadLocal<?>, Object> copied = (Map)this.copiedRef.get();
+    if (copied != null && (!this.releaseTtlValueReferenceAfterRun || this.copiedRef.compareAndSet(copied, (Object)null))) {
+        Map backup = TransmittableThreadLocal.backupAndSetToCopied(copied);
+
+        try {
+            this.runnable.run();
+        } finally {
+            TransmittableThreadLocal.restoreBackup(backup);
+        }
+    } else {
+        throw new IllegalStateException("TTL value reference is released after run!");
+    }
+}
+```
+
+这段代码的主要逻辑如下：
+
+1. 把当时的ThreadLocal做个备份，然后将父类的ThreadLocal拷贝过来。
+2. 执行真正的run方法，可以获取到父类最新的ThreadLocal数据。
+3. 从备份的数据中，恢复当时的ThreadLocal数据。
