@@ -1,4 +1,4 @@
-package com.qm.study.utils.QRCode;
+package com.qm.study.common.utils.QRCode;
  
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;

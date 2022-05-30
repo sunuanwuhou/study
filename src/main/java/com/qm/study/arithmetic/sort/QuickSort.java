@@ -1,6 +1,6 @@
 package com.qm.study.arithmetic.sort;
 
-import com.qm.study.utils.ArraysUtil;
+import com.qm.study.common.utils.ArraysUtil;
 
 import java.util.Arrays;
 

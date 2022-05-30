@@ -1,4 +1,4 @@
-package com.qm.study.utils;
+package com.qm.study.common.utils;
 
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;

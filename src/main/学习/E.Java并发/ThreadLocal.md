@@ -12,6 +12,9 @@
 * [使用ThreadLocal场景](#使用threadlocal场景)
 * [ThreadLocal是如何解决hash冲突的](#threadlocal是如何解决hash冲突的)
 * [为什么要用ThreadLocal做key，而不是Thread](#为什么要用threadlocal做key而不是thread)
+  * [为什么Entry的value不被设计为弱引用？](#为什么entry的value不被设计为弱引用)
+* [父子线程如何共享数据/线程池中如何共享数据？](#父子线程如何共享数据线程池中如何共享数据)
+  * [TransmittableThreadLocal](#transmittablethreadlocal)
 
 
 
@@ -285,7 +288,7 @@ ThreadLocal 往往存放的数据量不会特别大（而且key 是弱引用又�
 
 # 为什么要用ThreadLocal做key，而不是Thread
 
-1. 理论上是没问题，但是一个线程有多个私有变量，还需要另外标识Value
+1. 理论上是没问题，**但是一个线程有多个私有变量**，还需要另外标识Value
 2. 解决上一步后，所有线程都会访问`同一个Map`,体积膨大，导致性能下降。
 3. 这个`Map`,什么时候销毁呢？`ThreadLocalMap`是随着线程的消亡而消亡。
 

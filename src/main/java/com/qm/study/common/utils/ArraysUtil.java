@@ -1,4 +1,4 @@
-package com.qm.study.utils;
+package com.qm.study.common.utils;
 
 /**
  * @author qiumeng
