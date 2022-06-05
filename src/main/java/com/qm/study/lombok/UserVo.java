@@ -6,7 +6,7 @@ package com.qm.study.lombok;
  * @description
  * @date 2021/12/1 17:54
  */
-public class User {
+public class UserVo {
 
     /**
      *
