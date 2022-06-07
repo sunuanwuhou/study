@@ -106,3 +106,12 @@
 
 
 
+# 快速创建备份表
+
+
+
+```mysql
+mysql> create table   `bak_20220607_notice` like tf_notice;
+mysql> insert into `bak_20220607_notice` select * from tf_notice;
+```
+

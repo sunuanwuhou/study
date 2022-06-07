@@ -195,6 +195,16 @@
     </dependencies>
 
     <build>
+        <resources>
+            <resource>
+                <directory>src/</directory>
+                <includes>
+                    <include>README.md</include>
+                </includes>
+                <filtering>false</filtering>
+            </resource>
+        </resources>
+
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

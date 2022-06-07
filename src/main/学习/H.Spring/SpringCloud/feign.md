@@ -85,7 +85,7 @@ logging.level.com.sf.ares.rpc=DEBUG
 
 
 
-feign的接口方法支持动态指定URI，因此我们只需在传递的参数方法中添家URI参数即可
++ feign的接口方法支持动态指定URI，因此我们只需在传递的参数方法中添家URI参数即可
 
 ```java
 @FeignClient(name = "energyCloudAdminFeignClient", url = "${energy.cloud.url}")
@@ -101,7 +101,34 @@ public interface EnergyCloudAdminFeignClient {
 
 
 
-+ 也可以从指定配置文件中读取当前feign所需的配置 （不起作用）
++ 推荐使用这种，使用接口定义服务名称以及url(**推荐使用**)
+
+
+  ```java
+  public interface ServiceNameConstant {
+  
+      public static final String ServiceName = "service_name";
+        //spring 会自动从配置文件中找这个变量
+      public static final String ServiceNameUrl = "${service.name.url}";
+  }
+  
+  ```
+
+  
+
+  ```java
+  @FeignClient(name = ServiceNameConstant.ServiceName, url = ServiceNameConstant.ServiceNameUrl)
+  public interface EnergyCloudAdminFeignClient {
+  	@GetMapping("/sys/user/getCurrUser")
+  	JSONObject getCurrUser(URI uri, @RequestHeader MultiValueMap<String, String> headers, @RequestParam Map<String, String> bodies);
+  }
+  ```
+
+  
+
+
+
++ 也可以从指定配置文件中读取当前feign所需的配置 （**不起作用**）
 
 ```java
 # 调用service-config路径地址
