@@ -28,5 +28,6 @@
 + [Redis内存淘汰策略](Redis内存淘汰策略.md)
 + [Redis减库存](Redis减库存.md)
 + [Redis如何实现限流](Redis如何实现限流.md)
+    + [Rredis实现限流的几种方式](Rredis实现限流的几种方式.md) 
 + [Redis数据一致性](Redis数据一致性.md)
 + [怎么利用Redis实现数据的去重](怎么利用Redis实现数据的去重.md)
