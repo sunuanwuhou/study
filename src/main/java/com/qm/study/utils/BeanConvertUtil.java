@@ -12,7 +12,7 @@ import java.util.function.Supplier;
 /**
  * 转换对象工具
  */
-public class BeanConvertUtils extends BeanUtils {
+public class BeanConvertUtil extends BeanUtils {
 
     public static <S, T> T convertTo(S source, Supplier<T> targetSupplier) {
         return convertTo(source, targetSupplier, null);
@@ -90,7 +90,7 @@ public class BeanConvertUtils extends BeanUtils {
         user.setAge(11);
         List<User> userList = Lists.newArrayList();
         userList.add(user);
-        List<UserVo> userVos = BeanConvertUtils.convertListTo(userList, UserVo::new, (s, t) -> {
+        List<UserVo> userVos = BeanConvertUtil.convertListTo(userList, UserVo::new, (s, t) -> {
             t.setAge(s.getAge() + 1);
             t.setName(s.getName() + "1");
         });
