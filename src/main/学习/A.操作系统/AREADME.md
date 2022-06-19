@@ -8,6 +8,7 @@
     + [进程间通信](进程间通信.md)
     + [互斥与同步](互斥与同步.md)
     + [协程](协程.md)
+    + [线程崩溃了,进程也会崩溃吗](线程崩溃了,进程也会崩溃吗.md)
 + [深入理解LinuxIO系统](深入理解LinuxIO系统.md)
     + [IO多路复用](IO多路复用.md)
     + [Reactor和Proactor](Reactor和Proactor.md)
