@@ -1,3 +1,29 @@
+# Table of Contents
+
+* [正文](#正文)
+* [**为什么需要 undo log？**](#为什么需要-undo-log)
+* [**为什么需要 Buffer Pool？**](#为什么需要-buffer-pool)
+* [**为什么需要 redo log ？**](#为什么需要-redo-log-)
+  * [redo log 和 undo log 区别在哪？](#redo-log-和-undo-log-区别在哪)
+  * [redo log 要写到磁盘，数据也要写磁盘，为什么要多此一举？](#redo-log-要写到磁盘数据也要写磁盘为什么要多此一举)
+  * [产生的 redo log 是直接写入磁盘的吗？](#产生的-redo-log-是直接写入磁盘的吗)
+  * [**redo log 什么时候刷盘？**](#redo-log-什么时候刷盘)
+  * [**redo log 文件写满了怎么办？**](#redo-log-文件写满了怎么办)
+* [**为什么需要 binlog ？server层**](#为什么需要-binlog-server层)
+  * [**redo log 和 binlog 有什么区别？**](#redo-log-和-binlog-有什么区别)
+  * [**主从复制是怎么实现？**](#主从复制是怎么实现)
+  * [**binlog 什么时候刷盘？**](#binlog-什么时候刷盘)
+* [update语句执行过程(阶段小结)](#update语句执行过程阶段小结)
+* [**为什么需要两阶段提交？**](#为什么需要两阶段提交)
+  * [**两阶段提交的过程是怎样的？**](#两阶段提交的过程是怎样的)
+  * [**异常重启会出现什么现象？**](#异常重启会出现什么现象)
+* [两阶段提交有什么问题](#两阶段提交有什么问题)
+  * [组提交(了解)](#组提交了解)
+  * [**MySQL 磁盘 I/O 很高，有什么优化的方法？**](#mysql-磁盘-io-很高有什么优化的方法)
+* [总结](#总结)
+* [参考资料](#参考资料)
+
+
 好了，不扯了，开始今天图解 MySQL 日志，发车！
 
 ![图片](https://mmbiz.qpic.cn/mmbiz_png/J0g14CUwaZfbMTxAxc50c4vc9fiaxgk8LexTuiaLsrv3XbXK93vO5BAiceQXzribhfV31u1WZ5NpRbl89GLG0JJCfA/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
