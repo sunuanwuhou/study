@@ -26,7 +26,7 @@
 
 好了，不扯了，开始今天图解 MySQL 日志，发车！
 
-![图片](https://mmbiz.qpic.cn/mmbiz_png/J0g14CUwaZfbMTxAxc50c4vc9fiaxgk8LexTuiaLsrv3XbXK93vO5BAiceQXzribhfV31u1WZ5NpRbl89GLG0JJCfA/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
+![image-20220622223850868](.images/image-20220622223850868.png)
 
 # 正文
 
@@ -34,7 +34,7 @@
 
 从这篇「[执行一条 SQL 查询语句，期间发生了什么？](https://mp.weixin.qq.com/s?__biz=MzUxODAzNDg4NQ==&mid=2247513321&idx=1&sn=7d58f631a026849b73e968a764ba4600&scene=21#wechat_redirect)」中，我们知道了一条查询语句经历的过程，这属于「读」一条记录的过程，如下图：
 
-![图片](https://mmbiz.qpic.cn/mmbiz_png/J0g14CUwaZfbMTxAxc50c4vc9fiaxgk8LIuGllFRgb6ibLsXgVSlsJc7dU9f3syOYpgcKIV3c8HMz99tE6y63J2Q/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)查询语
+![image-20220622223907066](.images/image-20220622223907066.png)
 
 那么，**执行一条 update 语句，期间发生了什么？**，比如这一条 update 语句：
 
@@ -83,7 +83,7 @@ UPDATE t_user SET name = 'xiaolin' WHERE id = 1;
 
 undo log 是一种用于撤销回退的日志，记录的是逻辑日志，比如当 delete 一条记录时，undo log 中会记录一个对应的 insert 记录，反之亦然；当 update 时，undo log 会记录一个相反 update 记录。
 
-![图片](https://mmbiz.qpic.cn/mmbiz_png/J0g14CUwaZfbMTxAxc50c4vc9fiaxgk8LDxrdQ7gHPFOibGNSy4rQasQfVzJmGUDlibeRucCoUH7iapBV7cslXbtLQ/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)回滚事务
+![image-20220622223926027](.images/image-20220622223926027.png)
 
 可以看到，在事务没提交之前，MySQL 会先记录更新前的数据到 undo log 日志文件里面，当事务回滚时，可以利用 undo log 来进行回滚。
 
@@ -102,7 +102,7 @@ undo log 是一种用于撤销回退的日志，记录的是逻辑日志，比�
 
 版本链如下图：
 
-![图片](https://mmbiz.qpic.cn/mmbiz_png/J0g14CUwaZfbMTxAxc50c4vc9fiaxgk8LvmFmR89TFAxgpVplAnFt7PloYJJBPwXkppRZ5jMgwUNohPjhuNFByA/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)版本链
+![image-20220622223954351](.images/image-20220622223954351.png)
 
 另外，**undo log 还有一个作用，通过 ReadView + undo log 实现 MVCC（多版本并发控制）**。
 
@@ -126,7 +126,7 @@ MySQL 的数据都是存在磁盘中的，那么我们要更新一条记录的�
 
 为此，Innodb 存储引擎设计了一个**缓冲池（Buffer Pool）**，来提高数据库的读写性能。
 
-![图片](https://mmbiz.qpic.cn/mmbiz_png/J0g14CUwaZfbMTxAxc50c4vc9fiaxgk8LF3gsamG9gqYMiaJPUHpCBt2hxiaG1lA3HsYPUdPPMyd2W8P2QNFWrRbg/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)Buffer Poo
+![](.images/640.png)
 
 有了 Buffer Poo 后：
 
@@ -154,7 +154,7 @@ Buffer Pool 是提高了读写效率没错，但是问题来了，Buffer Pool �
 
 过程如下图：
 
-![图片](https://mmbiz.qpic.cn/mmbiz_png/J0g14CUwaZfbMTxAxc50c4vc9fiaxgk8L6JlTuBc6J3drv01kS29SBAOPDeKEB8EV2Hd3ayEobR27qibTFDrKIaQ/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
+![](.images/640-1655908840542.png)
 
 > 什么是  redo log？
 
@@ -179,7 +179,7 @@ redo log 是物理日志，记录了某个数据页做了什么修改，对 XXX 
 
 事务提交之前发生了崩溃，重启后会通过 undo log 回滚事务，事务提交之后发生了崩溃，重启后会通过 redo log 恢复事务，如下图：
 
-![图片](https://mmbiz.qpic.cn/mmbiz_png/J0g14CUwaZfbMTxAxc50c4vc9fiaxgk8Lk0Oxl5J2unZiaGlslJxnH2PQHsdYGWHgDLYOxibqK4FvLpbD3bF0nUUA/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)事务恢复
+![](.images/640-1655908864878.png)
 
 所以有了 redo log，再通过 WAL 技术，InnoDB 就可以保证即使数据库发生异常重启，之前已提交的记录都不会丢失，这个能力称为 **crash-safe**（崩溃恢复）。可以看出来， **redo log 保证了事务四大特性中的持久性**。
 
@@ -206,7 +206,7 @@ redo log 是物理日志，记录了某个数据页做了什么修改，对 XXX 
 
 所以，redo log 也有自己的缓存—— **redo log buffer**，每当产生一条 redo log 时，会先写入到 redo log buffer，后续在持久化到磁盘如下图：
 
-![图片](https://mmbiz.qpic.cn/mmbiz/J0g14CUwaZfbMTxAxc50c4vc9fiaxgk8LdhiagrtrdpdHyMeyeDPr2HlFm3vJ8dITRqiccnSYwPqXVP7KOfwSfySg/640?wx_fmt=jpeg&wxfrom=5&wx_lazy=1&wx_co=1)事务恢复
+![image-20220622224122042](.images/image-20220622224122042.png)
 
 redo log buffer 默认大小 16 MB，可以通过 `innodb_log_Buffer_size` 参数动态的调整大小，增大它的大小可以让 MySQL 处理「大事务」是不必写入磁盘，进而提升写 IO 性能。
 
@@ -233,7 +233,7 @@ redo log刷盘步骤：redo log buffer→os buffer→磁盘（redo log file）
 
 默认情况下， InnoDB 存储引擎有 1 个重做日志文件组( redo log Group），「重做日志文件组」由有 2 个 redo log 文件组成，这两个  redo  日志的文件名叫 ：`ib_logfile0` 和 `ib_logfile1` 。
 
-![图片](https://mmbiz.qpic.cn/mmbiz_png/J0g14CUwaZfbMTxAxc50c4vc9fiaxgk8Ltr0Og25ptDTmF8Zpk9I5GCAuv6ia2vDkibplROGcHRBiakPxUCO8UvFicg/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)重做日志文件组
+![image-20220622224137562](.images/image-20220622224137562.png)
 
 在重做日志组中，每个 redo log File 的大小是固定且一致的，假设每个 redo log File 设置的上限是 1 GB，那么总共就可以记录 2GB 的操作。
 
@@ -241,13 +241,13 @@ redo log刷盘步骤：redo log buffer→os buffer→磁盘（redo log file）
 
 所以 InnoDB 存储引擎会先写 ib_logfile0 文件，当 ib_logfile0 文件被写满的时候，会切换至  ib_logfile1 文件，当 ib_logfile1 文件也被写满时，会切换回 ib_logfile0 文件。
 
-![图片](https://mmbiz.qpic.cn/mmbiz_png/J0g14CUwaZfbMTxAxc50c4vc9fiaxgk8LU8z9Td26w7nULyDvnibDEfx8G3ANHYicoeqicgrQTATNNImmhWFhqy4oA/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)重做日志文件组写入过程
+![image-20220622224146716](.images/image-20220622224146716.png)
 
 我们知道 redo log 是为了防止Buffer Pool 中的脏页丢失而设计的，那么如果随着系统运行，Buffer Pool 的脏页刷新到了磁盘中，那么 redo log 对应的记录也就没用了，这时候我们擦除这些旧记录，以腾出空间记录新的更新操作。
 
 redo log 是循环写的方式，相当于一个环形，InnoDB 用 write pos 表示 redo log 当前记录写到的位置，用 checkpoint 表示当前要擦除的位置，如下图：
 
-![图片](https://mmbiz.qpic.cn/mmbiz_png/J0g14CUwaZfbMTxAxc50c4vc9fiaxgk8Lbk4DicCIbriaG0MAbseIkUIsfhu4icvUVyVyprbrBMib49ZD46yuwD27CA/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
+![image-20220622224154893](.images/image-20220622224154893.png)
 
 图中的：
 
@@ -326,7 +326,7 @@ MySQL 的主从复制依赖于 binlog ，也就是记录 MySQL 上的所有变�
 
 这个过程一般是**异步**的，也就是主库上执行事务操作的线程不会等待复制 binlog 的线程同步完成。
 
-![图片](https://mmbiz.qpic.cn/mmbiz_png/J0g14CUwaZfbMTxAxc50c4vc9fiaxgk8LxuNorlu2iciaHFYYzz3TEvaiczUT3JZoGjMlsI1hB0iaxBFGiahaDVrwGog/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)																					MySQL 主从复制过程
+![](.images/640-1655908938955.png)
 
 MySQL 集群的主从复制过程梳理成 3 个阶段：
 
@@ -342,7 +342,7 @@ MySQL 集群的主从复制过程梳理成 3 个阶段：
 
 在完成主从复制之后，你就可以在写数据时只写主库，在读数据时只读从库，这样即使写请求会锁表或者锁记录，也不会影响读请求的执行。
 
-![图片](https://mmbiz.qpic.cn/mmbiz_png/J0g14CUwaZfbMTxAxc50c4vc9fiaxgk8LhqdSDb9zAABjibUjrLS8VdohDgiaQOFGtuLxHD9GXwUB7WwGDeF4tnmw/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)MySQL 主从架构
+![image-20220622224231985](.images/image-20220622224231985.png)
 
 > 从库是不是越多越好？
 
@@ -372,7 +372,7 @@ MySQL 给 binlog cache 分配了一片内存，每个线程一个，参数 binlo
 
 在事务提交的时候，执行器把 binlog cache 里的完整事务写入到 binlog 文件中，并清空 binlog cache。如下图：
 
-![图片](https://mmbiz.qpic.cn/mmbiz_png/J0g14CUwaZfbMTxAxc50c4vc9fiaxgk8L3ibG2vL3EJmjBeyk4C1gyTUa3n2xJ5x7JmibQiaG8sBeSKlzsdpjw1Tqg/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)binlog cach
+![image-20220622224245587](.images/image-20220622224245587.png)
 
 虽然每个线程有自己 binlog cache，但是最终都写到同一个 binlog 文件：
 
@@ -442,7 +442,7 @@ MySQL提供一个 sync_binlog 参数来控制数据库的 binlog 刷到磁盘上
 
 当客户端执行 commit 语句或者在自动提交的情况下，MySQL 内部开启一个 XA 事务，**分两阶段来完成 XA 事务的提交**，如下图：
 
-![图片](https://mmbiz.qpic.cn/mmbiz_png/J0g14CUwaZfbMTxAxc50c4vc9fiaxgk8LUibKiaiaGU10ty0YbAJia93eXvwfJgQW4tn9nHuMcxXFSHa7HWXwZ5zzpg/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)两阶段提交
+![](.images/640-1655908996518.png)
 
 从图中可看出，事务的提交过程有两个阶段，就是**将 redo log 的写入拆成了两个步骤：prepare 和 commit，中间再穿插写入binlog**，具体如下：
 
