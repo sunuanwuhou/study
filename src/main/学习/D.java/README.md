@@ -2,14 +2,12 @@
 
 
 
-        + [ArrayList](./collection/ArrayList.md)
-        + [Vector]()
+    + [Vector]()
     + [Set]()
     + [Queue]()
     + [Map]()
         + [TreeMap&&TreeSet](./collection/TreeMap&&TreeSet.md)
         + [HashMap](./collection/HashMap.md)
-
 + [java8]()
     + [lambda](./java8/lambda.md)
     + [Stream](./java8/Stream.md)

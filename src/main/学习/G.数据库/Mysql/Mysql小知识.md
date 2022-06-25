@@ -1,27 +1,36 @@
 # Table of Contents
 
-* [drop、truncate 和 delete 的区别](#droptruncate-和-delete-的区别)
-* [为什么删除了表，表文件的大小还是没变？](#为什么删除了表表文件的大小还是没变)
+* [基础类](#基础类)
+  * [drop、truncate 和 delete 的区别](#droptruncate-和-delete-的区别)
+  * [为什么删除了表，表文件的大小还是没变？](#为什么删除了表表文件的大小还是没变)
+  * [快速创建备份表](#快速创建备份表)
+  * [MySQL如何分组拼接字符串？](#mysql如何分组拼接字符串)
+  * [高水位清理](#高水位清理)
+  * [快速查看表结构](#快速查看表结构)
 * [如何理解 MySQL 的边读边发](#如何理解-mysql-的边读边发)
   * [MySQL 的大表查询为什么不会爆内存？](#mysql-的大表查询为什么不会爆内存)
   * [疑问](#疑问)
 * [为什么 MySQL 会抖一下？](#为什么-mysql-会抖一下)
-* [快速创建备份表](#快速创建备份表)
 * [sql相关](#sql相关)
   * [exists](#exists)
   * [Group By](#group-by)
-* [500W数据初始30S优化后1s](#500w数据初始30s优化后1s)
-* [Mybatis中更新Mysql时间多了一秒](#mybatis中更新mysql时间多了一秒)
-* [优先级条件，怎么建立索引?](#优先级条件怎么建立索引)
-* [N中组合条件查询怎么做？](#n中组合条件查询怎么做)
-* [Where 1=1](#where-11)
-* [高水位清理](#高水位清理)
-* [快速查看表结构](#快速查看表结构)
+  * [Where 1=1](#where-11)
+* [优化](#优化)
+  * [Mybatis中更新Mysql时间多了一秒](#mybatis中更新mysql时间多了一秒)
+  * [优先级条件，怎么建立索引?](#优先级条件怎么建立索引)
+  * [N中组合条件查询怎么做？](#n中组合条件查询怎么做)
 
 
 
 
-# drop、truncate 和 delete 的区别
+
+# 基础类
+
+
+
+
+
+## drop、truncate 和 delete 的区别
 
 - DELETE 语句执行删除的过程是每次从表中删除一行，并且**同时将该行的删除操作作为事务记录在Undo日志中**保存以便进行进行回滚操作。
 	  ```mysql
@@ -53,7 +62,7 @@
 
 
 
-# 为什么删除了表，表文件的大小还是没变？
+## 为什么删除了表，表文件的大小还是没变？
 
 - 数据项删除之后 InnoDB 某个页 page A 会被标记为可复用。
 - delete 命令把整个表的数据删除，结果就是，所有的数据页都会被标记为可复用。但是磁盘上，文件不会变小。
@@ -63,6 +72,43 @@
 ```mysql
  alter table A engine=InnoDB
 ```
+## 快速创建备份表
+
+
+
+```mysql
+mysql> create table   `bak_20220607_notice` like tf_notice;
+mysql> insert into `bak_20220607_notice` select * from tf_notice;
+```
+
+
+
+## MySQL如何分组拼接字符串？
+
+```mysql
+SELECT  GROUP_CONCAT(DISTINCT home_town ORDER  BY home_town DESC) AS '领导关怀地区'
+    FROM employees;
+```
+
+
+
+
+
+## 高水位清理
+
+```java
+ALTER TABLE 表名 Engine =InnoDB
+```
+
+
+
+## 快速查看表结构
+
+```mys
+show create table 表名
+```
+
+
 
 
 
@@ -117,14 +163,7 @@
 
 
 
-# 快速创建备份表
 
-
-
-```mysql
-mysql> create table   `bak_20220607_notice` like tf_notice;
-mysql> insert into `bak_20220607_notice` select * from tf_notice;
-```
 
 
 
@@ -192,10 +231,24 @@ from ti_send_get_task where send_task_id='2202110312317272' limit 1,1;
 
 
 
-# 500W数据初始30S优化后1s
+## Where 1=1
+
+平常在工作生活中，经常见到老代码是这样，为什么要这么写呢？
+
+是为了预防SQL不带任何条件情况下，保证SQL的正确性。不过现在用Mybatis都是由标签的
+
+```java
+<WHERE>
+<WHERE/>
+```
 
 
-# Mybatis中更新Mysql时间多了一秒
+
+# 优化
+
+
+
+## Mybatis中更新Mysql时间多了一秒
 
 今天遇到代码生成的时间，更新到mysql时，多出一秒，
 
@@ -210,7 +263,7 @@ from ti_send_get_task where send_task_id='2202110312317272' limit 1,1;
 
 
 
-# 优先级条件，怎么建立索引?
+## 优先级条件，怎么建立索引?
 
 背景：查询一个数据，数据量大概500W左右，但是查询条件多样化
 
@@ -234,7 +287,7 @@ from ti_send_get_task where send_task_id='2202110312317272' limit 1,1;
 
 
 
-# N中组合条件查询怎么做？
+## N中组合条件查询怎么做？
 
 ![image-20220216223637891](.images/image-20220216223637891.png)
 
@@ -242,30 +295,9 @@ from ti_send_get_task where send_task_id='2202110312317272' limit 1,1;
 
 
 
-# Where 1=1
-
-平常在工作生活中，经常见到老代码是这样，为什么要这么写呢？
-
-是为了预防SQL不带任何条件情况下，保证SQL的正确性。不过现在用Mybatis都是由标签的
-
-```java
-<WHERE>
-<WHERE/>
-```
 
 
 
-# 高水位清理
-
-```java
-ALTER TABLE 表名 Engine =InnoDB
-```
 
 
-
-# 快速查看表结构
-
-```mys
-show create table 表名
-```
 
