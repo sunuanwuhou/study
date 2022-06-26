@@ -34,6 +34,7 @@
     + [OrderBy原理](OrderBy原理.md)
     + [索引失效的十大杂症](索引失效的十大杂症.md)
     + [EXISTS原理探究](EXISTS原理探究.md)
+    + [Limit大坑](Limit大坑.md)
 + [主从复制](主从复制.md)
 + [分库分表](分库分表.md)
 + [异地多活](异地多活.md)

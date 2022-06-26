@@ -38,7 +38,7 @@ Exception in thread "main" redis.clients.jedis.exceptions.JedisDataException: ER
 
 ## 编码
 
-
+![image-20220626202210158](.images/image-20220626202210158.png)
 
 字符串对象的编码可以是int，embstr或者raw。
 

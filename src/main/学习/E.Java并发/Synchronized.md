@@ -6,7 +6,7 @@
   * [原子性](#原子性)
   * [可见性](#可见性)
   * [有序性](#有序性)
-* [Lock Record(存疑)](#lock-record存疑)
+* [**monitorenter、monitorexit、ACC_SYNCHRONIZED**](#monitorentermonitorexitacc_synchronized)
 * [Monitor](#monitor)
   * [工作原理](#工作原理)
 * [对象与monitor关联](#对象与monitor关联)
@@ -137,17 +137,15 @@ JMM对synchronized关键字有两条规定：
 
 有效解决重排序问题，即 “一个unlock操作先行发生(happen-before)于后面对同一个锁的lock操作”；
 
-# Lock Record(存疑)
-
-在线程进入同步代码块的时候，如果此同步对象没有被锁定，即它的锁标志位是01，则虚拟机首先在当前线程的栈中创建我们称之为“锁记录（Lock Record）”的空间，用于存储锁对象的Mark Word的拷贝，官方把这个拷贝称为Displaced Mark Word。整个Mark Word及其拷贝至关重要。
-
-**Lock Record是线程私有的数据结构**，每一个线程都有一个可用Lock Record列表，同时还有一个全局的可用列表。每一个被锁住的对象Mark Word都会和一个Lock Record关联（对象头的MarkWord中的Lock Word指向Lock Record的起始地址），同时Lock Record中有一个Owner字段存放拥有该锁的线程的唯一标识（或者`object mark word`），表示该锁被这个线程占用。如下图所示为Lock Record的内部结构：
 
 
+# **monitorenter、monitorexit、ACC_SYNCHRONIZED**
 
-<div align=left>
-	<img src=".images/1625194877532.png" width="">
-</div>
+如果**synchronized**作用于**代码块**，反编译可以看到两个指令：`monitorenter、monitorexit`，JVM使用`monitorenter和monitorexit`两个指令实现同步；如果作用synchronized作用于**方法**,反编译可以看到`ACCSYNCHRONIZED标记`，JVM通过在方法访问标识符(flags)中加入`ACCSYNCHRONIZED`来实现同步功能。
+
+- 同步代码块是通过`monitorenter和monitorexit`来实现，当线程执行到monitorenter的时候要先获得monitor锁，才能执行后面的方法。当线程执行到monitorexit的时候则要释放锁。
+- 同步方法是通过中设置`ACCSYNCHRONIZED`标志来实现，当线程执行有ACCSYNCHRONIZED标志的方法，需要获得monitor锁。每个对象都与一个monitor相关联，线程可以占有或者释放monitor。
+
 
 
 
@@ -155,7 +153,7 @@ JMM对synchronized关键字有两条规定：
 
 Monitor常常被翻译成监视器或者管程。可以理解为一个同步工具或一种同步机制，通常被描述为一个对象。每一个Java对象就有一把看不见的锁，称为内部锁或者Monitor锁。
 
-而Monitor机制则是指任何一个对象都会有一个Monitor与之关联，当且一个Monitor被持有后，它将处于锁定状态。在字节码方面，使用synchronized的同步代码块的字节码前后会被插入monitorenter和monitorexit指令，通过monitorenter来获得Monitor对象，通过monitorexit来释放Monitor对象。而使用synchronized修饰的关键字则会在该方法的字节码的标志位中增加ACC_SYNCRHONIZED标志。JVM每次调用方法时会检查该标志位是否存在，如果存在则表明需要获得Monitor对象，才能进入该方法。
+而Monitor机制则是指任何**一个对象都会有一个Monitor与之关联**，当且一个Monitor被持有后，它将处于锁定状态。在字节码方面，使用synchronized的同步代码块的字节码前后会被插入monitorenter和monitorexit指令，通过monitorenter来获得Monitor对象，通过monitorexit来释放Monitor对象。而使用synchronized修饰的关键字则会在该方法的字节码的标志位中增加ACC_SYNCRHONIZED标志。JVM每次调用方法时会检查该标志位是否存在，如果存在则表明需要获得Monitor对象，才能进入该方法。
 
 
 
@@ -188,7 +186,7 @@ public synchronized void method2 () {
 2. ObjectMonitor会将Owner标记为竞争成功的线程，并且将count+1（可重入：只是重新进入，则进入monitor的进入数加1）
 3. 如果线程调用了Object.wait()方法，将会释放Monitor并放入到WaitSet等待池中，等待其他线程唤醒
 4. 当其他线程调用了Object.notify()或者Object.notifyAll()方法时，处于WaitSet中的进程将会重新尝试获得Monitor对象
-5. 当线程执执行完同步代码块后，便会释放Monitor对象。
+5. 当线程执执行完同步代码块后，便会释放Monitor对象。**随机？**
 
 <div align=left>
 	<img src=".images/1625147798807.png" width="">

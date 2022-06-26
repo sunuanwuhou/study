@@ -13,6 +13,7 @@
   + [数据结构——对象机制详解](对象机制详解.md)
   + [数据结构——底层数据结构详解](Redis底层数据结构详解.md)
   + [数据结构——redis对象与编码](Redis对象与编码.md)
+  + [参考资料](https://mp.weixin.qq.com/s/r9_0xpRsp2ubgyvpiyMfuw)
 + [RDB和AOF机制详解](Redis持久化-RDB和AOF机制详解.md)
 + [发布订阅模式详解](Redis发布订阅模式详解.md)
 + [Redis事件机制详解](Redis事件机制详解.md)
