@@ -15,6 +15,7 @@
   * [exists](#exists)
   * [Group By](#group-by)
   * [Where 1=1](#where-11)
+  * [UNION和UNION ALL的区别?](#union和union-all的区别)
 * [优化](#优化)
   * [Mybatis中更新Mysql时间多了一秒](#mybatis中更新mysql时间多了一秒)
   * [优先级条件，怎么建立索引?](#优先级条件怎么建立索引)
@@ -243,6 +244,14 @@ from ti_send_get_task where send_task_id='2202110312317272' limit 1,1;
 ```
 
 
+
+## UNION和UNION ALL的区别?
+
+UNION和UNION ALL都是将两个结果集合并为一个，两个要联合的SQL语句 字段个数必须一样，而且字段类型要“相容”（一致）；
+UNION在进行表连接后会筛选掉重复的数据记录（效率较低），而UNION ALL则不会去掉重复的数据记录；
+UNION会按照字段的顺序进行排序，而UNION ALL只是简单的将两个结果合并就返回；
+
+**一般都是使用UNION ALL**
 
 # 优化
 
