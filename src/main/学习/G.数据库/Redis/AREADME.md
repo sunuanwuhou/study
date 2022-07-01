@@ -28,7 +28,7 @@
   + [Redis分布式读写锁](Redis分布式读写锁.md)
 + [bigKey优化案例](bigKey优化案例.pdf)
 + [RedisKey过期策略](RedisKey过期策略.md)
-+ [Redis内存淘汰策略](Redis内存淘汰策略.md)
++ [过期策略和内存淘汰.md](过期策略和内存淘汰.md)
 + [Redis减库存](Redis减库存.md)
 + [Redis如何实现限流](Redis如何实现限流.md)
     + [Rredis实现限流的几种方式](Rredis实现限流的几种方式.md) 

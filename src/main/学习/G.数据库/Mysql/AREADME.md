@@ -2,6 +2,7 @@
 
 
 
++ [基础]()
     + [Mysql数据目录.md](Mysql数据目录.md)
     + [InnoDB的表空间](InnoDB的表空间.md)
     + [Mysql单表查询](Mysql单表查询.md)
@@ -10,7 +11,7 @@
     + [Mysql统计数据](Mysql统计数据.md)
     + [Mysql基于规则优化](Mysql基于规则优化.md)
     + [重点！Explain详解](Explain详解.md)
-    + [Optimizer Trace](optimizerTrace.md)
++ [Optimizer Trace](optimizerTrace.md)
 + [Mysql事务简介](Mysql事务简介.md)
     + [事务隔离级别和MVCC](事务隔离级别和MVCC.md)
     + [事务的传播行为](事务的传播行为.md)
@@ -36,7 +37,9 @@
     + [EXISTS原理探究](EXISTS原理探究.md)
     + [Limit大坑](Limit大坑.md)
 + [主从复制](主从复制.md)
-+ [分库分表](分库分表.md)
++ [分库分表]()   
+    + [Mysql分区](Mysql分区.md)   
+    + [分库分表](分库分表.md)   
 + [异地多活](异地多活.md)
 + [数据类型](数据类型.md)
 + [Mysql经典错误](Mysql经典错误.md)
