@@ -197,6 +197,14 @@ level: {
 
 
 
+
+
+<font color=red>总结就是</font>
+
+**InnoDB存储引擎只会查找版本号小于或者等于当前事务版本的数据行**
+
+
+
 在`MySQL`中，`READ COMMITTED`和`REPEATABLE READ`隔离级别的的一个非常大的区别就是**它们生成ReadView的时机不同**。
 
 我们还是以表`hero`为例来，假设现在表`hero`中只有一条由`事务id`为`80`的事务插入的一条记录：
