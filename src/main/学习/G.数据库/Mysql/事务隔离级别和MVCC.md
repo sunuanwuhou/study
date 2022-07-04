@@ -469,6 +469,9 @@ SELECT * FROM hero WHERE number = 1; # 得到的列name的值仍为'刘备'
 那什么时候执行快照读什么时候当前读呢？取决你的sql
 
 ```mysql
+SELECT是显示读，UPDATE和DELETE是隐式读
+
+
 select *  from A  --快照
 select *  from A for update--当前
 ```

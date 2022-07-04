@@ -66,12 +66,16 @@ UPDATE account SET balance = balance + 10 WHERE id = 2;
 
 数据库在事务执行前后都保持一致性状态。<font color=red>在一致性状态下，所有事务对一个数据的读取结果都是相同的</font>。 参考分布式事务，容易理解些
 
+<font color=red>可以这么说原子性、隔离性、持久性来保证一致性</font>
+
 # 隔离性(Isolation)
 
 
 现实世界中的两次状态转换应该是互不影响的
 
 一个事务所做的修改在最终提交以前，对其它事务是不可见的。
+
+<font color=red>MySQL事务的隔离性是通过锁和MVCC来实现的</font>
 
 # 持久性
 
