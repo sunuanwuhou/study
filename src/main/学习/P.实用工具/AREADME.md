@@ -6,6 +6,8 @@
 
 + [开发类]()
   + [idea](https://www.jetbrains.com/idea/)
+    + [插件]()
+      + [PlantUML Integration 时序图]()
   + [datagrip](https://www.jetbrains.com/datagrip/download/#section=windows)
 + [电脑类]()
   + [Listary](https://blog.csdn.net/xydqsy/article/details/78907978)
