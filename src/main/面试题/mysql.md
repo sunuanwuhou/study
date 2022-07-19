@@ -201,7 +201,7 @@ WAL，中文全称是 Write-Ahead Logging，它的关键点就是日志先写内
 
 # Mysql锁
 
-[Mysql锁.md](../学习/G.数据库/Mysql/Mysql锁.md)
+[Mysql锁.md](../学习/G.数据库/Mysql/Mysql表锁.md)
 [Mysql如何加行级锁.md](../学习/G.数据库/Mysql/Mysql行级锁.md)
 
 
@@ -382,7 +382,7 @@ MySQL对于千万级的大表如何优化？
 # 慢SQL解决思路
 
 
-+ [慢SQl解决思路.md](../学习/G.数据库/Mysql/Mysql整体流程-慢SQl.md)
++ [慢SQl解决思路.md](../学习/G.数据库/Mysql/Mysql整体流程.md)
 
 
 
