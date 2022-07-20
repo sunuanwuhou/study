@@ -7,10 +7,10 @@
   * [MySQL如何分组拼接字符串？](#mysql如何分组拼接字符串)
   * [高水位清理](#高水位清理)
   * [快速查看表结构](#快速查看表结构)
+* [创建索引指定长度](#创建索引指定长度)
 * [如何理解 MySQL 的边读边发](#如何理解-mysql-的边读边发)
   * [MySQL 的大表查询为什么不会爆内存？](#mysql-的大表查询为什么不会爆内存)
   * [疑问](#疑问)
-* [为什么 MySQL 会抖一下？](#为什么-mysql-会抖一下)
 * [sql相关](#sql相关)
   * [exists](#exists)
   * [Group By](#group-by)
@@ -111,6 +111,23 @@ show create table 表名
 
 
 
+# 创建索引指定长度
+
+```mysql
+alter table xx add index  'idx_name'(name(4));
+name字段的前4个长度
+```
+
+
+
+```mysql
+## 存字段的时候 反着存
+alter table xx add index  'idx_reverse_name'(reverse_name);
+
+```
+
+
+
 
 
 
@@ -154,11 +171,6 @@ show create table 表名
 
 
 
-# 为什么 MySQL 会抖一下？
-
-
-
-脏页会被后台线程自动 flush，也会由于数据页淘汰而触发 flush，而刷脏页的过程由于会占用资源，可能会让你的更新和查询语句的响应时间长一些。
 
 
 
