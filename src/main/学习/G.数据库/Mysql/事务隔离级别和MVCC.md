@@ -1,27 +1,27 @@
 # Table of Contents
 
-* [事务特性](#事务特性)
 * [事务隔离级别](#事务隔离级别)
 * [SQL标准中的四种隔离级别](#sql标准中的四种隔离级别)
 * [MySQL中支持的四种隔离级别](#mysql中支持的四种隔离级别)
-    * [如何设置事务的隔离级别](#如何设置事务的隔离级别)
-    * [这四种隔离级别具体是如何实现的呢？](#这四种隔离级别具体是如何实现的呢)
+  * [如何设置事务的隔离级别](#如何设置事务的隔离级别)
+  * [这四种隔离级别具体是如何实现的呢？](#这四种隔离级别具体是如何实现的呢)
 * [MVCC产生过程](#mvcc产生过程)
 * [MVCC原理](#mvcc原理)
-    * [版本链](#版本链)
-    * [ReadView](#readview)
-    * [READ COMMITTED —— 每次读取数据前都生成一个ReadView](#read-committed--每次读取数据前都生成一个readview)
-    * [REPEATABLE READ —— 在第一次读取数据时生成一个ReadView](#repeatable-read--在第一次读取数据时生成一个readview)
-    * [MVCC小结](#mvcc小结)
+  * [版本链](#版本链)
+  * [ReadView](#readview)
+  * [更新逻辑](#更新逻辑)
+  * [READ COMMITTED —— 每次读取数据前都生成一个ReadView](#read-committed--每次读取数据前都生成一个readview)
+  * [REPEATABLE READ —— 在第一次读取数据时生成一个ReadView](#repeatable-read--在第一次读取数据时生成一个readview)
+  * [MVCC小结](#mvcc小结)
 * [MySQL InnoDB 引擎 RC 隔离级别是否解决了幻读](#mysql-innodb-引擎-rc-隔离级别是否解决了幻读)
 * [MySQL InnoDB 引擎 RR 隔离级别是否解决了幻读](#mysql-innodb-引擎-rr-隔离级别是否解决了幻读)
 * [总结](#总结)
 * [相关问题](#相关问题)
-    * [为什么Mysql默认是可重复读？](#为什么mysql默认是可重复读)
-    * [RC和RR怎么选择？](#rc和rr怎么选择)
+  * [为什么Mysql默认是可重复读？](#为什么mysql默认是可重复读)
+  * [RC和RR怎么选择？](#rc和rr怎么选择)
 * [参考资料](#参考资料)
 
-# 事务特性
+
 
 事务是由 MySQL 的引擎来实现的，我们常见的 InnoDB 引擎它是支持事务的。
 
