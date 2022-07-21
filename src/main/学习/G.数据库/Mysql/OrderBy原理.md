@@ -21,7 +21,7 @@
 
 假设用一张员工表，表结构如下：
 
-```
+```mysql
 CREATE TABLE `staff` (
 `id` BIGINT ( 11 ) AUTO_INCREMENT COMMENT '主键id',
 `id_card` VARCHAR ( 20 ) NOT NULL COMMENT '身份证号码',
@@ -61,6 +61,8 @@ select name,age,city from staff where city = '深圳' order by age limit 10;
 ## 全字段排序
 
 MySQL 会给每个查询线程分配一块小**内存**，用于**排序**的，称为 **sort_buffer**。什么时候把字段放进去排序呢，其实是通过`idx_city`索引找到对应的数据，才把数据放进去啦。
+
+> **sort_buffer**是在server 层面。
 
 
 

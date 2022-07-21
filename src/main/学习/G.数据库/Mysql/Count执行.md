@@ -1,6 +1,5 @@
 # Table of Contents
 
-* [Count函数](#count函数)
 * [MySQL中COUNT是怎样执行的](#mysql中count是怎样执行的)
 * [那COUNT(*)，COUNT(1)，COUNT(id)，COUNT(非主键列)呢？](#那countcount1countidcount非主键列呢)
 * [总结](#总结)
@@ -9,7 +8,6 @@
 * [参考资料](#参考资料)
 
 
-# Count函数
 
 COUNT是一个汇总函数（聚集函数），它接收1个表达式作为参数：
 
@@ -45,8 +43,6 @@ SELECT COUNT(*) FROM t;
 
 总结+注意：**COUNT函数的参数可以是任意表达式，该函数用于统计在符合搜索条件的记录中，[指定的表达式]不为NULL的行数有多少**。
 
-
-
 # MySQL中COUNT是怎样执行的
 
 以下边这个语句为例：
@@ -57,7 +53,7 @@ SELECT COUNT(*) FROM t;
 
 这个语句是要去查询表t中共包含多少条记录。由于聚簇索引和二级索引中的记录是一一对应的，而二级索引记录中包含的列是少于聚簇索引记录的，所以同样数量的二级索引记录可以比聚簇索引记录占用更少的存储空间。如果我们使用二级索引执行上述查询，即数一下idx_key1中共有多少条二级索引记录，是比直接数聚簇索引中共有多少聚簇索引记录可以节省很多I/O成本。所以优化器会决定使用idx_key1执行上述查询：
 
-```
+```mysql
 mysql> EXPLAIN SELECT COUNT(*) FROM t;
 +----+-------------+-------+------------+-------+---------------+----------+---------+------+------+----------+-------------+
 | id | select_type | table | partitions | type  | possible_keys | key      | key_len | ref  | rows | filtered | Extra       |
@@ -85,11 +81,7 @@ mysql> EXPLAIN SELECT COUNT(*) FROM t;
 
 •server层将最终的count变量的值发送到客户端。
 
-
-
 # 那COUNT(*)，COUNT(1)，COUNT(id)，COUNT(非主键列)呢？
-
-
 
 ![](.images/下载-1641476048946.png)
 
@@ -97,31 +89,32 @@ mysql> EXPLAIN SELECT COUNT(*) FROM t;
 
   **count(`*`) 其实等于 count(`0`)**，也就是说，当你使用 count(`*`)  时，MySQL 会将 `*` 参数转化为参数 0 来处理。
 
+  ---
+
+
 + COUNT(1)
 
-  
-  
-  ![](.images/下载-1641476100328.png)
-  
-  
-  
-  那么，InnoDB 循环遍历聚簇索引（主键索引），将读取到的记录返回给 server 层，**但是不会读取记录中的任何字段的值**，因为 count 函数的参数是 1，不是字段，所以不需要读取记录中的字段值。参数 1 很明显并不是 NULL，因此 server 层每从 InnoDB 读取到一条记录，就将 count 变量加 1。
-  
-  
-  
-+ COUNT(id) 
+![](.images/下载-1641476100328.png)
+
+那么，InnoDB 循环遍历聚簇索引（主键索引），将读取到的记录返回给 server 层，**但是不会读取记录中的任何字段的值**，因为 count 函数的参数是 1，不是字段，所以不需要读取记录中的字段值。参数 1 很明显并不是
+NULL，因此 server 层每从 InnoDB 读取到一条记录，就将 count 变量加 1。
+
+---
+
++ COUNT(id)
+
+  **InnoDB引擎会遍历整张表，把每一行的id值都取出来，返回给server层。server层拿到id后，判断是不可能为空的，就按行累加。**
 
   count(1) 相比 count(主键字段) 少一个步骤，就是不需要读取记录中的字段值，所以通常会说 count(1) 执行效率会比 count(主键字段) 高一点。
 
   但是，如果表里有二级索引时，InnoDB 循环遍历的对象就二级索引了。
 
-  优化器也会选择占用存储空间最小的那个索引来执行查询
+  **优化器也会选择占用存储空间最小的那个索引来执行查询.**
 
 
-
-+ `COUNT(非主键列)`来说，我们指定的列可能并不会包含在每一个索引中。这样优化器只能选择包含我们指定的列的索引去执行查询，这就**可能**导致优化器选择的索引并不是最小的那个。
-
-
++ `COUNT(非主键列)`
+    1. 如果这个“字段”是定义为not null的话，一行行地从记录里面读出这个字段，判断不能为 null，按行累加；
+    2. 如果这个“字段”定义允许为null，那么执行的时候，判断到有可能是null，还要把值取出 来再判断一下，不是null才累加。
 
 # 总结
 
@@ -129,11 +122,7 @@ mysql> EXPLAIN SELECT COUNT(*) FROM t;
 
 而对于`COUNT(非主键列)`来说，server层必须要从InnoDB中读到包含`非主键列`的记录，所以优化器并不能随心所欲的选择最小的索引去执行。
 
-
-
 # 为什么要通过遍历的方式来计数？
-
-
 
 而 InnoDB 存储引擎是支持事务的，**同一个时刻的多个查询**，由于多版本并发控制（MVCC）的原因，InnoDB 表“应该返回多少行”也是不确定的，所以无法像 MyISAM一样，只维护一个 row_count 变量。
 
@@ -142,10 +131,6 @@ mysql> EXPLAIN SELECT COUNT(*) FROM t;
 在会话 A 和会话 B的最后一个时刻，同时查表 t_order 的记录总个数，可以发现，显示的结果是不一样的。所以，在使用 InnoDB 存储引擎时，就需要扫描表来统计具体的记录。
 
 而当带上 where 条件语句之后，MyISAM 跟 InnoDB 就没有区别了，它们都需要扫描表来进行记录个数的统计。
-
-
-
-
 
 # 如何优化Count(*)
 
@@ -157,9 +142,6 @@ mysql> EXPLAIN SELECT COUNT(*) FROM t;
 
    这样就很麻烦了
 
-3. 
-
 # 参考资料
-
 
 https://mp.weixin.qq.com/s/foPwJPS8Ek7YmR3ZgV8xMw

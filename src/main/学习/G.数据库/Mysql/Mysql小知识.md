@@ -8,6 +8,7 @@
   * [高水位清理](#高水位清理)
   * [快速查看表结构](#快速查看表结构)
 * [创建索引指定长度](#创建索引指定长度)
+* [如何查看慢sql](#如何查看慢sql)
 * [如何理解 MySQL 的边读边发](#如何理解-mysql-的边读边发)
   * [MySQL 的大表查询为什么不会爆内存？](#mysql-的大表查询为什么不会爆内存)
   * [疑问](#疑问)
@@ -128,7 +129,9 @@ alter table xx add index  'idx_reverse_name'(reverse_name);
 
 
 
+# 如何查看慢sql
 
+https://www.csdn.net/tags/NtDaYg5sNTE1NTYtYmxvZwO0O0OO0O0O.html
 
 
 

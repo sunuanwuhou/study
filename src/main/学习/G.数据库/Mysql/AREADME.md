@@ -2,6 +2,16 @@
 
 
 
+                
+
+
+
+
+
+
+
+
+
 
 
 
@@ -23,41 +33,45 @@
     + [ChangeBuffer-写缓冲](ChangeBuffer.md)
     + [Undo日志](Undo日志.md)
     + [Redo日志](Redo日志.md)
-      + [为什么MySQL会抖一下](为什么MySQL会抖一下.md)
+        + [为什么MySQL会抖一下](为什么MySQL会抖一下.md)
     + [BinLog](Bin日志.md)
 + [Mysql事务简介](Mysql事务简介.md)
+    + [Mysql事务简介](Mysql事务简介.md)
+      + [幻读是什么，幻读有什么问题](幻读是什么，幻读有什么问题.md)
     + [事务隔离级别和MVCC](事务隔离级别和MVCC.md)
     + [Mysql锁]()
-      + [Mysql表锁](Mysql表锁.md)
-      + [Mysql行锁](Mysql行级锁.md)
-      + [Mysql加锁规则](Mysql加锁规则.md)
-      + [死锁问题分析](死锁.md)
+        + [Mysql表锁](Mysql表锁.md)
+        + [Mysql行锁](Mysql行级锁.md)
+        + [Mysql加锁规则-间隙锁](Mysql加锁规则.md)
+        + [死锁问题分析](死锁.md)
     + [事务的传播行为](事务的传播行为.md)
     + [大事务问题到底要如何解决？](大事务问题到底要如何解决？.md)
 + [索引]()
-  + [B+树索引](B+树索引.md)
-  + [B+树索引的使用](B+树索引的使用.md)
-  + [普通索引和唯一索引，应该怎么选择](普通索引和唯一索引，应该怎么选择.md)
-  + [MySQL为什么有时候会选错索引](MySQL为什么有时候会选错索引.md)
-  + [怎么给字符串字段加索引？](怎么给字符串字段加索引.md)
-+ [工作总结]()
-    + [Mysql插入批量数据，不插入重复数据](Mysql插入批量数据，不插入重复数据.md)
-    + [如何计算B+树可以存放多少条数据](如何计算B+树可以存放多少条数据.md)
-    + [Mysql小知识](Mysql小知识.md)
+    + [B+树索引](B+树索引.md)
+    + [B+树索引的使用](B+树索引的使用.md)
+    + [普通索引和唯一索引，应该怎么选择](普通索引和唯一索引，应该怎么选择.md)
+    + [MySQL为什么有时候会选错索引](MySQL为什么有时候会选错索引.md)
+    + [怎么给字符串字段加索引？](怎么给字符串字段加索引.md)
+    + [索引失效的十大杂症](索引失效的十大杂症.md)
 + [Mysql优化]()
     + [慢sql解决思路](慢sql解决思路.md)
     + [Count执行](Count执行.md)
-    + [GroupBy](GroupBy.md)
     + [OrderBy原理](OrderBy原理.md)
-    + [索引失效的十大杂症](索引失效的十大杂症.md)
+    + [GroupBy](GroupBy.md)
     + [EXISTS原理探究](EXISTS原理探究.md)
     + [Limit大坑](Limit大坑.md)
++ [Mysql小知识]()
+  + [如何计算B+树可以存放多少条数据](如何计算B+树可以存放多少条数据.md)
+  + [为什么表数据删掉一半，表文件大小不变](为什么表数据删掉一半，表文件大小不变.md)
+  + [Mysql小知识](Mysql小知识.md)
 + [主从复制](主从复制.md)
 + [分库分表]()
     + [Mysql分区](Mysql分区.md)
     + [分库分表](分库分表.md)
 + [异地多活](异地多活.md)
 + [Mysql经典错误](Mysql经典错误.md)
++ [工作总结]()
+    + [Mysql插入批量数据，不插入重复数据](Mysql插入批量数据，不插入重复数据.md)
 + [参考资料]()
     + [Mysql45讲](https://www.aliyundrive.com/drive/folder/62d405a68b55bf77c9c74589a214972897a15006)
     + [Mysql从根理解Mysql]()
