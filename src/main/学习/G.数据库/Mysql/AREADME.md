@@ -35,6 +35,7 @@
     + [Redo日志](Redo日志.md)
         + [为什么MySQL会抖一下](为什么MySQL会抖一下.md)
     + [BinLog](Bin日志.md)
+    + [MySQL是怎么保证数据不丢的](MySQL是怎么保证数据不丢的.md)
 + [Mysql事务简介](Mysql事务简介.md)
     + [Mysql事务简介](Mysql事务简介.md)
       + [幻读是什么，幻读有什么问题](幻读是什么，幻读有什么问题.md)
