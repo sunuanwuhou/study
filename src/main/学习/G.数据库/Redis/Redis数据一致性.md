@@ -1,7 +1,7 @@
 # Table of Contents
 
 * [数据库和缓存不一致问题](#数据库和缓存不一致问题)
-* [数据一致性](#数据一致性)
+* [缓存策略](#缓存策略)
   * [Cache Aside(旁路缓存策略)](#cache-aside旁路缓存策略)
   * [Read/Write Through](#readwrite-through)
 * [目前项目用的](#目前项目用的)
@@ -57,7 +57,7 @@
 
 
 
-# 数据一致性
+# 缓存策略
 
 从设计思路来说，有Cache Aside和Read/Write Through两种模式，前者是把缓存责任交给应用层，后者是将缓存的责任，放置到服务提供方。
 
