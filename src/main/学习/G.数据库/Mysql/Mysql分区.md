@@ -123,9 +123,14 @@ insert into t values('2017-4-1',1),('2018-4-1',1);
   DROP PARTITION pxxx
   ```
 
-  
++  MySQL 查询指定分区数据
 
+    ```mysql
+   select *
+   from t partition (p_2017,p_2018,p_2019);
+    ```
 
+   
 
 # 参考资料
 
