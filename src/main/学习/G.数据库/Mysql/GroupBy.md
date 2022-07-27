@@ -11,6 +11,7 @@
   * [group by 后面跟的字段一定要出现在select中嘛。](#group-by-后面跟的字段一定要出现在select中嘛)
   * [`group by`导致的慢SQL问题](#group-by导致的慢sql问题)
 * [group by的一些优化方案](#group-by的一些优化方案)
+* [总结](#总结)
 * [参考资料](#参考资料)
 
 
@@ -83,7 +84,7 @@ explain select city ,count(*) as num from staff group by city;
 
 
 
-可以看到：group by就是比order by 多了一个**临时表**，我们可以理解为，我们代码中分组需要用得到Map
+可以看到：group by就是比order by 多了一个**内存临时表**，我们可以理解为，我们代码中分组先得到一个Map，在对map的数据进行排序，用到了sort buffer。
 
 
 
@@ -160,6 +161,10 @@ select max(age)  from staff group by city;
   > **group by默认按所有字段升序**
   >
   > 如果你的需求并不需要对结果集进行排序，可以使用`order by null`。
+  >
+  > **这样就跳过了最后排序的阶段，直接从临时表中取数据返回**  
+
+  
 
   ```
   select city ,count(*) as num from staff group by city order by null
@@ -196,6 +201,24 @@ select max(age)  from staff group by city;
 3. 扫描完成后，对 sort_buffer的city字段做排序
 4. 排序完成后，就得到了一个有序数组。
 5. 根据有序数组，统计每个值出现的次数。
+
+
+
+
+
+# 总结
+
++ group by就是比order by 多了一个**内存临时表**，分组完成后，还是用**sort buffer** 来排序。
+
++ 如何优化
+
+1. 如果对group by语句的结果没有排序要求，要在语句后面加 order by null；
+2.  尽量让group by过程用上表的索引，确认方法是explain结果里没有Using temporary 和
+   Using filesort；
+3.  如果group by需要统计的数据量不大，尽量只使用内存临时表；也可以通过适当调大
+   tmp_table_size参数，来避免用到磁盘临时表；
+4.  如果数据量实在太大，使用SQL_BIG_RESULT这个提示，来告诉优化器直接使用排序算法
+   得到group by的结果  
 
 
 
