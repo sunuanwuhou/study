@@ -11,6 +11,7 @@
   * [group by 后面跟的字段一定要出现在select中嘛。](#group-by-后面跟的字段一定要出现在select中嘛)
   * [`group by`导致的慢SQL问题](#group-by导致的慢sql问题)
 * [group by的一些优化方案](#group-by的一些优化方案)
+* [distinct 和 group by的性能](#distinct-和-group-by的性能)
 * [总结](#总结)
 * [参考资料](#参考资料)
 
@@ -199,10 +200,26 @@ select max(age)  from staff group by city;
 1. 初始化 sort_buffer，放入city字段；
 2. 扫描表staff，依次取出city的值,存入 sort_buffer 中；
 3. 扫描完成后，对 sort_buffer的city字段做排序
-4. 排序完成后，就得到了一个有序数组。
-5. 根据有序数组，统计每个值出现的次数。
+4. **排序完成后，就得到了一个有序数组。**
+5. **根据有序数组，统计每个值出现的次数。**
 
 
+
+# distinct 和 group by的性能  
+
+```mysql
+select a from t group by a order by null;
+
+select distinct a from t;
+```
+
+第一条语句
+
+按照字段a分组，计算每组的a出现的次数。在这个结果里，由于做的是聚合计算，相同的a只出现一次  。且不用排序
+
+实际上等同于 `select distinct a from t`
+
+如果加了排序，效果肯定没有`distinct`效果好。
 
 
 

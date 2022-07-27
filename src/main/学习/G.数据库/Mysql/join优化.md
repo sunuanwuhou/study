@@ -4,6 +4,7 @@
 * [Batched Key Access](#batched-key-access)
 * [BNL算法性能问题](#bnl算法性能问题)
 * [BNL转BKA](#bnl转bka)
+* [join用法](#join用法)
 * [总结](#总结)
 
 
@@ -105,6 +106,21 @@ select * from t1 join temp_t on (t1.b=temp_t.b);
   据。
   3. 把这2000行数据，一行一行地取到业务端，到hash结构的数据表中寻找匹配的数据。满足
   匹配的条件的这行数据，就作为结果集的一行。
+
+
+
+# join用法
+
+1. 如果用left join的话，左边的表一定是驱动表吗？
+
+   > 不一定，看sql优化器后的语句。
+
+2.  如果两个表的join包含多个条件的等值匹配，是都要写到on里面呢，还是只把一个条件写
+   到on里面，其他条件写到where部分  。
+
+   > on后面是做匹配用的
+   >
+   > where是匹配完后在过滤
 
 # 总结
 
