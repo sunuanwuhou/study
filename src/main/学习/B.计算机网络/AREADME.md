@@ -11,6 +11,8 @@
     + [TCP可靠机制](TCP可靠机制.md)
     + [TCP粘包](TCP粘包.md)
     + [TCP缺陷](TCP缺陷.md)
+    + [TCP的Keepalive和 HTTP的Keep-Alive是一个东西吗](./网络异常/TCP的Keepalive和HTTP的Keep-Alive是一个东西吗.md)
+    + [用了TCP协议数据一定不会丢吗](用了TCP协议数据一定不会丢吗.md)
 + [UDP]()
     + [如何用 UDP 实现可靠传输](https://mp.weixin.qq.com/s/hX75YxVOMtsnB6Sm_yjm0g)
 + [HTTP]()
@@ -32,6 +34,7 @@
     + [RPC和HTTP的区别](RPC和HTTP的区别.md)
 + [对称加密和非对称加密](对称加密和非对称加密.md)
 + [注册和登录的原理](注册和登录的原理.md)
-+ [网络异常]()
-    + [TCP的Keepalive和 HTTP的Keep-Alive是一个东西吗](./网络异常/TCP的Keepalive和HTTP的Keep-Alive是一个东西吗.md)
++ [参考资料]()
+    + [小林 x 图解计算机基础](https://xiaolincoding.com/)
+ 
 
