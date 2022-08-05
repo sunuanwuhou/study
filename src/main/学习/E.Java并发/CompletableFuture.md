@@ -620,7 +620,34 @@ public class CompletableFutureUtils {
 }
 
 ```
-      
+
+
+
+# 实战
+
+```java
+   public static void main(String[] args) {
+        List<CompletableFuture<Integer>> futures = new ArrayList<>();
+        for (int i = 0; i < 2; i++) {
+            int finalI = i;
+            futures.add(CompletableFuture.supplyAsync(() -> finalI));
+        }
+        //等待全部完成
+        CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join();
+
+//获取内容
+        for (CompletableFuture<Integer> future : futures) {
+            try {
+                Integer s = future.get();
+                System.out.println(s);
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+```
+
+
 
 # 参考资料
 
