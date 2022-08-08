@@ -1,0 +1,34 @@
++ 官方地址:https://arthas.aliyun.com/doc/commands.html
+
+
+
+# 执行方式
+
+一般都是idea装一个arthas的插件，在直接copy命令执行。
+
+
+
+![image-20220808202651993](.images/image-20220808202651993.png)
+
+
+
+# [watch](https://arthas.aliyun.com/doc/watch.html) - 方法执行数据观测
+
+使用watch命令查看，方法的入参和出参，注意`X`找个参数可以看方法的展开程度。
+
+
+
+#  [trace](https://arthas.aliyun.com/doc/trace.html) - 方法内部调用路径，并输出方法路径上的每个节点上耗时
+
+
+
+# [jad](https://arthas.aliyun.com/doc/jad.html) - 反编译指定已加载类的源码
+# [stack](https://arthas.aliyun.com/doc/stack.html) - 输出当前方法被调用的调用路径
+
+
+
+
+
+# 注意 
+
+增强类记得要还原！！生产慎用。
