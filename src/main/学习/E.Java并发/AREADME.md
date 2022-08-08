@@ -17,6 +17,7 @@
 + [ConcurrentHashMap](ConcurrentHashMap.md)
 + [线程四种实现方式](线程四种实现方式.md)
 + [线程池](线程池.md)
+    + [MemorySafeLinkedBlockingQueue](MemorySafeLinkedBlockingQueue.md) 
 + [Future](Future.md)
 + [AQS](AQS.md)
     + [并发工具类]()
