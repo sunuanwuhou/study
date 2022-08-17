@@ -1,7 +1,7 @@
 package com.qm.study;
 
-import com.qm.study.common.BaseResponse;
-import com.qm.study.spring.ServiceNameConstant;
+import com.qm.study.spring.retry.RetryService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,12 +17,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestController {
 
 
+    @Autowired
+    private RetryService retryService;
+
 
     @PostMapping("test")
-    public BaseResponse test() {
+    public void test() throws IllegalAccessException {
+        retryService.service();
 
-        System.out.println(ServiceNameConstant.ServiceNameUrl);
-        return BaseResponse.success(null);
     }
 
 

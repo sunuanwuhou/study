@@ -6,14 +6,16 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.retry.annotation.EnableRetry;
 import org.springframework.scheduling.annotation.EnableAsync;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
+
 
 @EnableAsync
 @SpringBootApplication(exclude={DataSourceAutoConfiguration.class, RedisAutoConfiguration.class})
 // @EnableAspectJAutoProxy
-@EnableTransactionManagement
+// @EnableTransactionManagement
 @EnableLogRecord(tenant = "com.qm.study")
+@EnableRetry
 @EnableAutoConfiguration
 public class Application {
 
