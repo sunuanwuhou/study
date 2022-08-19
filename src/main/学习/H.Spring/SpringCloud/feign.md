@@ -6,6 +6,7 @@
 * [配置相关](#配置相关)
 * [FeignClient设置动态Url](#feignclient设置动态url)
 * [调用方法](#调用方法)
+* [设置超时时间](#设置超时时间)
 
 
 
@@ -146,3 +147,26 @@ public interface ServiceConfigClient {
 # 调用方法
 
 1. 引入feiginClient，直接调就可以了。
+
+
+
+# 设置超时时间
+
++ feign 设置单个接口超时时间：https://www.jianshu.com/p/809370702760
+
++ 全局设置：
+
+  ```java
+  # OpenFeign请求连接超时时间
+  feign.client.config.default.connectTimeout=3000
+  # OpenFeign请求处理超时时间
+  feign.client.config.default.readTimeout=10000
+  # OpenFeign启用HttpClient
+  feign.client.httpclient.enabled=true
+  
+  #指定服务
+  feign.client.config.sendInfoClient.connectTimeout=3000
+  ```
+
+  
+
