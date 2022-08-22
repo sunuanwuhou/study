@@ -61,3 +61,15 @@ https://www.zhihu.com/question/20125256/answer/324121308
 |      UnaryOperator      |            接受一个参数为类型T,返回值类型也为T。             |
 
 
+
+# 问题
+
+1. filter和map的入参区别。
+
+   ```java
+    Stream<T> filter(Predicate<? super T> predicate);
+   <R> Stream<R> map(Function<? super T, ? extends R> mapper);
+   
+   ```
+
+   
