@@ -639,6 +639,7 @@ public class CompletableFutureUtils {
 //获取内容
         for (CompletableFuture<Integer> future : futures) {
             try {
+                //这里
                 Integer s = future.get();
                 System.out.println(s);
             } catch (InterruptedException | ExecutionException e) {
@@ -647,6 +648,8 @@ public class CompletableFutureUtils {
         }
     }
 ```
+
+**注意！！ 这里的Future要有返回值，并且要使用get()去获取数据，才能保证所有线程都跑完了！！！！**
 
 
 
