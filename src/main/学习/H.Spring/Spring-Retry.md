@@ -6,7 +6,9 @@
 * [原理](#原理)
   * [切入点](#切入点)
   * [重试逻辑及策略实现](#重试逻辑及策略实现)
-* [参考资料](#参考资料)
+* [Guava-Retry](#guava-retry)
+  * [参考资料](#参考资料)
+* [参考资料](#参考资料-1)
 * [总结](#总结)
 
 
@@ -333,6 +335,17 @@ protected <T, E extends Throwable> T doExecute(RetryCallback<T, E> retryCallback
 
 
 
+
+#  Guava-Retry
+
+Guava retryer工具与spring-retry类似，都是通过定义重试者角色来包装正常逻辑重试，但是Guava retryer有更优的策略定义，在支持重试次数和重试频度控制基础上，能够兼容支持多个异常或者自定义实体对象的重试源定义，让重试功能有更多的灵活性。
+
+这里设定跟Spring-Retry不一样，我们可以根据返回的结果来判断是否重试，比如返回false我们就重试
+
+
+## 参考资料
+
+https://mp.weixin.qq.com/s/euRNjRbNUnpH_3nFXbar-Q
 
 
 
