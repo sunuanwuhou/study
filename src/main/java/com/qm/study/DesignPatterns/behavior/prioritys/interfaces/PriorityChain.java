@@ -1,4 +1,4 @@
-package com.qm.study.DesignPatterns.prioritys.interfaces;
+package com.qm.study.DesignPatterns.behavior.prioritys.interfaces;
 
 import com.google.common.collect.Lists;
 import org.springframework.util.CollectionUtils;

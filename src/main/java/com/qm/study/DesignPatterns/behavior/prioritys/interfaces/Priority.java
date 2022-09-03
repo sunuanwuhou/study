@@ -1,4 +1,4 @@
-package com.qm.study.DesignPatterns.prioritys.interfaces;
+package com.qm.study.DesignPatterns.behavior.prioritys.interfaces;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
-package com.qm.study.DesignPatterns.prioritys.impl;
+package com.qm.study.DesignPatterns.behavior.prioritys.impl;
 
-import com.qm.study.DesignPatterns.prioritys.interfaces.Priority;
-import com.qm.study.DesignPatterns.prioritys.interfaces.PriorityChain;
+import com.qm.study.DesignPatterns.behavior.prioritys.interfaces.Priority;
+import com.qm.study.DesignPatterns.behavior.prioritys.interfaces.PriorityChain;
 import com.qm.study.java.AQS.Test;
 
 import java.util.List;
