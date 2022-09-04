@@ -1,5 +1,6 @@
 package com.qm.study.spring.eventDispatch.dispatch;
 
+
 import com.qm.study.spring.eventDispatch.event.Event;
 
 /**

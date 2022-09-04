@@ -1,6 +1,7 @@
 package com.qm.study;
 
-import com.qm.study.spring.retry.RetryService;
+import com.qm.study.spring.ApplicationListener.EventPublisher;
+import com.qm.study.spring.ApplicationListener.event.MyApplicationEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,12 +19,12 @@ public class TestController {
 
 
     @Autowired
-    private RetryService retryService;
+    private EventPublisher eventPublisher;
 
 
     @PostMapping("test")
     public void test() throws IllegalAccessException {
-        retryService.service();
+        eventPublisher.publishEvent(new MyApplicationEvent("这是一个测试"));
 
     }
 

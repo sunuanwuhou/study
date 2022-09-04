@@ -19,7 +19,4 @@ public class EventPublisher implements ApplicationContextAware {
         applicationContext.publishEvent(event);
     }
 
-
-
-    
 }
