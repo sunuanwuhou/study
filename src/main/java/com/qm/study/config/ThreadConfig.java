@@ -21,6 +21,11 @@ public class ThreadConfig {
     // 线程数
     public static final int THREAD_POOL_SIZE = 16;
 
+
+    public  static String getTest (String str){
+        return null;
+    }
+
     @Bean("myThread")
     ThreadPoolExecutor myThread() {
 
