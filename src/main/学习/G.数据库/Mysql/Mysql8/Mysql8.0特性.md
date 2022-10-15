@@ -6,6 +6,8 @@
   * [倒序索引](#倒序索引)
   * [函数索引/表达式索引](#函数索引表达式索引)
   * [不可见索引](#不可见索引)
+* [语句查询](#语句查询)
+  * [PARTITION BY](#partition-by)
 * [字段存储](#字段存储)
   * [存储Json](#存储json)
     * [如何查询](#如何查询)
@@ -97,6 +99,50 @@ create index flag_index on t1(flag) invisible;
 
 
 引入不可见索引的目的，主要是为了减小对于表上的索引进行调整时的潜在风险。
+
+
+
+
+
+# 语句查询
+
+## PARTITION BY
+
+partition by 与group by不同之处在于前者**返回的是分组里的每一条数据，并且可以对分组数据进行排序操作**。后者只能返回聚合之后的组的数据统计值的记录。
+
+
+
++ ### 函数的基本语法
+
+  开窗函数() + OVER(partition by 列名 order by列名) 。
+
+  - partition: 需要分区的列（可不使用）
+  - order bye: 对分区内排序
+
++ 例子
+
+  ```mysql
+  # 查询每种商品的id，name，同类型商品数量
+  select id,name,count(*) over (partition by type) from product;
+  
+  # 查询每个城市每个类型价格最高的商品名称
+  select
+         name,
+         price,
+         type,
+         max(price) over (partition by address,type) as 'max_price'
+  from product;
+  
+  # 关联查询
+  SELECT student.name
+       , score.value
+       , SUM(score.value) over (PARTITION BY student.class_id) AS total_score
+  FROM student
+           LEFT JOIN score ON student.sid = score.sid
+  LIMIT 1 ,10
+  ```
+
+  
 
 
 
