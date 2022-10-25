@@ -1,8 +1,7 @@
-package com.qm.study.esayExcel;
+package com.qm.study.esayExcel.importExcel;
 
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.metadata.data.ReadCellData;
-import com.alibaba.excel.read.listener.ReadListener;
 
 import java.util.Map;
 
@@ -12,22 +11,19 @@ import java.util.Map;
  * @description
  * @date 2022/10/21 23:08
  */
-public class ImportListener<T> implements ReadListener<T> {
+public class DefaultImportExcelListener<T> extends AbstractImportExcelListener<T> {
 
 
-    private  ImportExcelContext importExcelContext;
+    private ImportExcelContext importExcelContext;
 
-    private int row = 0;
+    private int maxRow = 1000;
 
-    public ImportListener() {
+    private int threshold = 0;
 
+
+    public DefaultImportExcelListener(Class<T> aClass, ImportListenParam param) {
+        super(aClass, param);
     }
-
-    public ImportListener(ImportExcelContext importExcelContext) {
-        this.importExcelContext = importExcelContext;
-    }
-
-
 
     @Override
     public void invokeHead(Map<Integer, ReadCellData<?>> headMap, AnalysisContext context) {
@@ -37,7 +33,8 @@ public class ImportListener<T> implements ReadListener<T> {
     @Override
     public void invoke(T t, AnalysisContext analysisContext) {
         //可以判断行数大小
-        row++;
+
+        threshold++;
         importExcelContext.getImportList().add(t);
     }
 
