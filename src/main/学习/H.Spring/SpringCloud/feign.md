@@ -134,8 +134,7 @@ public interface EnergyCloudAdminFeignClient {
 
 ```java
 # 调用service-config路径地址
-spring.cloud.discovery.client.simple.instances.service-config[0].uri=http://ares-service-config.intsit.sfcloud.local:1080/
-
+spring.cloud.discovery.client.simple.instances.service-config[0].uri={服务地址}
 @FeignClient(name = FeignClientName.SERVICE_CONFIG, configuration = FeignLogConfig.class)
 public interface ServiceConfigClient {
 }
