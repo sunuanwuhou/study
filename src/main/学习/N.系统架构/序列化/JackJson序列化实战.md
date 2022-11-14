@@ -2,6 +2,7 @@
 
 * [前提知识](#前提知识)
 * [修改字段名](#修改字段名)
+* [实现JsonSerializer /JsonDeserializer](#实现jsonserializer-jsondeserializer)
 * [自定义序列化注解](#自定义序列化注解)
   * [具体实现](#具体实现)
   * [代码](#代码)
@@ -39,6 +40,28 @@ public class JackJsonDemo {
 {"name":"name","age":18,"性别":"sex"}
 
 ```
+
+
+
+
+
+# 实现JsonSerializer /JsonDeserializer
+
+```java
+public class DefaultTimeSerializer extends JsonSerializer<Date> {
+```
+
+
+
+```java
+/**
+ * 日期(精确到月)
+ */
+@JsonSerialize(using = DefaultTimeSerializer.class)
+private Date Time;
+```
+
+
 
 
 
