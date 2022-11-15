@@ -6,6 +6,7 @@
 * [自定义序列化注解](#自定义序列化注解)
   * [具体实现](#具体实现)
   * [代码](#代码)
+* [自定义Mapper](#自定义mapper)
 
 
 大家都知道，后端在输出数据的时候会**序列化**，接受数据的时候会**反序列**的时候，我们可以利用序列化做自己想做的事情。
@@ -159,4 +160,21 @@ public class DataTranferSerializer extends JsonSerializer<Object>  implements Co
 ```
 
 
+
+# 自定义Mapper
+
+由于复杂的业务需求，我们可能会需要定制化自己的序列化配置。
+
+以下是一些使用场景
+
+```java
+ObjectMapper objectMapper = new ObjectMapper();
+//放弃使用注解 就是说即使你bean上加了如@JsonProperty 等注解， 也不会生效
+objectMapper.disable(MapperFeature.USE_ANNOTATIONS);
+//序列化为 user_name 格式，也支持其他格式 具体详情见 PropertyNamingStrategy 配置类
+//如果使用注解就是
+//@JsonNaming(value = PropertyNamingStrategy.SnakeCaseStrategy.class) 作用于类上
+objectMapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
+
+```
 
