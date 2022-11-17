@@ -9,7 +9,7 @@
         + [TreeMap&&TreeSet](./collection/TreeMap&&TreeSet.md)
         + [HashMap](./collection/HashMap.md)
 + [java8]()
-    + [lambda](./java8/lambda.md)
+    + [lambda](java8/lambda实战.md)
     + [Stream](./java8/Stream.md)
 + [Queue]()
     + [DelayQueue](./Queue/DelayQueue.md)

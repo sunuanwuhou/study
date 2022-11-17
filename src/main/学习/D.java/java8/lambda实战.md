@@ -2,7 +2,7 @@
 
 * [理解函数式接口](#理解函数式接口)
 * [函数式接口如下](#函数式接口如下)
-* [问题](#问题)
+* [例子加深理解](#例子加深理解)
 
 
 
@@ -63,14 +63,30 @@ https://www.zhihu.com/question/20125256/answer/324121308
 
 
 
-# 问题
+我们主要关心 **function  Consumer  Predicate Supplier **
 
-1. filter和map的入参区别。
 
-   ```java
-    Stream<T> filter(Predicate<? super T> predicate);
-   <R> Stream<R> map(Function<? super T, ? extends R> mapper);
-   
-   ```
 
-   
+# 例子加深理解 
+
+**Function 就是一个函数**，其作用类似于数学中函数的定义 ，（x,y）跟<T,R>的作用几乎一致。 y = f (x)
+
+也就是说，你传入一个Function<T,R>,其实就是传递了一个匿名函数，T为参数，R为返回值。 
+
+```java
+public void test(){
+    Function<Integer,Integer> test1=i->i+1;
+    Function<Integer,Integer> test2=i->i*i;
+    
+    System.out.println(calculate(test1,5));
+    System.out.println(calculate(test2,5));
+}
+public static Integer calculate(Function<Integer,Integer> test,Integer number){
+    return test.apply(number);
+}
+/** print:6*/
+/** print:25*/
+
+```
+
+Consumer  其他同理，无非就是不同入参和出参。

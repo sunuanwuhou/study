@@ -7,6 +7,7 @@
   * [具体实现](#具体实现)
   * [代码](#代码)
 * [自定义Mapper](#自定义mapper)
+* [忽略字段](#忽略字段)
 
 
 大家都知道，后端在输出数据的时候会**序列化**，接受数据的时候会**反序列**的时候，我们可以利用序列化做自己想做的事情。
@@ -177,4 +178,78 @@ objectMapper.disable(MapperFeature.USE_ANNOTATIONS);
 objectMapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
 
 ```
+
+
+
+# 忽略字段
+
+目前有三种方式忽略字段
+
++ 类级别注释忽略字段
+
+  ```java
+  @JsonIgnoreProperties(value = { "intValue" })
+  public class MyDto {
+   
+      private String stringValue;
+      private int intValue;
+      private boolean booleanValue;
+   
+      public MyDto() {
+          super();
+      }
+   
+      // standard setters and getters are not shown
+  }
+  ```
+
+  
+
++ 字段级别
+
+  ```java
+  public class MyDto {
+   
+      private String stringValue;
+      @JsonIgnore
+      private int intValue;
+      private boolean booleanValue;
+   
+      public MyDto() {
+          super();
+      }
+   
+      // standard setters and getters are not shown
+  }
+  ```
+
++ 按照类型
+
+  ```java
+  @JsonIgnoreType
+  public class MyMixInForIgnoreType {}
+  
+  mapper.addMixInAnnotations(String[].class, MyMixInForIgnoreType.clas+ s);
+  ```
+
++ 使用过滤器
+
+  首先，我们需要在Java对象上定义过滤器：
+
+  ```java
+@JsonFilter("myFilter")
+public class MyDtoWithFilter { ... }
+
+
+SimpleBeanPropertyFilter theFilter = SimpleBeanPropertyFilter
+  .serializeAllExcept("intValue");
+FilterProvider filters = new SimpleFilterProvider()
+  .addFilter("myFilter", theFilter);
+
+= mapper.writer(filters).writeValueAsString(dtoObject);
+  ```
+
+参考资料：https://www.jianshu.com/p/24c4167dfba8
+
+
 
