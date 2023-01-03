@@ -31,7 +31,7 @@
 + [Mybatis](src/main/学习/J.Mybatis/AREADME.md)
 + [设计模式](src/main/学习/M.设计模式/AREADME.md)
 + [Web](src/main/学习/L.Web/AREADME.md)
-+ [leetcode](./src/main/学习/k.leetcode/剑指offer.md)
++ [leetcode](src/main/学习/K.leetcode/剑指offer.md)
 + [系统架构](./src/main/学习/N.系统架构/AREADME.md)
 + [代码技巧](./src/main/学习/O.代码技巧/AREADME.md)
 + [Linux](src/main/学习/R.Linux/README.md)

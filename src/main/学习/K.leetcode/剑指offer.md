@@ -559,7 +559,7 @@ public List<List<Integer>> generate(int numRows) {
 
 ## 其他数组题目
 
-[其他数组题目](../k.leetcode/数组.md)
+[其他数组题目](/数组.md)
 
 
 
@@ -1042,7 +1042,7 @@ public static int countSubstrings(String s) {
 
 ## 其他链表题目
 
-[其他链表题目](../k.leetcode/链表.md)
+[其他链表题目](/链表.md)
 
 
 
@@ -1269,7 +1269,7 @@ public boolean isSubStructure(TreeNode A, TreeNode B) {
 
 ## 其他二叉树
 
-[其他二叉树](../k.leetcode/二叉树.md)
+[其他二叉树](/二叉树.md)
 
 
 
