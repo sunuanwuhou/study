@@ -3,6 +3,7 @@ package com.qm.study;
 import com.qm.study.spring.ApplicationListener.EventPublisher;
 import com.qm.study.spring.ApplicationListener.event.MyApplicationEvent;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,5 +29,8 @@ public class TestController {
 
     }
 
-
+    @GetMapping("test2")
+    public String test2() throws IllegalAccessException {
+        return "111";
+    }
 }
