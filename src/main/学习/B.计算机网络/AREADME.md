@@ -26,6 +26,7 @@
     + [QUIC](QUIC.md)
     + [HTTP应用]()
     + [多线程下载一个文件](多线程下载一个文件.md)
+    + [HEAD请求](HEAD请求.md)
 + [HTTPS]()
   + [HTTPS_RSA](HTTPS_RSA.md)
   + [HTTPS_ECDHE](HTTPS_ECDHE.md)
