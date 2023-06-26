@@ -186,6 +186,12 @@ public Object invoke(final MethodInvocation invocation) throws Throwable {
 
 
 
+## 动态配置重试次数
+
+实现RetryConfiguration 设置Spel表达式，从而实现动态配置重试次数
+
+
+
 ## 重试逻辑及策略实现
 
 下面我们继续看看重试的逻辑做了什么。RetryTemplate的doExecute方法。

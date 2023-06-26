@@ -31,4 +31,7 @@ listen、connect、accept、send、read和write等等。网络有一段关于soc
 实际上，传输层的TCP是基于网络层的IP协议的，而应用层的HTTP协议又是基于传输层的TCP协议的，而Socket本身不算是协议，就像上面所说，它只是提供了一个针对TCP或者UDP编程的接口。socket是对端口通信开发的工具,它要更底层一些.
 
 
+# 参考链接 
 
+
+https://mp.weixin.qq.com/s/JlAtbvNSRdXCRsYlkbTlUQ
